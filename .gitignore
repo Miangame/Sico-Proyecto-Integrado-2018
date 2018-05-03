@@ -1,3 +1,4 @@
+.DS_Store
 /app/config/parameters.yml
 /.cache/*
 /build/
