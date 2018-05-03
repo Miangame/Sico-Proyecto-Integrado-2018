@@ -21,6 +21,8 @@ framework:
     #serializer: { enable_annotations: true }
     default_locale: '%locale%'
     trusted_hosts: ~
+    templating:
+        engines: ['twig']
     session:
         # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id: session.handler.native_file
@@ -65,3 +67,12 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+# Fos_user configuration
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    from_email:
+        address: sicoiesgc@gmail.com
+        sender_name: Sico-ies
