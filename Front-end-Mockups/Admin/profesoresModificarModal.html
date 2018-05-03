@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modal modificar profesor</title>
+
+    <link rel="stylesheet" href="../asserts/scss/materialize.min.css">
+    <link rel="stylesheet" href="../asserts/scss/main.css">
+    <link rel="stylesheet" href="../asserts/scss/normalize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="../asserts/js/jquery-3.3.1.min.js"></script>
+    <script src="../asserts/js/materialize.min.js"></script>
+    <script src="../asserts/js/init.js"></script>
+</head>
+
+<body>
+    <main class="container">
+        <h3>Modificar profesor</h3>
+
+        <div>
+            <div class="row">
+                <div class="input-field col m6 s12">
+                    <input id="usuario" type="text" class="validate">
+                    <label for="usuario">Usuario</label>
+                </div>
+                <div class="input-field col m6 s12">
+                    <input id="nombre" type="text" class="validate">
+                    <label for="nombre">Nombre</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col m6 s12">
+                    <input id="apellidos" type="text" class="validate">
+                    <label for="apellidos">Apellidos</label>
+                </div>
+                <div class="input-field col m6 s12">
+                    <input id="email" type="text" class="validate">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <a class="waves-effect waves-light btn">Modificar</a>
+            <a class="waves-effect waves-light btn red">Borrar</a>
+
+            <div class="card-panel p-1 col s-12 w-100">
+                <p class="red-text text-darken-2">* Nombre no puede estar en vacío</p>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

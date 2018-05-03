@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../asserts/scss/materialize.min.css">
+    <link rel="stylesheet" href="../asserts/scss/main.css">
+    <link rel="stylesheet" href="../asserts/scss/normalize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="../asserts/js/jquery-3.3.1.min.js"></script>
+    <script src="../asserts/js/materialize.min.js"></script>
+    <script src="../asserts/js/init.js"></script>
+    <title>Importar empresa</title>
+</head>
+
+<body>
+    <main class="container">
+        <h3 class="col s12">Importar empresa</h3>
+        <form action="" method="POST">
+            <div class="row z-depth-2 p-2">
+                <div class="col s12">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Archivo</span>
+                            <input type="file" multiple>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Selecciona un archivo">
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <button class="btn waves-effect waves-light w-100" type="submit" name="action">enviar
+                        <i class="material-icons right">send</i>
+                    </button>
+                    <div class="card-panel p-1 col s-12 w-100">
+                        <p class="red-text text-darken-2">* No se ha podido leer el archivo</p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

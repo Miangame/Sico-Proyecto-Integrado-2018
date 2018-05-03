@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modal modificar alumno</title>
+
+    <link rel="stylesheet" href="../asserts/scss/materialize.min.css">
+    <link rel="stylesheet" href="../asserts/scss/main.css">
+    <link rel="stylesheet" href="../asserts/scss/normalize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="../asserts/js/jquery-3.3.1.min.js"></script>
+    <script src="../asserts/js/materialize.min.js"></script>
+    <script src="../asserts/js/init.js"></script>
+</head>
+
+<body>
+    <main class="container">
+        <h3>Modificar alumno</h3>
+
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="nombre" type="text" class="validate">
+                <label for="nombre">Nombre</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="apellidos" type="text" class="validate">
+                <label for="apellidos">Apellidos</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <select>
+                    <option value="" disabled selected>Escoja un ciclo</option>
+                    <option value="1">DAW</option>
+                    <option value="2">ASIR</option>
+                </select>
+                <label>Ciclo</label>
+            </div>
+            <div class="input-field col s6">
+                <select>
+                    <option value="" disabled selected>Escoja un año</option>
+                    <option value="1">16/17</option>
+                    <option value="2">17/18</option>
+                </select>
+                <label>Año</label>
+            </div>
+
+            <a class="waves-effect waves-light btn">Modificar</a>
+            <a class="waves-effect waves-light btn red">Borrar</a>
+        </div>
+    </main>
+</body>
+
+</html>
