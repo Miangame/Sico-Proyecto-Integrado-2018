@@ -22,6 +22,10 @@ class Rol
      */
     protected $rol;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="rol")
+     */
+    private $users;
 
     /**
      * Get id

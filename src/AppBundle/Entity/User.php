@@ -17,4 +17,10 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Rol", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $rol;
 }
