@@ -20,20 +20,20 @@ class Distribution_company
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="Distribution_company")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="distribution_company")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Student", inversedBy="Distribution_company")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Student", inversedBy="distribution_company")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false)
      */
     private $student;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="Distribution_company")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="distribution_company")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false)
      */
     private $company;
 

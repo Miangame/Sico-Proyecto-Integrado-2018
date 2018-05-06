@@ -22,20 +22,20 @@ class Distribution_project
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="Distribution_project")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="distribution_project")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Student", inversedBy="Distribution_project")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Student", inversedBy="distribution_project")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false)
      */
     private $student;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Project", inversedBy="Distribution_project")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="distribution_project")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
      */
     private $project;
 
