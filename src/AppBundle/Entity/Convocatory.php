@@ -24,15 +24,15 @@ class Convocatory
     /**
      * @var string
      *
-     * @ORM\Column(name="calls", type="string", length=255)
+     * @ORM\Column(name="convocatory", type="string", length=255)
      */
-    private $calls;
+    private $convocatory;
 
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -40,27 +40,26 @@ class Convocatory
     }
 
     /**
-     * Set calls
+     * Set convocatory
      *
-     * @param string $calls
+     * @param string $convocatory
      *
-     * @return Calls
+     * @return Convocatory
      */
-    public function setCalls($calls)
+    public function setConvocatory($convocatory)
     {
-        $this->calls = $calls;
+        $this->convocatory = $convocatory;
 
         return $this;
     }
 
     /**
-     * Get calls
+     * Get convocatory
      *
      * @return string
      */
-    public function getCalls()
+    public function getConvocatory()
     {
-        return $this->calls;
+        return $this->convocatory;
     }
 }
-

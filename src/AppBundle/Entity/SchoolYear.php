@@ -63,4 +63,3 @@ class SchoolYear
         return $this->curse;
     }
 }
-
