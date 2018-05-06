@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class SchoolYear
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,12 +20,14 @@ class SchoolYear
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="curse", type="string", length=255)
+     * @ORM\Column(name="course", type="string", length=255)
      */
-    private $curse;
+    private $course;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Request_company", mappedBy="schoolYear")
+     */
+    private $request_companies;
 
     /**
      * Get id
@@ -38,28 +38,69 @@ class SchoolYear
     {
         return $this->id;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->request_companies = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
-     * Set curse
+     * Set course
      *
-     * @param string $curse
+     * @param string $course
      *
      * @return SchoolYear
      */
-    public function setCurse($curse)
+    public function setCourse($course)
     {
-        $this->curse = $curse;
+        $this->course = $course;
 
         return $this;
     }
 
     /**
-     * Get curse
+     * Get course
      *
      * @return string
      */
-    public function getCurse()
+    public function getCourse()
     {
-        return $this->curse;
+        return $this->course;
+    }
+
+    /**
+     * Add requestCompany
+     *
+     * @param \AppBundle\Entity\Request_company $requestCompany
+     *
+     * @return SchoolYear
+     */
+    public function addRequestCompany(\AppBundle\Entity\Request_company $requestCompany)
+    {
+        $this->request_companies[] = $requestCompany;
+
+        return $this;
+    }
+
+    /**
+     * Remove requestCompany
+     *
+     * @param \AppBundle\Entity\Request_company $requestCompany
+     */
+    public function removeRequestCompany(\AppBundle\Entity\Request_company $requestCompany)
+    {
+        $this->request_companies->removeElement($requestCompany);
+    }
+
+    /**
+     * Get requestCompanies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRequestCompanies()
+    {
+        return $this->request_companies;
     }
 }

@@ -29,7 +29,10 @@ class Project
      */
     private $description;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="Distribution_project", mappedBy="project")
+     */
+    private $distribution_project;
 
     /**
      * Get id
@@ -87,5 +90,46 @@ class Project
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->distribution_project = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add distributionProject
+     *
+     * @param \AppBundle\Entity\Distribution_project $distributionProject
+     *
+     * @return Project
+     */
+    public function addDistributionProject(\AppBundle\Entity\Distribution_project $distributionProject)
+    {
+        $this->distribution_project[] = $distributionProject;
+
+        return $this;
+    }
+
+    /**
+     * Remove distributionProject
+     *
+     * @param \AppBundle\Entity\Distribution_project $distributionProject
+     */
+    public function removeDistributionProject(\AppBundle\Entity\Distribution_project $distributionProject)
+    {
+        $this->distribution_project->removeElement($distributionProject);
+    }
+
+    /**
+     * Get distributionProject
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDistributionProject()
+    {
+        return $this->distribution_project;
     }
 }

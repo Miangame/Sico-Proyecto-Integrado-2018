@@ -75,7 +75,6 @@ class Request_company
      */
     private $nif_tutor;
 
-
     /**
      * @ORM\Column(name="number_of_daw", type="integer")
      */
@@ -100,6 +99,12 @@ class Request_company
      * @ORM\Column(name="observations", type="string")
      */
     private $observations;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SchoolYear", inversedBy="request_companies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $schoolYear;
 
     /**
      * Get id
@@ -493,5 +498,29 @@ class Request_company
     public function getObservations()
     {
         return $this->observations;
+    }
+
+    /**
+     * Set schoolYear
+     *
+     * @param \AppBundle\Entity\SchoolYear $schoolYear
+     *
+     * @return Request_company
+     */
+    public function setSchoolYear(\AppBundle\Entity\SchoolYear $schoolYear)
+    {
+        $this->schoolYear = $schoolYear;
+
+        return $this;
+    }
+
+    /**
+     * Get schoolYear
+     *
+     * @return \AppBundle\Entity\SchoolYear
+     */
+    public function getSchoolYear()
+    {
+        return $this->schoolYear;
     }
 }

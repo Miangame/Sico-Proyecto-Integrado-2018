@@ -40,6 +40,11 @@ class Company
     private $email;
 
     /**
+     * @ORM\OneToMany(targetEntity="Distribution_company", mappedBy="company")
+     */
+    private $distribution_company;
+
+    /**
      * Get id
      *
      * @return int
@@ -143,5 +148,46 @@ class Company
     public function getEmail()
     {
         return $this->email;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->distribution_company = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add distributionCompany
+     *
+     * @param \AppBundle\Entity\Distribution_company $distributionCompany
+     *
+     * @return Company
+     */
+    public function addDistributionCompany(\AppBundle\Entity\Distribution_company $distributionCompany)
+    {
+        $this->distribution_company[] = $distributionCompany;
+
+        return $this;
+    }
+
+    /**
+     * Remove distributionCompany
+     *
+     * @param \AppBundle\Entity\Distribution_company $distributionCompany
+     */
+    public function removeDistributionCompany(\AppBundle\Entity\Distribution_company $distributionCompany)
+    {
+        $this->distribution_company->removeElement($distributionCompany);
+    }
+
+    /**
+     * Get distributionCompany
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDistributionCompany()
+    {
+        return $this->distribution_company;
     }
 }
