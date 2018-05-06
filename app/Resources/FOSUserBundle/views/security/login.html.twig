@@ -1,0 +1,45 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+
+
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        {% if csrf_token %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        {% endif %}
+        <div class="row allHeight centerVertical">
+            <div class="col m8 offset-m2 l4 offset-l4 z-depth-4 p-1">
+                <div class="col s12">
+                    <div class="row centerTotal">
+                        <img id="logo-login" src="{{ asset('img/logo-color.png') }}">
+                    </div>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">perm_identity</i>
+                    <label type="text" class="validate" for="username">Usuario</label>
+                    <input type="text" id="username" name="_username" class="validate" value="{{ last_username }}" required="required" autocomplete="username" />
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">lock_outline</i>
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="_password" required="required" class="validate" autocomplete="Contraseña" />
+                </div>
+                <div class="input-field col s12">
+                    <button id="_submit"  class="btn waves-effect waves-light w-100" type="submit" name="action">Entrar
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+                <div class="input-field col s12 center-align">
+                    <a href="#">He olvidado mi contraseña</a>
+                </div>
+                {% if error %}
+                    <div class="card-panel p-1 col s-12 w-100">
+                        <p class="red-text text-darken-2">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </form>
+{% endblock fos_user_content %}
