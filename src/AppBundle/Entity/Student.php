@@ -20,12 +20,12 @@ class Student
     private $id;
 
     /**
-     * @ORM\Column(name="first_name", type="string")
+     * @ORM\Column(name="first_name", type="string", nullable=false)
      */
     private $first_name;
 
     /**
-     * @ORM\Column(name="last_name", type="string")
+     * @ORM\Column(name="last_name", type="string", nullable=false)
      */
     private $last_name;
 

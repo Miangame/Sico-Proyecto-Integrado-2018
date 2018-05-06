@@ -20,7 +20,12 @@ class Cycle
     private $id;
 
     /**
-     * @ORM\Column(name="hours", type="integer")
+     * @ORM\Column(name="name", type="string", nullable=false)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(name="hours", type="integer", nullable=false)
      */
     private $hours;
 
@@ -141,5 +146,29 @@ class Cycle
     public function getDistributionsModuleCycle()
     {
         return $this->distributions_module_cycle;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Cycle
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

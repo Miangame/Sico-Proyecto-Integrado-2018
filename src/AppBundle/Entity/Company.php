@@ -20,12 +20,12 @@ class Company
     private $id;
 
     /**
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
     /**
-     * @ORM\Column(name="cif", type="string")
+     * @ORM\Column(name="cif", type="string", nullable=false)
      */
     private $cif;
 

@@ -20,13 +20,13 @@ class School_group
     private $id;
 
     /**
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
 
     /**
-     * @ORM\Column(name="initials", type="string", unique=true)
+     * @ORM\Column(name="initials", type="string", unique=true, nullable=false)
      */
     private $initials;
 

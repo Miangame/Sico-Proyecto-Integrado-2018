@@ -23,13 +23,13 @@ class SchoolYear_convocatory
 
     /**
      * @ORM\ManyToOne(targetEntity="SchoolYear", inversedBy="schoolYear_convocatories")
-     * @ORM\JoinColumn(name="schoolYear_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="schoolYear_id", referencedColumnName="id", nullable=false)
      */
     protected $schoolYear;
 
     /**
      * @ORM\ManyToOne(targetEntity="Convocatory", inversedBy="schoolYear_convocatories")
-     * @ORM\JoinColumn(name="convocatory_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="convocatory_id", referencedColumnName="id", nullable=false)
      */
     protected $convocatory;
 

@@ -23,13 +23,13 @@ class Distribution_module_cycle
 
     /**
      * @ORM\ManyToOne(targetEntity="Module", inversedBy="distributions_module_cycle")
-     * @ORM\JoinColumn(name="module_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=false)
      */
     protected $module;
 
     /**
      * @ORM\ManyToOne(targetEntity="Cycle", inversedBy="distributions_module_cycle")
-     * @ORM\JoinColumn(name="cycle_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="cycle_id", referencedColumnName="id", nullable=false)
      */
     protected $cycle;
 

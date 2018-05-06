@@ -21,17 +21,17 @@ class Module
 
 
     /**
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
     /**
-     * @ORM\Column(name="initials", type="string", unique=true)
+     * @ORM\Column(name="initials", type="string", unique=true, nullable=false)
      */
     private $initials;
 
     /**
-     * @ORM\Column(name="hours", type="integer")
+     * @ORM\Column(name="hours", type="integer", nullable=false)
      */
     private $hours;
 

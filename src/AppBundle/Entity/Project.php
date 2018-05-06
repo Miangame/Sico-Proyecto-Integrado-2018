@@ -20,7 +20,7 @@ class Project
     private $id;
 
     /**
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 

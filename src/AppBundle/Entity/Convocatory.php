@@ -22,7 +22,7 @@ class Convocatory
     /**
      * @var string
      *
-     * @ORM\Column(name="convocatory", type="string", length=255)
+     * @ORM\Column(name="convocatory", type="string", length=255, nullable=false)
      */
     private $convocatory;
 
