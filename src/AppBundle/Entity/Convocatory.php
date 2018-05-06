@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Calls
  *
- * @ORM\Table(name="calls")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CallsRepository")
+ * @ORM\Table(name="Convocatory")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ConvocatoryRepository")
  */
-class Calls
+class Convocatory
 {
     /**
      * @var int
