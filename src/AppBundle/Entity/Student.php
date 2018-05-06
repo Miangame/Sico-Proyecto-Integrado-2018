@@ -39,6 +39,11 @@ class Student
      */
     private $distribution_company;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="SchoolYear_convocatory", inversedBy="students")
+     * @ORM\JoinColumn(name="schoolYear_convocatory_id", referencedColumnName="id", nullable=false)
+     */
+    private $schoolYear_convocatory;
 
     /**
      * Get id
@@ -171,5 +176,29 @@ class Student
     public function getDistributionCompany()
     {
         return $this->distribution_company;
+    }
+
+    /**
+     * Set schoolYearConvocatory
+     *
+     * @param \AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory
+     *
+     * @return Student
+     */
+    public function setSchoolYearConvocatory(\AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory)
+    {
+        $this->schoolYear_convocatory = $schoolYearConvocatory;
+
+        return $this;
+    }
+
+    /**
+     * Get schoolYearConvocatory
+     *
+     * @return \AppBundle\Entity\SchoolYear_convocatory
+     */
+    public function getSchoolYearConvocatory()
+    {
+        return $this->schoolYear_convocatory;
     }
 }
