@@ -32,7 +32,7 @@ class School_group
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cycle", inversedBy="school_groups")
+     * @ORM\ManyToOne(targetEntity="Cycle", inversedBy="school_groups")
      * @ORM\JoinColumn(nullable=false)
      */
     private $cycle;

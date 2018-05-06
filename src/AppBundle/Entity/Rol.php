@@ -23,7 +23,7 @@ class Rol
     protected $rol;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="rol")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="rol")
      */
     private $users;
 

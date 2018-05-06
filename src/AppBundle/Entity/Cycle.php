@@ -25,7 +25,7 @@ class Cycle
     private $hours;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\School_group", mappedBy="cycle")
+     * @ORM\OneToMany(targetEntity="School_group", mappedBy="cycle")
      */
     private $school_groups;
 

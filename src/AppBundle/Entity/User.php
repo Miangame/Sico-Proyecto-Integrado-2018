@@ -19,7 +19,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Rol", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="Rol", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
     private $rol;
