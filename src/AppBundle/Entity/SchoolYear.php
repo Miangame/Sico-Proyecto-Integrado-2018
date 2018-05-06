@@ -30,6 +30,16 @@ class SchoolYear
     private $request_companies;
 
     /**
+     * @ORM\OneToMany(targetEntity="SchoolYear_convocatory", mappedBy="schoolYear")
+     */
+    private $schoolYear_convocatories;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Distribution_module_teacher", mappedBy="schoolYear")
+     */
+    private $distributions_module_teacher;
+
+    /**
      * Get id
      *
      * @return int
@@ -102,5 +112,73 @@ class SchoolYear
     public function getRequestCompanies()
     {
         return $this->request_companies;
+    }
+
+    /**
+     * Add schoolYearConvocatory
+     *
+     * @param \AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory
+     *
+     * @return SchoolYear
+     */
+    public function addSchoolYearConvocatory(\AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory)
+    {
+        $this->schoolYear_convocatories[] = $schoolYearConvocatory;
+
+        return $this;
+    }
+
+    /**
+     * Remove schoolYearConvocatory
+     *
+     * @param \AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory
+     */
+    public function removeSchoolYearConvocatory(\AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory)
+    {
+        $this->schoolYear_convocatories->removeElement($schoolYearConvocatory);
+    }
+
+    /**
+     * Get schoolYearConvocatories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSchoolYearConvocatories()
+    {
+        return $this->schoolYear_convocatories;
+    }
+
+    /**
+     * Add distributionsModuleTeacher
+     *
+     * @param \AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher
+     *
+     * @return SchoolYear
+     */
+    public function addDistributionsModuleTeacher(\AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher)
+    {
+        $this->distributions_module_teacher[] = $distributionsModuleTeacher;
+
+        return $this;
+    }
+
+    /**
+     * Remove distributionsModuleTeacher
+     *
+     * @param \AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher
+     */
+    public function removeDistributionsModuleTeacher(\AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher)
+    {
+        $this->distributions_module_teacher->removeElement($distributionsModuleTeacher);
+    }
+
+    /**
+     * Get distributionsModuleTeacher
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDistributionsModuleTeacher()
+    {
+        return $this->distributions_module_teacher;
     }
 }

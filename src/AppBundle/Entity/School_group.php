@@ -38,6 +38,11 @@ class School_group
     private $cycle;
 
     /**
+     * @ORM\OneToMany(targetEntity="Distribution_module_teacher", mappedBy="group")
+     */
+    private $distributions_module_teacher;
+
+    /**
      * Get id
      *
      * @return int
@@ -117,5 +122,46 @@ class School_group
     public function getCycle()
     {
         return $this->cycle;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->distributions_module_teacher = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add distributionsModuleTeacher
+     *
+     * @param \AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher
+     *
+     * @return School_group
+     */
+    public function addDistributionsModuleTeacher(\AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher)
+    {
+        $this->distributions_module_teacher[] = $distributionsModuleTeacher;
+
+        return $this;
+    }
+
+    /**
+     * Remove distributionsModuleTeacher
+     *
+     * @param \AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher
+     */
+    public function removeDistributionsModuleTeacher(\AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher)
+    {
+        $this->distributions_module_teacher->removeElement($distributionsModuleTeacher);
+    }
+
+    /**
+     * Get distributionsModuleTeacher
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDistributionsModuleTeacher()
+    {
+        return $this->distributions_module_teacher;
     }
 }

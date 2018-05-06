@@ -34,6 +34,11 @@ class User extends BaseUser
      */
     private $distribution_company;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Distribution_module_teacher", mappedBy="teacher")
+     */
+    private $distributions_module_teacher;
+
 
     /**
      * Set rol
@@ -125,5 +130,39 @@ class User extends BaseUser
     public function getDistributionCompany()
     {
         return $this->distribution_company;
+    }
+
+    /**
+     * Add distributionsModuleTeacher
+     *
+     * @param \AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher
+     *
+     * @return User
+     */
+    public function addDistributionsModuleTeacher(\AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher)
+    {
+        $this->distributions_module_teacher[] = $distributionsModuleTeacher;
+
+        return $this;
+    }
+
+    /**
+     * Remove distributionsModuleTeacher
+     *
+     * @param \AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher
+     */
+    public function removeDistributionsModuleTeacher(\AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher)
+    {
+        $this->distributions_module_teacher->removeElement($distributionsModuleTeacher);
+    }
+
+    /**
+     * Get distributionsModuleTeacher
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDistributionsModuleTeacher()
+    {
+        return $this->distributions_module_teacher;
     }
 }

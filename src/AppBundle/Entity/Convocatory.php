@@ -26,6 +26,10 @@ class Convocatory
      */
     private $convocatory;
 
+    /**
+     * @ORM\OneToMany(targetEntity="SchoolYear_convocatory", mappedBy="convocatory")
+     */
+    private $schoolYear_convocatories;
 
     /**
      * Get id
@@ -59,5 +63,46 @@ class Convocatory
     public function getConvocatory()
     {
         return $this->convocatory;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->schoolYear_convocatories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add schoolYearConvocatory
+     *
+     * @param \AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory
+     *
+     * @return Convocatory
+     */
+    public function addSchoolYearConvocatory(\AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory)
+    {
+        $this->schoolYear_convocatories[] = $schoolYearConvocatory;
+
+        return $this;
+    }
+
+    /**
+     * Remove schoolYearConvocatory
+     *
+     * @param \AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory
+     */
+    public function removeSchoolYearConvocatory(\AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory)
+    {
+        $this->schoolYear_convocatories->removeElement($schoolYearConvocatory);
+    }
+
+    /**
+     * Get schoolYearConvocatories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSchoolYearConvocatories()
+    {
+        return $this->schoolYear_convocatories;
     }
 }
