@@ -19,12 +19,6 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Rol", inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $rol;
-
-    /**
      * @ORM\OneToMany(targetEntity="Distribution_project", mappedBy="user")
      */
     private $distribution_project;
