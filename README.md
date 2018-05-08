@@ -1,4 +1,4 @@
-Symfony Standard Edition
+Bienvenido a SICO
 ========================
 ## Índice de contenido
 1. Introducción
