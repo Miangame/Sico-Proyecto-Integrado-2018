@@ -1,5 +1,23 @@
 Symfony Standard Edition
 ========================
+Índice de contenido
+1.- Introducción
+2.- Objetivos del proyecto
+Facilitar el reparto de las FCTs y PIs de manera gráfica e intuitiva
+Implantación en un servidor del departamento.
+Documentación de la implantación.
+Configurar distintos aspectos del reparto
+Facilitar la importación de alumnos y empresas partiendo de hojas de cálculo
+Mantener el historial de años anteriores (empresas y proyectos)
+Ordenación de empresas por fecha de solicitud de la empresa
+Valorar la FCT ya realizada según la opinión del alumnado y del profesorado, también por contenidos tratados…
+Ordenación de la empresa por la valoración anterior.
+Gestión de horarios (Septiembre/Marzo, Marzo/Junio con reducción horaria)
+Gestión de fechas de exámenes de la última evaluación
+
+
+
+
 
 **WARNING**: This distribution does not support Symfony 4. See the
 [Installing & Setting up the Symfony Framework][15] page to find a replacement
