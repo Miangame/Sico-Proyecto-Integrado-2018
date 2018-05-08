@@ -69,6 +69,11 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
+knp_menu:
+    # use "twig: false" to disable the Twig extension and the TwigRenderer
+    twig:
+        # template: AppBundle::knp_menu.html.twig // It error, disable
+
 # Fos_user configuration
 fos_user:
     db_driver: orm
