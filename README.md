@@ -1,8 +1,8 @@
 Symfony Standard Edition
 ========================
 Índice de contenido
-1.- Introducción
-2.- Objetivos del proyecto
+1. Introducción
+2. Objetivos del proyecto
 Facilitar el reparto de las FCTs y PIs de manera gráfica e intuitiva
 Implantación en un servidor del departamento.
 Documentación de la implantación.
