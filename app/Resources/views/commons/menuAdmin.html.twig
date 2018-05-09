@@ -1,0 +1,63 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">
+            <img class="imgLogo" src="{{ asset('img/logo.png') }}" alt="">
+        </a>
+        <ul id="nav-mobile" class="left">
+            <li>
+                <a href="#" data-target="slide-out" class="sidenav-trigger">
+                    <i class="small material-icons">apps</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<ul id="slide-out" class="sidenav">
+    <li>
+        <div class="user-view backgroundUserMenu">
+            <a href="#user">
+                <img class="circle" src="{{ asset('img/photos/' ~ user.img) }}">
+            </a>
+            <a href="#name">
+                <span class="white-text name">{{ user.username }}</span>
+            </a>
+            <a href="#email">
+                <span class="white-text email">{{ user.getFirstName() }} {{ user.getLastName() }}</span>
+            </a>
+            <div>
+                <a href="{{ path('fos_user_security_logout') }}" class="waves-effect waves-light btn-small red">
+                    <i class="small material-icons">power_settings_new</i>
+                </a>
+            </div>
+
+        </div>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">home</i>Inicio</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">account_circle</i>Alumnos</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">school</i>Profesores</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">description</i>Módulos</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">compare_arrows</i>Módulos-profesor</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">group</i>Ciclos</a>
+    </li>
+</ul>
+
+
+
+
