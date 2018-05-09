@@ -19,8 +19,9 @@ class PanelDashboardController extends Controller
     public function dashboardAction(Request $request)
     {
 
-        return $this->render('panel/base.html.twig', array(
-
+        $user = $this->getUser();
+        return $this->render('panel/dashboard/view.html.twig', array(
+            'user' => $user
         ));
     }
 }
