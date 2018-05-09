@@ -31,6 +31,11 @@ class Module
     private $initials;
 
     /**
+     * @ORM\Column(name="course", type="integer", nullable=false, columnDefinition="enum('1', '2')")
+     */
+    private $course;
+
+    /**
      * @ORM\Column(name="hours", type="integer", nullable=false)
      */
     private $hours;
@@ -201,5 +206,29 @@ class Module
     public function getDistributionsModuleTeacher()
     {
         return $this->distributions_module_teacher;
+    }
+
+    /**
+     * Set course
+     *
+     * @param integer $course
+     *
+     * @return Module
+     */
+    public function setCourse($course)
+    {
+        $this->course = $course;
+
+        return $this;
+    }
+
+    /**
+     * Get course
+     *
+     * @return integer
+     */
+    public function getCourse()
+    {
+        return $this->course;
     }
 }

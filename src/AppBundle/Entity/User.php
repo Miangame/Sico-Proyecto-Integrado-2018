@@ -29,6 +29,11 @@ class User extends BaseUser
     protected $last_name;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $to_distribute;
+
+    /**
      * @ORM\OneToMany(targetEntity="Distribution_project", mappedBy="user")
      */
     private $distribution_project;
@@ -221,5 +226,29 @@ class User extends BaseUser
     public function getImg()
     {
         return $this->img;
+    }
+
+    /**
+     * Set toDistribute
+     *
+     * @param boolean $toDistribute
+     *
+     * @return User
+     */
+    public function setToDistribute($toDistribute)
+    {
+        $this->to_distribute = $toDistribute;
+
+        return $this;
+    }
+
+    /**
+     * Get toDistribute
+     *
+     * @return boolean
+     */
+    public function getToDistribute()
+    {
+        return $this->to_distribute;
     }
 }
