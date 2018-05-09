@@ -1,0 +1,69 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">
+            <img class="imgLogo" src="{{ asset('img/logo.png') }}" alt="">
+        </a>
+        <ul id="nav-mobile" class="left">
+            <li>
+                <a href="#" data-target="slide-out" class="sidenav-trigger">
+                    <i class="small material-icons">apps</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<ul id="slide-out" class="sidenav">
+    <li>
+        <div class="user-view backgroundUserMenu">
+            <a href="#user">
+                <img class="circle" src="{{ asset('img/photos/' ~ user.img) }}">
+            </a>
+            <a href="#name">
+                <span class="white-text name">{{ user.username }}</span>
+            </a>
+            <a href="#email">
+                <span class="white-text email">{{ user.getFirstName() }} {{ user.getLastName() }}</span>
+            </a>
+            <div>
+                <a href="{{ path('fos_user_security_logout') }}" class="waves-effect waves-light btn-small red">
+                    <i class="small material-icons">power_settings_new</i>
+                </a>
+
+            </div>
+        </div>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">home</i>Inicio</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">today</i>Horario</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">domain</i>FCT</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">description</i>PI</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">school</i>Alumnos</a>
+    </li>
+    <li>
+        <a class="waves-effect" href="#">
+            <i class="small material-icons">whatshot</i>Ranking</a>
+    </li>
+
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li>
+        <a class="waves-effect" href="#!">
+            <i class="small material-icons">settings</i>
+            Administración
+        </a>
+    </li>
+</ul>
