@@ -50,30 +50,6 @@ class User extends BaseUser
 
 
     /**
-     * Set rol
-     *
-     * @param \AppBundle\Entity\Rol $rol
-     *
-     * @return User
-     */
-    public function setRol(\AppBundle\Entity\Rol $rol)
-    {
-        $this->rol = $rol;
-
-        return $this;
-    }
-
-    /**
-     * Get rol
-     *
-     * @return \AppBundle\Entity\Rol
-     */
-    public function getRol()
-    {
-        return $this->rol;
-    }
-
-    /**
      * Add distributionProject
      *
      * @param \AppBundle\Entity\Distribution_project $distributionProject
