@@ -1,1 +1,14 @@
 {% extends 'base.html.twig' %}
+
+{% block nav %}
+
+    {% include ':commons:menuUser.html.twig' %}
+    <div id="wrapper">
+        {% block content %}
+
+        {% endblock %}
+
+        {% include ':commons:footer.html.twig' %}
+    </div>
+
+{% endblock %}
