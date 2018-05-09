@@ -19,4 +19,4 @@ easy_admin:
                     - roles
                     - enabled
                     - { property: 'plainPassword', type: 'password', type_options: { required: true } }
-                    - { property: 'roles', type: 'choice', type_options: { multiple: true , choices: { 'USUARIO': 'ROLE_USER', 'ADMINISTRADOR': 'ROLE_ADMIN' }, required: true } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true , choices: { 'ADMINISTRADOR': 'ROLE_ADMIN', 'PROFESOR': 'ROLE_TEACHER' }, required: true } }

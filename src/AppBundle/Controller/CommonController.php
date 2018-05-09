@@ -24,7 +24,7 @@ class CommonController extends Controller
 
         if ($user->hasRole("ROLE_ADMIN")) {
             return $this->redirect($this->generateUrl('panel_dashboard'));
-        } else if ($user->hasRole("ROLE_USER")) {
+        } else if ($user->hasRole("ROLE_TEACHER")) {
             return $this->redirect($this->generateUrl('user_dashboard'));
         }
 
