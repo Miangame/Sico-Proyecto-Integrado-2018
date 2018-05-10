@@ -2,7 +2,7 @@ Bienvenido a SICO
 ========================
 ## Índice de contenido
 1. [Introducción](#1--introducción)
-2. [Objetivos del proyecto](#Objetivos-del-proyecto)
+2. [Objetivos del proyecto](#2--objetivos-del-proyecto)
 * Facilitar el reparto de las FCTs y PIs de manera gráfica e intuitiva
 * Implantación en un servidor del departamento.
 * Documentación de la implantación.
