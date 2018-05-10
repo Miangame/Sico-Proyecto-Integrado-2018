@@ -2,18 +2,6 @@ Bienvenido a SICO
 ========================
 ## Índice de contenido
 1. [Introducción](#1--introducción)
-2. [Objetivos del proyecto](#2--objetivos-del-proyecto)
-* Facilitar el reparto de las FCTs y PIs de manera gráfica e intuitiva
-* Implantación en un servidor del departamento.
-* Documentación de la implantación.
-* Configurar distintos aspectos del reparto
-* Facilitar la importación de alumnos y empresas partiendo de hojas de cálculo
-* Mantener el historial de años anteriores (empresas y proyectos)
-* Ordenación de empresas por fecha de solicitud de la empresa
-* Valorar la FCT ya realizada según la opinión del alumnado y del profesorado, también por contenidos tratados…
-* Ordenación de la empresa por la valoración anterior.
-* Gestión de horarios (Septiembre/Marzo, Marzo/Junio con reducción horaria)
-* Gestión de fechas de exámenes de la última evaluación
 
 ### 1.- Introducción 
 Los módulos profesionales de "Proyecto de desarrollo de aplicaciones web" y "Proyecto de administración de sistemas informáticos en red" (más comúnmente denominados "Proyecto Integrado" ó PI) y de "Formación en centros de trabajo" (FCT) son dos módulos de los ciclos formativos de Grado Superior. Ambos se cursan una vez superados el resto de módulos profesionales que constituyen las enseñanzas del ciclo formativo.
@@ -30,18 +18,3 @@ Además de buscar dicho equilibrio, los miembros del departamento se encuentran 
 * Históricos de ambos
 
 El propósito de este proyecto es la implementación de una Web que facilite este reparto.
-
-### 2.- Objetivos del proyecto
-Teniendo en cuenta la introducción previa, el proyecto REPARTO-SICO consistirá en el despliegue de un servidor Web que cumpla los siguientes objetivos:
-1. Facilitar el reparto de las FCTs y PIs de manera gráfica e intuitiva
-2. Implantación en un servidor del departamento. 
-3. Documentación de la implantación.
-4. Configurar distintos aspectos del reparto 
-5. Facilitar la importación de alumnos y empresas partiendo de hojas de cálculo
-6. Mantener el historial de años anteriores (empresas y proyectos)
-7. Ordenación de empresas por fecha de solicitud de la empresa
-8. Valorar la FCT ya realizada según la opinión del alumnado y del profesorado, también por contenidos tratados…
-9. Ordenación de la empresa por la valoración anterior.
-10. Gestión de horarios (Septiembre/Marzo, Marzo/Junio con reducción horaria)
-11. Gestión de fechas de exámenes de la última evaluación
-
