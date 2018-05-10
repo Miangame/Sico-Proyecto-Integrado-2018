@@ -20,3 +20,33 @@ easy_admin:
                     - enabled
                     - { property: 'plainPassword', type: 'password', type_options: { required: true } }
                     - { property: 'roles', type: 'choice', type_options: { multiple: true , choices: { 'ADMINISTRADOR': 'ROLE_ADMIN', 'PROFESOR': 'ROLE_TEACHER' }, required: true } }
+        Student:
+            class: AppBundle\Entity\Student
+        SchoolYear_convocatory:
+            class: AppBundle\Entity\SchoolYear_convocatory
+        SchoolYear:
+            class: AppBundle\Entity\SchoolYear
+        SchoolGroup:
+            class: AppBundle\Entity\School_group
+        Request_company:
+            class: AppBundle\Entity\Request_company
+        Project:
+            class: AppBundle\Entity\Project
+        Module:
+            class: AppBundle\Entity\Module
+        Distribution_project:
+            class: AppBundle\Entity\Distribution_project
+        Distribution_module_teacher:
+            class: AppBundle\Entity\Distribution_module_teacher
+        Distribution_module_cycle:
+            class: AppBundle\Entity\Distribution_module_cycle
+        Distribution_company:
+            class: AppBundle\Entity\Distribution_company
+        Cycle:
+            class: AppBundle\Entity\Cycle
+        Convocatory:
+            class: AppBundle\Entity\Convocatory
+        Configuration:
+            class: AppBundle\Entity\Configuration
+        Company:
+            class: AppBundle\Entity\Company
