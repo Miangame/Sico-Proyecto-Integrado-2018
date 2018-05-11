@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class Request_companyRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getRequestCompanies()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select("t")
+            ->from("AppBundle:Request_company","t");
+        return $qb->getQuery()->getArrayResult();
+    }
 }

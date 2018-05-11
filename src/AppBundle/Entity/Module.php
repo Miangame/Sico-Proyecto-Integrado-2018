@@ -31,7 +31,7 @@ class Module
     private $initials;
 
     /**
-     * @ORM\Column(name="course", type="integer", nullable=false, columnDefinition="enum('1', '2')")
+     * @ORM\Column(name="course", type="integer", nullable=false)
      */
     private $course;
 

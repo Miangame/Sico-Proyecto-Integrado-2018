@@ -76,12 +76,12 @@ class Request_company
     private $nif_tutor;
 
     /**
-     * @ORM\Column(name="number_of_daw", type="integer")
+     * @ORM\Column(name="number_of_daw", type="integer", nullable=true)
      */
     private $number_of_daw;
 
     /**
-     * @ORM\Column(name="number_of_asir", type="integer")
+     * @ORM\Column(name="number_of_asir", type="integer", nullable=true)
      */
     private $number_of_asir;
 
@@ -96,7 +96,7 @@ class Request_company
     private $tasks_to_be_done;
 
     /**
-     * @ORM\Column(name="observations", type="string")
+     * @ORM\Column(name="observations", type="string", nullable=true)
      */
     private $observations;
 
