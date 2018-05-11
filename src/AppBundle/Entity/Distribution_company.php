@@ -38,22 +38,22 @@ class Distribution_company
     private $company;
 
     /**
-     * @ORM\Column(name="assessment_student", type="integer")
+     * @ORM\Column(name="assessment_student", type="integer", nullable=true)
      */
     private $assessment_student;
 
     /**
-     * @ORM\Column(name="assessment_teacher", type="integer")
+     * @ORM\Column(name="assessment_teacher", type="integer", nullable=true)
      */
     private $assessment_teacher;
 
     /**
-     * @ORM\Column(name="observation_student", type="text")
+     * @ORM\Column(name="observation_student", type="text", nullable=true)
      */
     private $observation_student;
 
     /**
-     * @ORM\Column(name="observation_teacher", type="text")
+     * @ORM\Column(name="observation_teacher", type="text", nullable=true)
      */
     private $observation_teacher;
 

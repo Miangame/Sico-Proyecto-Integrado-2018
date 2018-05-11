@@ -2,12 +2,8 @@
 
 {% block nav %}
     {{ render(controller('AppBundle:UserDashboard:dashboard')) }}
-    <div>
-        {% block content %}
+    {% include ':commons:footer.html.twig' %}
+{% endblock %}
 
-        {% endblock %}
-
-        {% include ':commons:footer.html.twig' %}
-    </div>
-
+{% block body %}
 {% endblock %}

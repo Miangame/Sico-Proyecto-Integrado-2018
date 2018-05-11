@@ -1,4 +1,156 @@
 {% extends 'user/base.html.twig' %}
-{% block content %}
-    {{ dump(companies) }}
+{% block body %}
+    <h3 class="col s12">FCT</h3>
+    <div class="row">
+        <div class="col s12 p-0">
+            <ul class="tabs z-depth-1 mb-2">
+                <li class="tab col s3">
+                    <a href="#emp">Empresas</a>
+                </li>
+                <li class="tab col s3">
+                    <a class="active" href="#solemp">Solicitudes empresas</a>
+                </li>
+                <li class="tab col s3">
+                    <a href="#asign">Asignaciones</a>
+                </li>
+            </ul>
+        </div>
+        <div id="emp" class="col s12 p-1">
+            <h5>Empresas</h5>
+            <div class="row">
+                <div class="col s6 left-align">
+                    <a class="waves-effect waves-light btn-small">
+                        <i class="material-icons left">cloud_upload</i>Importar
+                    </a>
+                </div>
+                <div class="col s6 right-align">
+                    <a class="waves-effect waves-light btn-small">
+                        Nueva empresa
+                    </a>
+                </div>
+            </div>
+
+            <table class="responsive-table centered">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>CIF</th>
+                    <th>Valoración</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for company in companies %}
+                    <tr>
+                        <td>{{ company.name }}</td>
+                        <td>{{ company.cif }}</td>
+                        <td>X</td>
+                        <td>
+                            <a href="#">
+                                <i class="small material-icons">edit</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#">
+                                <i class="small material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="solemp" class="col p-1 s12">
+            <h5>Solicitudes empresas</h5>
+            <div class="row">
+                <div class="col s12 right-align">
+                    <a class="waves-effect waves-light btn-small">
+                        <i class="material-icons left">cloud_upload</i>Importar
+                    </a>
+                </div>
+            </div>
+
+            <table class="responsive-table centered">
+                <thead>
+                <tr>
+                    <th>Empresa</th>
+                    <th>CIF</th>
+                    <th>Alumnos solicitados</th>
+                    <th>Mas info</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for request in request_companies %}
+                    <tr>
+                        <td>{{ request.name_company }}</td>
+                        <td>{{ request.cif }}</td>
+                        <td>{{ request.number_of_daw + request.number_of_asir }}</td>
+                        <td>
+                            <a href="#">
+                                <i class="small material-icons">info</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#">
+                                <i class="small material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="asign" class="col p-1 s12">
+            <h5>Asignaciones</h5>
+            <div class="row">
+                <div class="col s12 right-align">
+                    <a class="waves-effect waves-light btn-small">
+                        Nueva asignación
+                    </a>
+                </div>
+            </div>
+
+            <table class="responsive-table centered">
+                <thead>
+                <tr>
+                    <th>Empresa</th>
+                    <th>Alumno</th>
+                    <th>Ciclo</th>
+                    <th>Modificar</th>
+                    <th>Valorar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{ dump(distribution_companies) }}
+                {% for distribution in distribution_companies %}
+                    <tr>
+                        <td>{{ distribution.id }}</td>
+                        <td>Javier Ponferrada López</td>
+                        <td>DAW</td>
+                        <td>
+                            <a href="#">
+                                <i class="small material-icons">edit</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#">
+                                <i class="small material-icons">done_all</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#">
+                                <i class="small material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 {% endblock %}
