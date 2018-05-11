@@ -9,12 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class UserDashboardController
- * @package AppBundle\Controller
- *
- * @Route("/user")
- */
 class UserFctController extends Controller
 {
     /**
@@ -28,7 +22,7 @@ class UserFctController extends Controller
         $companyRepository = $em->getRepository("AppBundle:Company");
 
         return $this->render('user/fct/view.html.twig', array(
-            'companies' => $companyRepository->getCompanies()
+            'companies' => $companyRepository->getCompanies(),
         ));
     }
 }

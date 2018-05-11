@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block nav %}
-
-    {% include ':commons:menuUser.html.twig' %}
+    {{ render(controller('AppBundle:UserDashboard:dashboard')) }}
     <div>
         {% block content %}
 
