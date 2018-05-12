@@ -1,14 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block nav %}
-
-    {% include ':commons:menuAdmin.html.twig' %}
-    <div id="wrapper">
-        {% block content %}
-
-        {% endblock %}
-
-        {% include ':commons:footer.html.twig' %}
-    </div>
-
+    {{ render(controller('AppBundle:PanelDashboard:dashboard')) }}
 {% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block footer %}
