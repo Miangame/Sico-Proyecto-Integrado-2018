@@ -38,7 +38,7 @@ class School_group
     private $cycle;
 
     /**
-     * @ORM\OneToMany(targetEntity="Student", mappedBy="group_id")
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="group")
      */
     private $students_groups;
 
