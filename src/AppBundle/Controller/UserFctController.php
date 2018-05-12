@@ -21,6 +21,7 @@ class UserFctController extends Controller
     {
         /** @var EntityManager $em */
         $em = $this->get("doctrine.orm.entity_manager");
+
         /** @var CompanyRepository $companyRepository */
         $companyRepository = $em->getRepository("AppBundle:Company");
 

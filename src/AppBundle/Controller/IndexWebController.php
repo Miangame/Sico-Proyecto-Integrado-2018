@@ -14,9 +14,8 @@ class IndexWebController extends Controller
     /**
      * @Route("/user", name="index_web")
      */
-    public function index(Request $request)
+    public function indexAction(Request $request)
     {
-        return $this->render('user/base.html.twig', array(
-        ));
+        return $this->render('user/base.html.twig', array());
     }
 }
