@@ -1,7 +1,7 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,21 +20,28 @@ class Company
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
     /**
+     * @Assert\Regex("/^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/")
+     * @Assert\NotBlank()
      * @ORM\Column(name="cif", type="string", nullable=false)
      */
     private $cif;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(name="phone", type="string")
      */
     private $phone;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Regex("/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/")
      * @ORM\Column(name="email", type="string")
      */
     private $email;

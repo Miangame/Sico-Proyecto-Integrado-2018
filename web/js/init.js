@@ -15,7 +15,5 @@ $(document).ready(function () {
 
     //Init tabs
     $('.tabs').tabs();
-    $('ul.tabs').tabs({
-        swipeable: true,
-    });
+    $('ul.tabs').tabs();
 });

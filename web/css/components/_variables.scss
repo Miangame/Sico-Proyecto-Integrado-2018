@@ -294,7 +294,7 @@ $table-striped-color: rgba(242, 242, 242, 0.5) !default;
 // ==========================================================================
 
 $toast-height: 48px !default;
-$toast-color: #323232 !default;
+$toast-color: $secondary-color !default;
 $toast-text-color: #fff !default;
 $toast-action-color: #eeff41;
 
