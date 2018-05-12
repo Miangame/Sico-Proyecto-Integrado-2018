@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Services\StudentsHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,8 +24,13 @@ class PanelStudentController extends Controller
      */
     public function viewAction(Request $request)
     {
-        return $this->render('panel/student/view.html.twig', array(
+        /** @var StudentsHelper $cashFlowHelper */
+        $studentsHelper = $this->get('app.studentsHelper');
 
+        $students = $studentsHelper->getAllStudents();
+
+        return $this->render('panel/student/view.html.twig', array(
+            'students' => $students
         ));
     }
 }

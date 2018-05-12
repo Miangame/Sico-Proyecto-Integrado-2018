@@ -95,6 +95,7 @@ class SchoolYear_convocatory
     {
         return $this->convocatory;
     }
+
     /**
      * Constructor
      */
@@ -135,5 +136,10 @@ class SchoolYear_convocatory
     public function getStudents()
     {
         return $this->students;
+    }
+
+    public function __toString()
+    {
+        return $this->getSchoolYear() . " - " . $this->getConvocatory();
     }
 }

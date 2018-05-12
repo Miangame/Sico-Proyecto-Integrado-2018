@@ -30,6 +30,12 @@ class Student
     private $last_name;
 
     /**
+     * @ORM\ManyToOne(targetEntity="School_group", inversedBy="students_groups")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $group;
+
+    /**
      * @ORM\OneToMany(targetEntity="Distribution_project", mappedBy="student")
      */
     private $distribution_project;
@@ -200,5 +206,53 @@ class Student
     public function getSchoolYearConvocatory()
     {
         return $this->schoolYear_convocatory;
+    }
+
+    /**
+     * Set groupId
+     *
+     * @param \AppBundle\Entity\School_group $groupId
+     *
+     * @return Student
+     */
+    public function setGroupId(\AppBundle\Entity\School_group $groupId)
+    {
+        $this->group_id = $groupId;
+
+        return $this;
+    }
+
+    /**
+     * Get groupId
+     *
+     * @return \AppBundle\Entity\School_group
+     */
+    public function getGroupId()
+    {
+        return $this->group_id;
+    }
+
+    /**
+     * Set group
+     *
+     * @param \AppBundle\Entity\School_group $group
+     *
+     * @return Student
+     */
+    public function setGroup(\AppBundle\Entity\School_group $group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
+     * Get group
+     *
+     * @return \AppBundle\Entity\School_group
+     */
+    public function getGroup()
+    {
+        return $this->group;
     }
 }

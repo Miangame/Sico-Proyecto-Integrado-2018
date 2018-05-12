@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class StudentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAllStudents()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('t, u.name')
+            ->from('AppBundle:Student', 't')
+            ->join('t.group', 'u');
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
