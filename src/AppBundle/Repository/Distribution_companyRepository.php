@@ -1,7 +1,6 @@
 <?php
 
 namespace AppBundle\Repository;
-use Doctrine\ORM\Query\ResultSetMapping;
 
 /**
  * Distribution_companyRepository
@@ -13,9 +12,14 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getDistributionsCompanies()
     {
-        $rsm = new ResultSetMapping();
-        $query = $this->getEntityManager()->createNativeQuery("SELECT * FROM Distribution_company ds, User us, Student st WHERE ds.user_id = us.id AND ds.student_id = st.id", $rsm);
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('ds, st, us')
+            ->from("AppBundle:Distribution_company, AppBundle:Student, AppBundle:User","ds, st, us")
+            ->where("ds.user_id = us.id")
+            ->andWhere("ds.student_id = st.id");
 
-        return $query->getArrayResult();
+        return $qb->getQuery()
+            ->getArrayResult();
+
     }
 }
