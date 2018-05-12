@@ -12,14 +12,15 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getDistributionsCompanies()
     {
-        $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('ds, st, us')
-            ->from("AppBundle:Distribution_company, AppBundle:Student, AppBundle:User","ds, st, us")
-            ->where("ds.user_id = us.id")
-            ->andWhere("ds.student_id = st.id");
 
-        return $qb->getQuery()
-            ->getArrayResult();
-
+        $query = $this->getEntityManager()->createQuery("
+                                      SELECT cp.name as company_name, CONCAT(st.first_name,' ',st.last_name) as student_name
+                                      FROM AppBundle:Distribution_company ds,
+                                      AppBundle:Company cp,AppBundle:Student st,
+                                      AppBundle:User us 
+                                      WHERE ds.user = us.id 
+                                      AND ds.student = st.id 
+                                      AND ds.company = cp.id");
+        return $query->getArrayResult();
     }
 }
