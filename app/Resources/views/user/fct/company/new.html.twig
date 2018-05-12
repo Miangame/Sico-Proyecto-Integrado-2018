@@ -1,0 +1,5 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+    <h3 class="col s12">Nueva empresa</h3>
+    {% include '_form.html.twig' with {'action': 'http://localhost/'} %}
+{% endblock %}
