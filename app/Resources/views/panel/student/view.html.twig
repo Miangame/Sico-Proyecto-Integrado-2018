@@ -1,5 +1,29 @@
 {% extends 'panel/base.html.twig' %}
-
 {% block body %}
+    <h2>Gestión de alumnos</h2>
+    <a class="waves-effect waves-light btn">Importar</a>
+    <a class="waves-effect waves-light btn">Crear alumnos</a>
+    <table class="responsive-table">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Ciclo</th>
+            <th>Modificar</th>
+        </tr>
+        </thead>
 
+        <tbody>
+        {% for student in students %}
+            <tr>
+                <td>{{ student[0].first_name }}</td>
+                <td>{{ student[0].last_name }}</td>
+                <td>{{ student.name }}</td>
+                <td><a href="#">
+                        <i class="small material-icons">edit</i>
+                    </a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

@@ -38,6 +38,11 @@ class School_group
     private $cycle;
 
     /**
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="group_id")
+     */
+    private $students_groups;
+
+    /**
      * @ORM\OneToMany(targetEntity="Distribution_module_teacher", mappedBy="group")
      */
     private $distributions_module_teacher;
@@ -163,5 +168,78 @@ class School_group
     public function getDistributionsModuleTeacher()
     {
         return $this->distributions_module_teacher;
+    }
+
+    /**
+     * Add student
+     *
+     * @param \AppBundle\Entity\Student $student
+     *
+     * @return School_group
+     */
+    public function addStudent(\AppBundle\Entity\Student $student)
+    {
+        $this->students[] = $student;
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \AppBundle\Entity\Student $student
+     */
+    public function removeStudent(\AppBundle\Entity\Student $student)
+    {
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * Add studentsGroup
+     *
+     * @param \AppBundle\Entity\Student $studentsGroup
+     *
+     * @return School_group
+     */
+    public function addStudentsGroup(\AppBundle\Entity\Student $studentsGroup)
+    {
+        $this->students_groups[] = $studentsGroup;
+
+        return $this;
+    }
+
+    /**
+     * Remove studentsGroup
+     *
+     * @param \AppBundle\Entity\Student $studentsGroup
+     */
+    public function removeStudentsGroup(\AppBundle\Entity\Student $studentsGroup)
+    {
+        $this->students_groups->removeElement($studentsGroup);
+    }
+
+    /**
+     * Get studentsGroups
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudentsGroups()
+    {
+        return $this->students_groups;
     }
 }

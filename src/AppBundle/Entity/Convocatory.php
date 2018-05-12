@@ -105,4 +105,9 @@ class Convocatory
     {
         return $this->schoolYear_convocatories;
     }
+
+    public function __toString()
+    {
+        return $this->convocatory;
+    }
 }

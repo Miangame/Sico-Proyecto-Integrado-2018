@@ -181,4 +181,9 @@ class SchoolYear
     {
         return $this->distributions_module_teacher;
     }
+
+    public function __toString()
+    {
+        return $this->course;
+    }
 }

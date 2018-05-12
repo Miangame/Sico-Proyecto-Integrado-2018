@@ -171,4 +171,9 @@ class Cycle
     {
         return $this->name;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
