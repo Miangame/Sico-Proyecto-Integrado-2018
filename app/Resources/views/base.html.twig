@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8"/>
     <title>{% block title %}SICO{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/materialize.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ asset('js/materialize.min.js') }}"></script>
+        <script src="{{ asset('js/init.js') }}"></script>
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon-sico.png') }}"/>
 </head>
@@ -14,18 +20,22 @@
 {% block nav %}
 {% endblock %}
 <main class="container">
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            <script>
+                {% for msg in app.session.flashBag.get('success') %}
+                    M.toast({html: '<div class="msg_toast"><i class="small material-icons">check</i>{{ msg }}</div>', classes: 'rounded'});
+                {% endfor %}
+            </script>
+
+        </div>
+    {% endif %}
     {% block body %}
 
     {% endblock %}
 </main>
 
 {% include ':commons:footer.html.twig' %}
-{% block javascripts %}
-    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('js/materialize.min.js') }}"></script>
-    <script src="{{ asset('js/init.js') }}"></script>
-{% endblock %}
-
 
 </body>
 </html>

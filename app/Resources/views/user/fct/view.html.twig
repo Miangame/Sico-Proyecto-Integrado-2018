@@ -3,12 +3,12 @@
     <h3 class="col s12">FCT</h3>
     <div class="row">
         <div class="col s12 p-0">
-            <ul class="tabs z-depth-1 mb-2">
+            <ul class="tabs z-depth-2 mb-2">
                 <li class="tab col s3">
-                    <a href="#emp">Empresas</a>
+                    <a href="#emp" class="active">Empresas</a>
                 </li>
                 <li class="tab col s3">
-                    <a class="active" href="#solemp">Solicitudes empresas</a>
+                    <a href="#solemp">Solicitudes empresas</a>
                 </li>
                 <li class="tab col s3">
                     <a href="#asign">Asignaciones</a>
@@ -24,13 +24,13 @@
                     </a>
                 </div>
                 <div class="col s6 right-align">
-                    <a class="waves-effect waves-light btn-small">
+                    <a href="{{ path('user_fct_new_company') }}" class="waves-effect waves-light btn-small">
                         Nueva empresa
                     </a>
                 </div>
             </div>
 
-            <table class="responsive-table centered">
+            <table class="responsive-table centered z-depth-1">
                 <thead>
                 <tr>
                     <th>Nombre</th>
@@ -48,12 +48,12 @@
                         <td>{{ company.cif }}</td>
                         <td>X</td>
                         <td>
-                            <a href="#">
+                            <a href="{{ path('user_fct_edit_company', {'id': company.id}) }}">
                                 <i class="small material-icons">edit</i>
                             </a>
                         </td>
                         <td>
-                            <a href="#">
+                            <a href="{{ path('user_fct_delete_company', {'id': company.id}) }}">
                                 <i class="small material-icons">delete</i>
                             </a>
                         </td>
@@ -62,7 +62,7 @@
                 </tbody>
             </table>
         </div>
-        <div id="solemp" class="col p-1 s12">
+        <div id="solemp" class="col p-1 s12 ">
             <h5>Solicitudes empresas</h5>
             <div class="row">
                 <div class="col s12 right-align">
@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <table class="responsive-table centered">
+            <table class="responsive-table centered z-depth-1">
                 <thead>
                 <tr>
                     <th>Empresa</th>
@@ -113,7 +113,7 @@
                 </div>
             </div>
 
-            <table class="responsive-table centered">
+            <table class="responsive-table centered z-depth-1">
                 <thead>
                 <tr>
                     <th>Empresa</th>

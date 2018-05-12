@@ -131,3 +131,13 @@
   font-size: 0.8rem;
   color: grey;
 }
+
+.msg_toast {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: 10px;
+}
+
+#form div ul li {
+  color: #ed1515;
+}
