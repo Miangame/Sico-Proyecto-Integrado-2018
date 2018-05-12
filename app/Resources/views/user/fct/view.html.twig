@@ -118,19 +118,16 @@
                 <tr>
                     <th>Empresa</th>
                     <th>Alumno</th>
-                    <th>Ciclo</th>
                     <th>Modificar</th>
                     <th>Valorar</th>
                     <th>Eliminar</th>
                 </tr>
                 </thead>
                 <tbody>
-                {{ dump(distribution_companies) }}
                 {% for distribution in distribution_companies %}
                     <tr>
-                        <td>{{ distribution.id }}</td>
-                        <td>Javier Ponferrada López</td>
-                        <td>DAW</td>
+                        <td>{{ distribution.company_name }}</td>
+                        <td>{{ distribution.student_name }}</td>
                         <td>
                             <a href="#">
                                 <i class="small material-icons">edit</i>
