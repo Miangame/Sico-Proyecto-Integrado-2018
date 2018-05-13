@@ -19,7 +19,7 @@ class CompanyController extends Controller
     /**
      * @Route("/user/fct/company/new", name="user_fct_new_company")
      */
-    public function newCopanyAction(Request $request)
+    public function newCompanyAction(Request $request)
     {
         $company = new Company();
 
