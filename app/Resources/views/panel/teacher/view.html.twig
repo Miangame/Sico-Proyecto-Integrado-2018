@@ -1,0 +1,33 @@
+{% extends 'panel/base.html.twig' %}
+{% block body %}
+    <h2>Gestión de profesores</h2>
+    <a class="waves-effect waves-light btn modal-trigger">Crear profesor</a>
+
+    <table class="responsive-table">
+        <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Email</th>
+            <th>Modificar</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for teacher in teachers %}
+            <tr>
+                <td>{{ teacher.username }}</td>
+                <td>{{ teacher.getFirstName() }}</td>
+                <td>{{ teacher.getLastName() }}</td>
+                <td>{{ teacher.email }}</td>
+                <td>
+                    <a href="#">
+                        <i class="small material-icons">edit</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

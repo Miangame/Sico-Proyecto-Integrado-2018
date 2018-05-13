@@ -1,0 +1,32 @@
+{% extends 'panel/base.html.twig' %}
+{% block body %}
+    <h2>Gestión de cursos</h2>
+    <a class="waves-effect waves-light btn">Crear cursos</a>
+    <table class="responsive-table">
+        <thead>
+        <tr>
+            <th>Cursos</th>
+            <th>Modificar</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>16/17</td>
+            <td>
+                <a href="#">
+                    <i class="small material-icons">edit</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>17/18</td>
+            <td>
+                <a href="#">
+                    <i class="small material-icons">edit</i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'panel/base.html.twig' %}
+{% block body %}
+    <h2>Gestión de módulos</h2>
+    <a class="waves-effect waves-light btn">Crear módulo</a>
+    <table class="responsive-table">
+        <thead>
+        <tr>
+            <th>Módulo</th>
+            <th>Ciclo</th>
+            <th>Horas</th>
+            <th>Modificar</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>DWES</td>
+            <td>DAW</td>
+            <td>4</td>
+            <td>
+                <a href="#">
+                    <i class="small material-icons">edit</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>DWEC</td>
+            <td>DAW</td>
+            <td>5</td>
+            <td>
+                <a href="#">
+                    <i class="small material-icons">edit</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>IS</td>
+            <td>ASIR</td>
+            <td>6</td>
+            <td>
+                <a href="#">
+                    <i class="small material-icons">edit</i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
