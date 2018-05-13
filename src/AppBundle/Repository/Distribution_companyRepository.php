@@ -14,7 +14,7 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
     {
 
         return $this->getEntityManager()->createQuery("
-                                      SELECT cp.name as company_name, CONCAT(st.first_name,' ',st.last_name) as student_name
+                                      SELECT cp.name as company_name, CONCAT(us.first_name,' ',us.last_name) as user_name, CONCAT(st.first_name,' ',st.last_name) as student_name
                                       FROM AppBundle:Distribution_company ds,
                                       AppBundle:Company cp,AppBundle:Student st,
                                       AppBundle:User us 
