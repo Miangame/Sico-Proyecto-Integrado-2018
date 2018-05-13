@@ -1,0 +1,42 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+    <div class="row mt-2">
+        <div class="col s12 m6 centerTotalVertical z-depth-2 p-1 mt-1">
+            <img src="{{ asset('img/yuna.jpg') }}" alt="" class="circle">
+            <div class="row">
+                <div class="attributeUser">
+                    <h5>{{ company.name }}</h5>
+                </div>
+                <div class="attributeUser">
+                    <i class="material-icons prefix">perm_identity</i>
+                    <p>{{ company.cif }}</p>
+                </div>
+                <div class="attributeUser">
+                    <i class="material-icons prefix">mail_outline</i>
+                    <p>{{ company.email }}</p>
+                </div>
+                <div class="attributeUser">
+                    <i class="material-icons prefix">phone</i>
+                    <p>{{ company.phone }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col m6 s12 w-100">
+            <ul class="collection z-depth-1">
+                <li class="collection-item avatar p-2">
+                    <h5>Alumnos asignados</h5>
+                    <a class="waves-effect waves-light btn-small">
+                        Nueva asignación
+                    </a>
+                </li>
+                {% for distribution in distributions %}
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle">person</i>
+                        <span class="title">{{ distribution.student }}</span>
+                        <p class="subtitle-collection">{{ distribution.student.group }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

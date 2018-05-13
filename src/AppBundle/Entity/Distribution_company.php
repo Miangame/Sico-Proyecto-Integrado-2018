@@ -237,4 +237,9 @@ class Distribution_company
     {
         return $this->company;
     }
+
+    public function __toString()
+    {
+        return $this->getStudent().' / '.$this->getCompany();
+    }
 }

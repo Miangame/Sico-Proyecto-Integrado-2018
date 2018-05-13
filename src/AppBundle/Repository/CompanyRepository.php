@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Company;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -11,11 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class CompanyRepository extends EntityRepository
 {
+    /**
+     * Mostrar todas las empresas
+     * @return array
+     */
     public function getCompanies()
     {
-        $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select("t")
-            ->from("AppBundle:Company","t");
-        return $qb->getQuery()->getArrayResult();
+        return $this->findAll();
     }
 }

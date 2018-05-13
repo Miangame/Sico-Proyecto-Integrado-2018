@@ -30,6 +30,12 @@ $text-large: 2rem
     margin-bottom: $sizeSmall !important
 .mb-4
     margin-bottom: $sizeMedium !important
+.mt-1
+    margin-top: $sizeSSmall !important
+.mt-2
+    margin-top: $sizeSmall !important
+.mt-4
+    margin-top: $sizeMedium !important
 
 // PADING'S
 .p-0
@@ -81,6 +87,14 @@ $text-large: 2rem
     padding: 0px
     margin: 0px
     align-items: center
+    
+.centerTotalVertical
+    display: flex
+    padding: 0px
+    margin: 0px
+    justify-content: center
+    align-items: center
+    flex-flow: column
 
 .centerTotal
     display: flex
@@ -107,8 +121,5 @@ $text-large: 2rem
     display: grid
     grid-template-columns: 1fr auto
     grid-gap: 10px
-#form
-    div
-        ul
-            li
-                color: #ed1515
+form>div>div>ul>li
+    color: #ed1515

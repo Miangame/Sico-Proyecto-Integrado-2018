@@ -197,4 +197,9 @@ class Company
     {
         return $this->distribution_company;
     }
+
+    public function __toString()
+    {
+        return $this->getName().'--'.$this->getCif();
+    }
 }
