@@ -34,6 +34,18 @@
   margin-bottom: 40px !important;
 }
 
+.mt-1 {
+  margin-top: 10px !important;
+}
+
+.mt-2 {
+  margin-top: 20px !important;
+}
+
+.mt-4 {
+  margin-top: 40px !important;
+}
+
 .p-0 {
   padding: 0px !important;
 }
@@ -101,6 +113,15 @@
   align-items: center;
 }
 
+.centerTotalVertical {
+  display: flex;
+  padding: 0px;
+  margin: 0px;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
 .centerTotal {
   display: flex;
   justify-content: center;
@@ -138,6 +159,6 @@
   grid-gap: 10px;
 }
 
-#form div ul li {
+form > div > div > ul > li {
   color: #ed1515;
 }

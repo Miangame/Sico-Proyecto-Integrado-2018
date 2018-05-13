@@ -24,7 +24,7 @@
         <div class="alert alert-success">
             <script>
                 {% for msg in app.session.flashBag.get('success') %}
-                    M.toast({html: '<div class="msg_toast"><i class="small material-icons">check</i>{{ msg }}</div>', classes: 'rounded'});
+                    M.toast({html: '<div class="msg_toast"><i class="small material-icons">done</i>{{ msg }}</div>', classes: 'rounded'});
                 {% endfor %}
             </script>
 

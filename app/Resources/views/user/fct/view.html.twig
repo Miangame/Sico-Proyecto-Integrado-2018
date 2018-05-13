@@ -35,7 +35,7 @@
                 <tr>
                     <th>Nombre</th>
                     <th>CIF</th>
-                    <th>Valoración</th>
+                    <th>Mas info</th>
                     <th>Modificar</th>
                     <th>Eliminar</th>
                 </tr>
@@ -46,7 +46,11 @@
                     <tr>
                         <td>{{ company.name }}</td>
                         <td>{{ company.cif }}</td>
-                        <td>X</td>
+                        <td>
+                            <a href="{{ path('user_fct_show_company', {'id': company.id}) }}">
+                                <i class="small material-icons">info</i>
+                            </a>
+                        </td>
                         <td>
                             <a href="{{ path('user_fct_edit_company', {'id': company.id}) }}">
                                 <i class="small material-icons">edit</i>
@@ -119,7 +123,6 @@
                     <th>Empresa</th>
                     <th>Alumno</th>
                     <th>Modificar</th>
-                    <th>Valorar</th>
                     <th>Eliminar</th>
                 </tr>
                 </thead>
@@ -131,11 +134,6 @@
                         <td>
                             <a href="#">
                                 <i class="small material-icons">edit</i>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#">
-                                <i class="small material-icons">done_all</i>
                             </a>
                         </td>
                         <td>

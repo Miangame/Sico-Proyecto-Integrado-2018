@@ -255,4 +255,9 @@ class Student
     {
         return $this->group;
     }
+
+    public function __toString()
+    {
+        return $this->getFirstName().' '.$this->getLastName();
+    }
 }
