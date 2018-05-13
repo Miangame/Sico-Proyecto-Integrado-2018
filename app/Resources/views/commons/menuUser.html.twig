@@ -1,3 +1,10 @@
+{% set img = '' %}
+{% if user.img == null %}
+    {% set img = 'user.png' %}
+{% else %}
+    {% set img = user.img %}
+{% endif %}
+
 <nav>
     <div class="nav-wrapper">
         <a href="#" class="brand-logo center">
@@ -16,7 +23,7 @@
     <li>
         <div class="user-view backgroundUserMenu">
             <a href="#user">
-                <img class="circle" src="{{ asset('img/photos/' ~ user.img) }}">
+                <img class="circle" src="{{ asset('img/photos/' ~ img) }}">
             </a>
             <a href="#name">
                 <span class="white-text name">{{ user.username }}</span>
