@@ -10,4 +10,8 @@ namespace AppBundle\Repository;
  */
 class School_groupRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getGroups()
+    {
+        return $this->findAll();
+    }
 }

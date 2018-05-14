@@ -22,7 +22,7 @@ class UsersHelper
         $this->userManager = $userManager;
     }
 
-    public function getAllStudents()
+    public function getAllTeachers()
     {
         $allUsers = $this->userManager->findUsers();
         $users = array();
