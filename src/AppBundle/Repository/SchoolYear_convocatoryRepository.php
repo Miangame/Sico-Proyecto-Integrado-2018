@@ -10,4 +10,8 @@ namespace AppBundle\Repository;
  */
 class SchoolYear_convocatoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getSchoolYearConvocatories()
+    {
+        return $this->findAll();
+    }
 }

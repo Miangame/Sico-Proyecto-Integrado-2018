@@ -16,4 +16,14 @@ $(document).ready(function () {
     //Init tabs
     $('.tabs').tabs();
     $('ul.tabs').tabs();
+
+    //prepare modals callbacks
+    const modal = M.Modal.getInstance($('#modal'));
+
+    $('.modalDelete').on('click', function (event) {
+        event.preventDefault();
+
+        modal.open();
+        $("#actionDelete").prop('href', $(this).prop('href'));
+    });
 });

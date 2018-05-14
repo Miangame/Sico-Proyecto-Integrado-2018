@@ -14,4 +14,14 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->findAll();
     }
+
+    public function getAllStudentsWithGroup()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('t, u.name')
+            ->from('AppBundle:Student', 't')
+            ->join('t.group', 'u');
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

@@ -3,13 +3,14 @@
     <h2>Gestión de alumnos</h2>
     <a class="waves-effect waves-light btn">Importar</a>
     <a href="{{ path('new_student') }}" class="waves-effect waves-light btn">Crear alumnos</a>
-    <table class="responsive-table">
+    <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Ciclo</th>
             <th>Modificar</th>
+            <th>Borrar</th>
         </tr>
         </thead>
 
@@ -19,11 +20,30 @@
                 <td>{{ student[0].first_name }}</td>
                 <td>{{ student[0].last_name }}</td>
                 <td>{{ student.name }}</td>
-                <td><a href="#">
+                <td>
+                    <a href="{{ path('edit_student', {'id': student[0].id}) }}">
                         <i class="small material-icons">edit</i>
-                    </a></td>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('delete_student', {'id': student[0].id}) }}" class="modalDelete modal-trigger">
+                        <i class="small material-icons red-text">delete</i>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <!-- Modal Structure -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <p>¿Está seguro de borrar el estudiante?</p>
+        </div>
+        <div class="modal-footer">
+            <a id="actionDelete" href="#"
+               class="modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+    </div>
 {% endblock %}

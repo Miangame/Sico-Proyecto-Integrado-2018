@@ -22,7 +22,7 @@ class StudentsHelper
         /** @var StudentRepository $studentsRepository */
         $studentsRepository = $this->em->getRepository("AppBundle:Student");
 
-        return $studentsRepository->getAllStudents();
+        return $studentsRepository->getAllStudentsWithGroup();
     }
 
     public function prepareOptions()
