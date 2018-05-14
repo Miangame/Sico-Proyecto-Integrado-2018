@@ -12,6 +12,7 @@ services:
         arguments: ["@doctrine.orm.entity_manager", "@fos_user.user_manager"]
     app.companiesHelper:
         class: AppBundle\Services\CompaniesHelper
+        arguments: ["@doctrine.orm.entity_manager"]
     app.schoolGroupsHelper:
         class: AppBundle\Services\SchoolGroupsHelper
         arguments: ["@doctrine.orm.entity_manager"]

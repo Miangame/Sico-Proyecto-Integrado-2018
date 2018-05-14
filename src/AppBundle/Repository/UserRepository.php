@@ -9,6 +9,14 @@ class UserRepository extends EntityRepository
 {
     public function getUsers()
     {
-        return $this->findAll();
+        $users = $this->findAll();
+        $user_teacher = Array();
+        /** @var User $user */
+        foreach ($users as $user){
+            if ($user->hasRole("ROLE_TEACHER"))
+                $user_teacher[] = $user;
+        }
+
+        return $user_teacher;
     }
 }
