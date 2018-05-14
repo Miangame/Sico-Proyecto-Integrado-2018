@@ -90,8 +90,50 @@ class PanelStudentController extends Controller
      */
     public function editStudentAction(Request $request, Student $student)
     {
-        return $this->render('panel/student/edit.html.twig', array(
+        $groups = array();
+        $schoolYear_convocatories = array();
 
+        /** @var SchoolGroupsHelper $schoolGroupsHelper */
+        $schoolGroupsHelper = $this->get('app.schoolGroupsHelper');
+
+        /** @var SchoolYearConvocatoriesHelper $schoolYear_convocatoriesHelper */
+        $schoolYear_convocatoriesHelper = $this->get('app.schoolYearConvocatoriesHelper');
+
+        /** @var School_group $group */
+        foreach ($schoolGroupsHelper->getGroups() as $group) {
+            $groups[$group->__toString()] = $group;
+        }
+
+        /** @var SchoolYear_convocatory $schoolYearConvocatory */
+        foreach ($schoolYear_convocatoriesHelper->getSchoolYearConvocatories() as $schoolYearConvocatory) {
+            $schoolYear_convocatories[$schoolYearConvocatory->__toString()] = $schoolYearConvocatory;
+        }
+
+        $options = array(
+            "groups" => $groups,
+            "group_selected" => $student->getGroup(),
+            "convocatories" => $schoolYear_convocatories,
+            "schoolYear_convocatory_selected" => $student->getSchoolYearConvocatory()
+        );
+
+        $form = $this->createForm(StudentType::class, $student, $options);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $studentRequest = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($studentRequest);
+            $entityManager->flush();
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Alumno modificado');
+            return $this->redirectToRoute('panel_students');
+        }
+
+        return $this->render('panel/student/edit.html.twig', array(
+            'form' => $form->createView(),
+            'title' => "Modificar alumno",
         ));
     }
 
