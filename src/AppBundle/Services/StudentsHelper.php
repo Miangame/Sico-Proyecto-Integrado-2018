@@ -24,4 +24,17 @@ class StudentsHelper
 
         return $studentsRepository->getAllStudentsWithGroup();
     }
+
+    public function prepareOptions()
+    {
+        /** @var StudentRepository $studentsRepository */
+        $studentsRepository = $this->em->getRepository("AppBundle:Student");
+
+        $students = Array();
+
+        foreach ($studentsRepository->getAllStudents() as $student){
+            $students[$student->__toString()] = $student;
+        }
+        return $students;
+    }
 }

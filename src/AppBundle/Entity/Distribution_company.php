@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Distribution_company
@@ -20,20 +21,23 @@ class Distribution_company
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="User", inversedBy="distribution_company")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $user;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Student", inversedBy="distribution_company")
-     * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $student;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="distribution_company")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $company;
 

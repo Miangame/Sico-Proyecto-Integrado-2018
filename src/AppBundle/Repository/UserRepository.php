@@ -7,4 +7,8 @@ use FOS\UserBundle\Model\User;
 
 class UserRepository extends EntityRepository
 {
+    public function getUsers()
+    {
+        return $this->findAll();
+    }
 }
