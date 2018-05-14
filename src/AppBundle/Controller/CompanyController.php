@@ -40,7 +40,7 @@ class CompanyController extends Controller
                 ->add('success', 'Empresa creada')
             ;
 
-            return $this->redirectToRoute('user_fct');
+            return $this->redirectToRoute('user_fct', ['_fragment' => 'emp']);
 
         }
 
@@ -74,7 +74,7 @@ class CompanyController extends Controller
                 ->add('success', 'Empresa modificada')
             ;
 
-            return $this->redirectToRoute('user_fct');
+            return $this->redirectToRoute('user_fct', ['_fragment' => 'emp']);
 
         }
 
@@ -87,12 +87,17 @@ class CompanyController extends Controller
     /**
      * @Route("/user/fct/company/{id}/delete", name="user_fct_delete_company")
      */
-    public function deleteCopanyAction(Request $request,Company $company)
+    public function deleteCompanyAction(Request $request,Company $company)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($company);
         $em->flush();
-        return $this->redirectToRoute('user_fct');
+
+        $request->getSession()
+            ->getFlashBag()
+            ->add('success', 'Empresa borrada')
+        ;
+        return $this->redirectToRoute('user_fct', ['_fragment' => 'emp']);
     }
 
     /**

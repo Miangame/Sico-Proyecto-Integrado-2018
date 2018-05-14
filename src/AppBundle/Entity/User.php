@@ -251,4 +251,9 @@ class User extends BaseUser
     {
         return $this->to_distribute;
     }
+
+    public function __toString()
+    {
+        return $this->getFirstName().' '.$this->getLastName();
+    }
 }

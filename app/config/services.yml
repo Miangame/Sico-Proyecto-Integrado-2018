@@ -8,5 +8,8 @@ services:
         class: AppBundle\Services\StudentsHelper
         arguments: ["@doctrine.orm.entity_manager"]
     app.usersHelper:
-            class: AppBundle\Services\UsersHelper
-            arguments: ["@doctrine.orm.entity_manager", "@fos_user.user_manager"]
+        class: AppBundle\Services\UsersHelper
+        arguments: ["@doctrine.orm.entity_manager", "@fos_user.user_manager"]
+    app.companiesHelper:
+        class: AppBundle\Services\CompaniesHelper
+        arguments: ["@doctrine.orm.entity_manager"]

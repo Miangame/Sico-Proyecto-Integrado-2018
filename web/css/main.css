@@ -85,6 +85,10 @@
   width: 100%;
 }
 
+.ov-hidden {
+  overflow: hidden;
+}
+
 .backgroundUserMenu {
   background: #01161E;
 }
@@ -151,6 +155,14 @@
 .subtitle-collection {
   font-size: 0.8rem;
   color: grey;
+}
+
+.msg_toast_error {
+  background: #E53935 !important;
+}
+
+.msg_toast_success {
+  background: #40c950 !important;
 }
 
 .msg_toast {

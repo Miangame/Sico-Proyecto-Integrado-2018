@@ -36,4 +36,17 @@ class UsersHelper
 
         return $users;
     }
+
+    public function prepareOptions()
+    {
+        /** @var UserRepository $userRepository*/
+        $userRepository = $this->em->getRepository("AppBundle:User");
+
+        $users = Array();
+
+        foreach ($userRepository->getUsers() as $user){
+            $users[$user->__toString()] = $user;
+        }
+        return $users;
+    }
 }

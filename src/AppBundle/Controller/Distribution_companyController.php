@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Services\CompaniesHelper;
 
 class Distribution_companyController extends Controller
 {
@@ -24,9 +25,9 @@ class Distribution_companyController extends Controller
         $distribution = new Distribution_company();
 
         $options = Array(
-            "user" => Array("jponferrada"=>"1"),
-            "company" => Array("NoSoloSoftware"=>"1"),
-            "student" => Array("Federico"=>"1")
+            "user" => $this->get('app.usersHelper')->prepareOptions(),
+            "company" => $this->get('app.companiesHelper')->prepareOptions(),
+            "student" => $this->get('app.studentsHelper')->prepareOptions()
         );
 
         $form = $this->createForm(Distribution_CompanyType::class,$distribution,$options);
@@ -46,7 +47,7 @@ class Distribution_companyController extends Controller
                 ->add('success', 'Asignación creada')
             ;
 
-            return $this->redirectToRoute('user_fct');
+            return $this->redirectToRoute('user_fct', ['_fragment' => 'asign']);
 
         }
 
@@ -56,6 +57,62 @@ class Distribution_companyController extends Controller
             'form' => $form->createView(),
             'title' => "Nueva asignación",
         ));
+    }
+
+    /**
+     * @Route("/user/fct/distribution_company/{id}/edit", name="user_fct_edit_distribution_company")
+     */
+    public function editCopanyAction(Request $request, Distribution_company $distribution)
+    {
+        $options = Array(
+            "user" => $this->get('app.usersHelper')->prepareOptions(),
+            "user_selected" => $distribution->getUser(),
+            "company" => $this->get('app.companiesHelper')->prepareOptions(),
+            "company_selected" => $distribution->getCompany(),
+            "student" => $this->get('app.studentsHelper')->prepareOptions(),
+            "student_selected" => $distribution->getStudent(),
+        );
+
+        $form = $this->createForm(Distribution_CompanyType::class,$distribution,$options);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $companyRequest = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($companyRequest);
+            $entityManager->flush();
+
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Asignación modificada')
+            ;
+
+            return $this->redirectToRoute( 'user_fct', ['_fragment' => 'asign']);
+
+        }
+
+        return $this->render('user/fct/distribution_company/edit.html.twig', array(
+            'form' => $form->createView(),
+            'title' => "Modificar asignación",
+        ));
+    }
+
+    /**
+     * @Route("/user/fct/distribution_company/{id}/delete", name="user_fct_delete_distribution_company")
+     */
+    public function deleteCompanyAction(Request $request,Distribution_company $distribution_company)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($distribution_company);
+        $em->flush();
+
+        $request->getSession()
+            ->getFlashBag()
+            ->add('success', 'Asignación borrada')
+        ;
+        return $this->redirectToRoute('user_fct', ['_fragment' => 'asign']);
     }
 
 }
