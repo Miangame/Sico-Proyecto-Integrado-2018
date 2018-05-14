@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Student
@@ -20,17 +21,19 @@ class Student
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(name="first_name", type="string", nullable=false)
      */
     private $first_name;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(name="last_name", type="string", nullable=false)
      */
     private $last_name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="School_group", inversedBy="students_groups")
+     * @ORM\ManyToOne(targetEntity="School_group", inversedBy="students_groups", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $group;
@@ -46,7 +49,7 @@ class Student
     private $distribution_company;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SchoolYear_convocatory", inversedBy="students")
+     * @ORM\ManyToOne(targetEntity="SchoolYear_convocatory", inversedBy="students", cascade={"persist"})
      * @ORM\JoinColumn(name="schoolYear_convocatory_id", referencedColumnName="id", nullable=false)
      */
     private $schoolYear_convocatory;

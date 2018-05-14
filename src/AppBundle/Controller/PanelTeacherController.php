@@ -21,7 +21,7 @@ class PanelTeacherController extends Controller
         /** @var UsersHelper $usersHelper */
         $usersHelper = $this->get('app.usersHelper');
 
-        $teachers = $usersHelper->getAllStudents();
+        $teachers = $usersHelper->getAllTeachers();
 
         return $this->render('panel/teacher/view.html.twig', array(
             'teachers' => $teachers
