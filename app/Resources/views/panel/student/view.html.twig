@@ -16,7 +16,6 @@
 
         <tbody>
         {% for student in students %}
-            {% set modal = "modal" ~ student[0].id %}
             <tr>
                 <td>{{ student[0].first_name }}</td>
                 <td>{{ student[0].last_name }}</td>
@@ -27,23 +26,24 @@
                     </a>
                 </td>
                 <td>
-                    <a href="#{{ modal }}" class="modal-trigger">
+                    <a href="{{ path('delete_student', {'id': student[0].id}) }}" class="modalDelete modal-trigger">
                         <i class="small material-icons red-text">delete</i>
                     </a>
                 </td>
             </tr>
-            <!-- Modal Structure -->
-            <div id="{{ modal }}" class="modal">
-                <div class="modal-content">
-                    <p>¿Está seguro de borrar el estudiante?</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="{{ path('delete_student', {'id': student[0].id}) }}" class="modal-close waves-effect waves-green btn-flat">Si</a>
-                    <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-                </div>
-            </div>
         {% endfor %}
         </tbody>
     </table>
 
+    <!-- Modal Structure -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <p>¿Está seguro de borrar el estudiante?</p>
+        </div>
+        <div class="modal-footer">
+            <a id="actionDelete" href="#"
+               class="modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+    </div>
 {% endblock %}
