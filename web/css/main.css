@@ -89,6 +89,10 @@
   overflow: hidden;
 }
 
+.text-justify-total {
+  text-align: justify;
+}
+
 .backgroundUserMenu {
   background: #01161E;
 }

@@ -19,3 +19,6 @@ services:
     app.schoolYearConvocatoriesHelper:
         class: AppBundle\Services\SchoolYearConvocatoriesHelper
         arguments: ["@doctrine.orm.entity_manager"]
+    app.projectsHelper:
+        class: AppBundle\Services\ProjectsHelper
+        arguments: ["@doctrine.orm.entity_manager"]

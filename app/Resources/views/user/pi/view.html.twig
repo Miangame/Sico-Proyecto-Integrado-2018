@@ -1,0 +1,100 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+    <h3 class="col s12">PI</h3>
+    <div class="row">
+        <div class="col s12 p-0">
+            <ul class="tabs z-depth-1 mb-2">
+                <li class="tab col s3">
+                    <a class="active" href="#proj">Proyectos</a>
+                </li>
+                <li class="tab col s3">
+                    <a href="#asign">Asignaciones</a>
+                </li>
+            </ul>
+        </div>
+        <div id="proj" class="col s12 p-1">
+            <h5>Proyectos</h5>
+            <div class="row">
+                <div class="col s12 right-align">
+                    <a href="{{ path('user_pi_new_project') }}" class="waves-effect waves-light btn-small">
+                        Nuevo proyecto
+                    </a>
+                </div>
+            </div>
+
+            <table class="responsive-table centered z-depth-1">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Alumnos requeridos</th>
+                    <th>Más info</th>
+                    <th>Modificar</th>
+                    <th>Borrar</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ project.getName() }}</td>
+                        <td>{{ project.getRequiredStudents() ? project.getRequiredStudents() : "~"}}</td>
+                        <td>
+                            <a href="{{ path('user_pi_show_project',{'id': project.getId()}) }}">
+                                <i class="small material-icons">info</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('user_pi_edit_project',{'id': project.getId()}) }}">
+                                <i class="small material-icons">edit</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('user_pi_delete_project',{'id': project.getId()}) }}">
+                                <i class="small red-text material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="asign" class="col p-1 s12">
+            <h5>Asignaciones</h5>
+            <div class="row">
+                <div class="col s12 right-align">
+                    <a href="" class="waves-effect waves-light btn-small">
+                        Nueva asignación
+                    </a>
+                </div>
+            </div>
+
+            <table class="responsive-table centered z-depth-1">
+                <thead>
+                <tr>
+                    <th>Proyecto</th>
+                    <th>Alumno</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Shikova</td>
+                    <td>Javier Ponferrada</td>
+                    <td>
+                        <a href="#">
+                            <i class="small material-icons">edit</i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#">
+                            <i class="small red-text material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
