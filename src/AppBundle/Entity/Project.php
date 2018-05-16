@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Project
@@ -20,14 +21,23 @@ class Project
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
     /**
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @Assert\Range(
+     *      min = "1",
+     *      max = "9")
+     * @ORM\Column(name="required_students", type="integer", nullable=true)
+     */
+    private $required_students;
 
     /**
      * @ORM\OneToMany(targetEntity="Distribution_project", mappedBy="project")
@@ -131,5 +141,29 @@ class Project
     public function getDistributionProject()
     {
         return $this->distribution_project;
+    }
+
+    /**
+     * Set requiredStudents
+     *
+     * @param integer $requiredStudents
+     *
+     * @return Project
+     */
+    public function setRequiredStudents($requiredStudents)
+    {
+        $this->required_students = $requiredStudents;
+
+        return $this;
+    }
+
+    /**
+     * Get requiredStudents
+     *
+     * @return integer
+     */
+    public function getRequiredStudents()
+    {
+        return $this->required_students;
     }
 }

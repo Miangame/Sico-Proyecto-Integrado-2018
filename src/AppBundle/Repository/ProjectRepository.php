@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class ProjectRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Mostrar todos los proyectos
+     * @return array
+     */
+    public function getProjects()
+    {
+        return $this->findAll();
+    }
 }
