@@ -38,6 +38,7 @@ class PanelTeacherController extends Controller
     public function newTeacherAction(Request $request)
     {
         $ext = "";
+        $filename = "";
         $teacher = new User();
 
         $teacher->setEnabled(true);
@@ -73,7 +74,9 @@ class PanelTeacherController extends Controller
             /** @var User $teachertRequest */
             $teachertRequest = $form->getData();
 
-            $teachertRequest->setImg($filename);
+            if ($filename != "") {
+                $teachertRequest->setImg($filename);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($teachertRequest);
