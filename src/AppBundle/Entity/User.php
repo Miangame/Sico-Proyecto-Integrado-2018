@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="User")
@@ -19,11 +20,13 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
     protected $first_name;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
     protected $last_name;
