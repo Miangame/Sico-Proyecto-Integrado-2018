@@ -7,8 +7,10 @@ use AppBundle\Entity\User;
 use AppBundle\Form\TeacherType;
 use AppBundle\Services\UsersHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @Route("/panel/teacher")
@@ -35,6 +37,7 @@ class PanelTeacherController extends Controller
      */
     public function newTeacherAction(Request $request)
     {
+        $ext = "";
         $teacher = new User();
 
         $teacher->setEnabled(true);
@@ -46,7 +49,32 @@ class PanelTeacherController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var File $file */
+            $file = $form['img']->getData();
+            if ($file != null) {
+                $mimeType = $file->getMimeType();
+                switch ($mimeType) {
+                    case 'image/gif':
+                        $ext = ".gif";
+                        break;
+                    case 'image/jpeg':
+                        $ext = ".jpeg";
+                        break;
+                    case 'image/png':
+                        $ext = ".png";
+                        break;
+                }
+                $filename = $form['username']->getData() . $ext;
+                $file->move(
+                    $this->getParameter('photos_directory'),
+                    $filename
+                );
+            }
+            /** @var User $teachertRequest */
             $teachertRequest = $form->getData();
+
+            $teachertRequest->setImg($filename);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($teachertRequest);
             $entityManager->flush();
