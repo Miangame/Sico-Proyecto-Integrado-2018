@@ -1,7 +1,15 @@
 {% extends 'panel/base.html.twig' %}
 {% block body %}
     <h2>Gestión de alumnos</h2>
-    <a href="{{ path('new_student') }}" class="waves-effect waves-light btn">Crear alumnos</a>
+
+    <a href="{{ path('new_student') }}" class="waves-effect waves-light btn" id="createStudent">Crear alumnos</a>
+    <div id="containerSelectCycleStudent">
+        <select name="" id="selectCycleStudent">
+            <option value="todos">Todos</option>
+            <option value="2DAW">DAW</option>
+            <option value="2ASIR">ASIR</option>
+        </select>
+    </div>
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
@@ -13,7 +21,7 @@
         </tr>
         </thead>
 
-        <tbody>
+        <tbody id="studentsTable">
         {% for student in students %}
             <tr>
                 <td>{{ student[0].first_name }}</td>
@@ -45,4 +53,37 @@
             <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
         </div>
     </div>
+
+    <script>
+        {
+            let selectCycleStudents = function () {
+                let input, filter, table, tr, td, i;
+                let ciclo = $(this).val();
+
+                table = document.getElementById("myTable");
+                table = $("#studentsTable");
+                tr = $("#studentsTable tr");
+
+
+                for (i = 0; i < tr.length; i++) {
+                    if (ciclo === "todos") {
+                        tr[i].style.display = "";
+                    } else {
+                        td = tr[i].getElementsByTagName("td")[2];
+                        if (td) {
+                            if (td.innerHTML.toUpperCase().indexOf(ciclo) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            };
+
+            $(function () {
+                $("#selectCycleStudent").on("change", selectCycleStudents)
+            });
+        }
+    </script>
 {% endblock %}

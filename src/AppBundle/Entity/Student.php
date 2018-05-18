@@ -220,7 +220,7 @@ class Student
      */
     public function setGroupId(\AppBundle\Entity\School_group $groupId)
     {
-        $this->group_id = $groupId;
+        $this->group = $groupId;
 
         return $this;
     }
@@ -232,7 +232,7 @@ class Student
      */
     public function getGroupId()
     {
-        return $this->group_id;
+        return $this->group;
     }
 
     /**

@@ -11,6 +11,7 @@
             <th>Apellidos</th>
             <th>Email</th>
             <th>Para repartir</th>
+            <th>Enviar contraseña</th>
             <th>Modificar</th>
             <th>Borrar</th>
         </tr>
@@ -36,6 +37,17 @@
                             Si
                         </label>
                     </div>
+                </td>
+                <td>
+                    <form action="{{ path('fos_user_resetting_send_email') }}" method="POST"
+                          class="fos_user_resetting_request">
+
+                        <input type="hidden" id="username" name="username" value="{{ teacher.email }}"/>
+
+                        <div>
+                            <input type="submit" class="small material-icons" value="send"/>
+                        </div>
+                    </form>
                 </td>
                 <td>
                     <a href="{{ path('edit_teacher', {'id':teacher.id}) }}">
