@@ -10,4 +10,8 @@ namespace AppBundle\Repository;
  */
 class ConvocatoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAllConvocatories()
+    {
+        return $this->findAll();
+    }
 }

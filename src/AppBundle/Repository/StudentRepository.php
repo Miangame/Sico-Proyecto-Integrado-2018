@@ -18,9 +18,11 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
     public function getAllStudentsWithGroup()
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t, u.name')
+            ->select('t, u.name, w.convocatory')
             ->from('AppBundle:Student', 't')
-            ->join('t.group', 'u');
+            ->join('t.group', 'u')
+            ->join('t.schoolYear_convocatory', 'x')
+            ->join('x.convocatory', 'w');
 
         return $qb->getQuery()->getArrayResult();
     }
