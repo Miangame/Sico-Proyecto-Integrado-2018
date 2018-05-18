@@ -18,7 +18,8 @@ class UserPIController extends Controller
         $em = $this->getDoctrine();
 
         return $this->render('user/pi/view.html.twig', array(
-            'projects' => $this->get('app.projectsHelper')->getAllProject()
+            'projects' => $this->get('app.projectsHelper')->getAllProject(),
+            'distributions' => $this->get('app.distributionprojectHelper')->getAllDistribution()
         ));
     }
 

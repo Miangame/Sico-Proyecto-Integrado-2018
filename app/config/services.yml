@@ -22,3 +22,6 @@ services:
     app.projectsHelper:
         class: AppBundle\Services\ProjectsHelper
         arguments: ["@doctrine.orm.entity_manager"]
+    app.distributionprojectHelper:
+        class: AppBundle\Services\DistributionsProjectsHelper
+        arguments: ["@doctrine.orm.entity_manager"]
