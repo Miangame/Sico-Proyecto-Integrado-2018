@@ -17,13 +17,11 @@ $(document).ready(function () {
     $('.tabs').tabs();
     $('ul.tabs').tabs();
 
-    //prepare modals callbacks
-    const modal = M.Modal.getInstance($('#modal'));
-
     $('.modalDelete').on('click', function (event) {
         event.preventDefault();
 
-        modal.open();
-        $("#actionDelete").prop('href', $(this).prop('href'));
+        const nameModal = '#'+$(this).data('modal');
+        M.Modal.getInstance($(nameModal)).open();
+        $(nameModal+' .actionDelete').prop('href', $(this).prop('href'));
     });
 });

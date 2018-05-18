@@ -44,7 +44,7 @@ class UsersHelper
 
         $users = Array();
 
-        foreach ($userRepository->getUsers() as $user){
+        foreach ($userRepository->getUsersValid() as $user){
             $users[$user->__toString()] = $user;
         }
         return $users;
