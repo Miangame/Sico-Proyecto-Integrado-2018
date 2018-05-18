@@ -55,7 +55,7 @@
                     </a>
                 </td>
                 <td>
-                    <a href="{{ path('delete_teacher', {'id': teacher.id}) }}" class="modalDelete modal-trigger">
+                    <a data-modal="modalTeacher"  href="{{ path('delete_teacher', {'id': teacher.id}) }}" class="modalDelete modal-trigger">
                         <i class="small material-icons red-text">delete</i>
                     </a>
                 </td>
@@ -66,13 +66,13 @@
     </table>
 
     <!-- Modal Structure -->
-    <div id="modal" class="modal">
+    <div id="modalTeacher" class="modal">
         <div class="modal-content">
             <p>¿Está seguro de borrar el profesor?</p>
         </div>
         <div class="modal-footer">
-            <a id="actionDelete" href="#"
-               class="modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#"
+               class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
             <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
         </div>
     </div>

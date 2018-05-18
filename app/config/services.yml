@@ -24,6 +24,7 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
     app.convocatoriesHelper:
         class: AppBundle\Services\ConvocatoriesHelper
+        arguments: ["@doctrine.orm.entity_manager"]
     app.distributionprojectHelper:
         class: AppBundle\Services\DistributionsProjectsHelper
         arguments: ["@doctrine.orm.entity_manager"]
