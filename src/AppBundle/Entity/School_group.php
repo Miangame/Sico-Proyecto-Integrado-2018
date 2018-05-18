@@ -179,7 +179,7 @@ class School_group
      */
     public function addStudent(\AppBundle\Entity\Student $student)
     {
-        $this->students[] = $student;
+        $this->students_groups[] = $student;
 
         return $this;
     }
@@ -191,7 +191,7 @@ class School_group
      */
     public function removeStudent(\AppBundle\Entity\Student $student)
     {
-        $this->students->removeElement($student);
+        $this->students_groups->removeElement($student);
     }
 
     /**
@@ -201,7 +201,7 @@ class School_group
      */
     public function getStudents()
     {
-        return $this->students;
+        return $this->students_groups;
     }
 
     public function __toString()

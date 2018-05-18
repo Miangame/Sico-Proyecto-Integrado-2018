@@ -147,4 +147,12 @@ class PanelTeacherController extends Controller
 
         return $this->redirectToRoute('panel_teachers');
     }
+
+    /**
+     * @Route("/reset_password", name="reset_password_teacher")
+     */
+    public function resetPasswordTeacherAction(Request $request, User $teacher)
+    {
+        return $this->redirectToRoute('panel_teachers');
+    }
 }
