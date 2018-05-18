@@ -62,7 +62,7 @@
             <h5>Asignaciones</h5>
             <div class="row">
                 <div class="col s12 right-align">
-                    <a href="" class="waves-effect waves-light btn-small">
+                    <a href="{{ path('user_pi_new_distribution_project') }}" class="waves-effect waves-light btn-small">
                         Nueva asignación
                     </a>
                 </div>
@@ -73,25 +73,29 @@
                 <tr>
                     <th>Proyecto</th>
                     <th>Alumno</th>
+                    <th>Tutor</th>
                     <th>Modificar</th>
                     <th>Eliminar</th>
                 </tr>
                 </thead>
                 <tbody>
+                {% for distribution in distributions %}
                 <tr>
-                    <td>Shikova</td>
-                    <td>Javier Ponferrada</td>
+                    <td>{{ distribution.getProject() }}</td>
+                    <td>{{ distribution.getStudent() }}</td>
+                    <td>{{ distribution.getUser() }}</td>
                     <td>
-                        <a href="#">
+                        <a href="{{ path('user_pi_edit_distribution_project',{'id': distribution.getId()}) }}">
                             <i class="small material-icons">edit</i>
                         </a>
                     </td>
                     <td>
-                        <a href="#">
+                        <a href="{{ path('user_pi_delete_distribution_project',{'id': distribution.getId()}) }}">
                             <i class="small red-text material-icons">delete</i>
                         </a>
                     </td>
                 </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>

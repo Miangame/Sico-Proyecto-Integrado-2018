@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Distribution_project
@@ -22,18 +23,21 @@ class Distribution_project
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="User", inversedBy="distribution_project")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Student", inversedBy="distribution_project")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false)
      */
     private $student;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="distribution_project")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
      */

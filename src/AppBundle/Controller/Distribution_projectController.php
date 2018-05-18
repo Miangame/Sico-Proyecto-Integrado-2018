@@ -2,44 +2,39 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Distribution_company;
+use AppBundle\Entity\Distribution_project;
 use AppBundle\Entity\User;
-use AppBundle\Form\CompanyType;
-use AppBundle\Form\Distribution_CompanyType;
-use AppBundle\Repository\CompanyRepository;
-use AppBundle\Repository\Distribution_companyRepository;
-use AppBundle\Repository\Request_companyRepository;
+use AppBundle\Form\Distribution_ProjectType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Services\CompaniesHelper;
 
-class Distribution_companyController extends Controller
+class Distribution_projectController extends Controller
 {
     /**
-     * @Route("/user/fct/distribution_company/new", name="user_fct_new_distribution_company")
+     * @Route("/user/pi/distribution_project/new", name="user_pi_new_distribution_project")
      */
-    public function newDistributionCompanyAction(Request $request)
+    public function newDistributionProjectAction(Request $request)
     {
-        $distribution = new Distribution_company();
+        $distribution = new Distribution_project();
 
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
-            "company" => $this->get('app.companiesHelper')->prepareOptions(),
+            "project" => $this->get('app.projectsHelper')->prepareOptions(),
             "student" => $this->get('app.studentsHelper')->prepareOptions()
         );
 
-        $form = $this->createForm(Distribution_CompanyType::class,$distribution,$options);
+        $form = $this->createForm(Distribution_ProjectType::class,$distribution,$options);
 
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $companyRequest = $form->getData();
+            $formRequest = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($companyRequest);
+            $entityManager->persist($formRequest);
             $entityManager->flush();
 
             $request->getSession()
@@ -47,33 +42,33 @@ class Distribution_companyController extends Controller
                 ->add('success', 'Asignación creada')
             ;
 
-            return $this->redirectToRoute('user_fct', ['_fragment' => 'asign']);
+            return $this->redirectToRoute('user_pi', ['_fragment' => 'asign']);
 
         }
 
 
 
-        return $this->render('user/fct/distribution_company/new.html.twig', array(
+        return $this->render('user/pi/distribution_project/new.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nueva asignación",
         ));
     }
 
     /**
-     * @Route("/user/fct/distribution_company/{id}/edit", name="user_fct_edit_distribution_company")
+     * @Route("/user/pi/distribution_project/{id}/edit", name="user_pi_edit_distribution_project")
      */
-    public function editCompanyAction(Request $request, Distribution_company $distribution)
+    public function editProjectAction(Request $request, Distribution_project $distribution)
     {
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "user_selected" => $distribution->getUser(),
-            "company" => $this->get('app.companiesHelper')->prepareOptions(),
-            "company_selected" => $distribution->getCompany(),
+            "project" => $this->get('app.projectsHelper')->prepareOptions(),
+            "project_selected" => $distribution->getProject(),
             "student" => $this->get('app.studentsHelper')->prepareOptions(),
             "student_selected" => $distribution->getStudent(),
         );
 
-        $form = $this->createForm(Distribution_CompanyType::class,$distribution,$options);
+        $form = $this->createForm(Distribution_ProjectType::class,$distribution,$options);
 
         $form->handleRequest($request);
 
@@ -89,30 +84,31 @@ class Distribution_companyController extends Controller
                 ->add('success', 'Asignación modificada')
             ;
 
-            return $this->redirectToRoute( 'user_fct', ['_fragment' => 'asign']);
+            return $this->redirectToRoute( 'user_pi', ['_fragment' => 'asign']);
 
         }
 
-        return $this->render('user/fct/distribution_company/edit.html.twig', array(
+        return $this->render('user/pi/distribution_project/edit.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar asignación",
         ));
     }
 
     /**
-     * @Route("/user/fct/distribution_company/{id}/delete", name="user_fct_delete_distribution_company")
+     * @Route("/user/pi/distribution_project/{id}/delete", name="user_pi_delete_distribution_project")
      */
-    public function deleteCompanyAction(Request $request,Distribution_company $distribution_company)
+    public function deleteProjectAction(Request $request,Distribution_project $distribution_project)
     {
         $em = $this->getDoctrine()->getManager();
-        $em->remove($distribution_company);
+        $em->remove($distribution_project);
         $em->flush();
 
         $request->getSession()
             ->getFlashBag()
             ->add('success', 'Asignación borrada')
         ;
-        return $this->redirectToRoute('user_fct', ['_fragment' => 'asign']);
+        return $this->redirectToRoute('user_pi', ['_fragment' => 'asign']);
     }
+
 
 }
