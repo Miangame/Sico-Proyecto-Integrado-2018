@@ -10,12 +10,21 @@
             <option value="2ASIR">ASIR</option>
         </select>
     </div>
+    <div id="containerSelectConvocatoryStudent">
+        <select name="" id="selectConvocatoryStudent">
+            <option value="todos">Todos</option>
+            {% for convocatory in convocatories %}
+                <option value="{{ convocatory.convocatory }}">{{ convocatory.convocatory }}</option>
+            {% endfor %}
+        </select>
+    </div>
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Ciclo</th>
+            <th>Convocatoria</th>
             <th>Modificar</th>
             <th>Borrar</th>
         </tr>
@@ -27,6 +36,7 @@
                 <td>{{ student[0].first_name }}</td>
                 <td>{{ student[0].last_name }}</td>
                 <td>{{ student.name }}</td>
+                <td>{{ student.convocatory }}</td>
                 <td>
                     <a href="{{ path('edit_student', {'id': student[0].id}) }}">
                         <i class="small material-icons">edit</i>
@@ -57,13 +67,10 @@
     <script>
         {
             let selectCycleStudents = function () {
-                let input, filter, table, tr, td, i;
+                let tr, td, i;
                 let ciclo = $(this).val();
 
-                table = document.getElementById("myTable");
-                table = $("#studentsTable");
                 tr = $("#studentsTable tr");
-
 
                 for (i = 0; i < tr.length; i++) {
                     if (ciclo === "todos") {
@@ -81,8 +88,33 @@
                 }
             };
 
+            let selectConvocatoryStudents = function () {
+                let tr, td, i;
+                let convocatoria = $(this).val();
+
+                tr = $("#studentsTable tr");
+
+                for (i = 0; i < tr.length; i++) {
+
+                    if (convocatoria === "todos") {
+                        tr[i].style.display = "";
+                    } else {
+                        td = tr[i].getElementsByTagName("td")[3];
+
+                        if (td) {
+                            if (td.innerHTML.toUpperCase() === convocatoria.toUpperCase()) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            };
+
             $(function () {
-                $("#selectCycleStudent").on("change", selectCycleStudents)
+                $("#selectCycleStudent").on("change", selectCycleStudents);
+                $("#selectConvocatoryStudent").on("change", selectConvocatoryStudents);
             });
         }
     </script>

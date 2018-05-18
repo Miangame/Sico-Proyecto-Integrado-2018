@@ -7,6 +7,7 @@ use AppBundle\Entity\School_group;
 use AppBundle\Entity\SchoolYear_convocatory;
 use AppBundle\Entity\Student;
 use AppBundle\Form\StudentType;
+use AppBundle\Services\ConvocatoriesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
 use AppBundle\Services\SchoolYearConvocatoriesHelper;
 use AppBundle\Services\StudentsHelper;
@@ -27,10 +28,16 @@ class PanelStudentController extends Controller
         /** @var StudentsHelper $studentsHelper */
         $studentsHelper = $this->get('app.studentsHelper');
 
+        /** @var ConvocatoriesHelper $convocatoriesHelper */
+        $convocatoriesHelper = $this->get('app.convocatoriesHelper');
+
+        $convocatories = $convocatoriesHelper->getAllConvocatories();
+
         $students = $studentsHelper->getAllStudents();
 
         return $this->render('panel/student/view.html.twig', array(
-            'students' => $students
+            'students' => $students,
+            'convocatories' => $convocatories
         ));
     }
 
