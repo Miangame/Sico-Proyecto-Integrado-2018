@@ -166,4 +166,9 @@ class Project
     {
         return $this->required_students;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

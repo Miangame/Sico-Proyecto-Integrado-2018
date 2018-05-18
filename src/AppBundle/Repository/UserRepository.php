@@ -19,4 +19,17 @@ class UserRepository extends EntityRepository
 
         return $user_teacher;
     }
+
+    public function getUsersValid(){
+        $users = $this->findBy(Array("to_distribute"=>"1"));
+
+        $user_teacher = Array();
+        /** @var User $user */
+        foreach ($users as $user){
+            if ($user->hasRole("ROLE_TEACHER"))
+                $user_teacher[] = $user;
+        }
+
+        return $user_teacher;
+    }
 }

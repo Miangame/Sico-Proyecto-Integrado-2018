@@ -10,4 +10,7 @@ namespace AppBundle\Repository;
  */
 class Distribution_projectRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getDistribution(){
+        return $this->findAll();
+    }
 }
