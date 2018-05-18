@@ -57,7 +57,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{ path('user_fct_delete_company', {'id': company.id}) }}">
+                            <a data-modal="modalCompany" class="modalDelete" href="{{ path('user_fct_delete_company', {'id': company.id}) }}">
                                 <i class="small material-icons red-text">delete</i>
                             </a>
                         </td>
@@ -65,6 +65,18 @@
                 {% endfor %}
                 </tbody>
             </table>
+
+            <!-- Modal Structure -->
+            <div id="modalCompany" class="modal">
+                <div class="modal-content">
+                    <p>¿Está seguro de borrar la empresa?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#"
+                       class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+                    <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                </div>
+            </div>
         </div>
         <div id="solemp" class="col p-1 s12 ">
             <h5>Solicitudes empresas</h5>
@@ -106,6 +118,7 @@
                 {% endfor %}
                 </tbody>
             </table>
+
         </div>
         <div id="asign" class="col p-1 s12">
             <h5>Asignaciones</h5>
@@ -139,7 +152,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{ path('user_fct_delete_distribution_company',{'id': distribution.id}) }}">
+                            <a data-modal="modalAsign" class="modalDelete" href="{{ path('user_fct_delete_distribution_company',{'id': distribution.id}) }}">
                                 <i class="small material-icons red-text">delete</i>
                             </a>
                         </td>
@@ -147,6 +160,17 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <!-- Modal Structure -->
+            <div id="modalAsign" class="modal">
+                <div class="modal-content">
+                    <p>¿Está seguro de borrar la asignación?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#"
+                       class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+                    <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                </div>
+            </div>
         </div>
     </div>
 
