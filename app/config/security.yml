@@ -40,4 +40,4 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/panel, role: ROLE_ADMIN }
         - { path: ^/user, role: ROLE_TEACHER }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+    #    - { path: ^/admin/, role: ROLE_ADMIN }
