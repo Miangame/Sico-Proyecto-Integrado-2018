@@ -25,10 +25,14 @@ class UserFctController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine();
 
+        $current_user = $this->getUser();
+
         return $this->render('user/fct/view.html.twig', array(
             'companies' => $em->getRepository(Company::class)->getCompanies(),
             'request_companies' => $em->getRepository(Request_company::class)->getRequestCompanies(),
-            'distribution_companies' => $em->getRepository(Distribution_company::class)->getDistributionsCompanies()
+            'distribution_companies' => $em->getRepository(
+                Distribution_company::class)
+                ->getDistributionsCompaniesConvocatory($current_user->getCurrentConvocatory())
         ));
     }
 }

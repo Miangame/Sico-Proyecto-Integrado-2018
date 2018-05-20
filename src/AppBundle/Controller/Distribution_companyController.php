@@ -23,11 +23,12 @@ class Distribution_companyController extends Controller
     public function newDistributionCompanyAction(Request $request)
     {
         $distribution = new Distribution_company();
+        $current_user = $this->getUser();
 
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "company" => $this->get('app.companiesHelper')->prepareOptions(),
-            "student" => $this->get('app.studentsHelper')->prepareOptions()
+            "student" => $this->get('app.studentsHelper')->prepareOptions($current_user->getCurrentConvocatory())
         );
 
         $form = $this->createForm(Distribution_CompanyType::class,$distribution,$options);
@@ -64,14 +65,17 @@ class Distribution_companyController extends Controller
      */
     public function editCompanyAction(Request $request, Distribution_company $distribution)
     {
+        $current_user = $this->getUser();
+
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "user_selected" => $distribution->getUser(),
             "company" => $this->get('app.companiesHelper')->prepareOptions(),
             "company_selected" => $distribution->getCompany(),
-            "student" => $this->get('app.studentsHelper')->prepareOptions(),
+            "student" => $this->get('app.studentsHelper')->prepareOptions($current_user->getCurrentConvocatory()),
             "student_selected" => $distribution->getStudent(),
         );
+
 
         $form = $this->createForm(Distribution_CompanyType::class,$distribution,$options);
 

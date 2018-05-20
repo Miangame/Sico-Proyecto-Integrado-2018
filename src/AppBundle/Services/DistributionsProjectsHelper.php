@@ -18,4 +18,9 @@ class DistributionsProjectsHelper
     public function getAllDistribution(){
         return $this->em->getRepository("AppBundle:Distribution_project")->getDistribution();
     }
+    public function getDistributionConvocatory($convocatory){
+        return $this->em->getRepository(
+                "AppBundle:Distribution_project")->getDistributionConvocatory($convocatory);
+
+    }
 }

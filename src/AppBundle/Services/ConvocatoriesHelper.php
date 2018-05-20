@@ -22,4 +22,17 @@ class ConvocatoriesHelper
 
         return $convocatoriesRepository->getAllConvocatories();
     }
+
+    public function prepareOptions($current_convocatory = null)
+    {
+        /** @var ConvocatoryRepository $convocatoriesRepository */
+        $convocatoriesRepository = $this->em->getRepository("AppBundle:Convocatory");
+
+        $convocatories = Array();
+
+        foreach ($convocatoriesRepository->getConvocatories($current_convocatory) as $convocatory){
+            $convocatories[$convocatory["convocatory"]] = $convocatory["id"];
+        }
+        return $convocatories;
+    }
 }

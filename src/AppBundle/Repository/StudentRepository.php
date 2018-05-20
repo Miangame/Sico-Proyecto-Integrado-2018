@@ -10,9 +10,13 @@ namespace AppBundle\Repository;
  */
 class StudentRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getAllStudents()
+    public function getAllStudents($convocatory = null)
     {
         return $this->findAll();
+    }
+
+    public function getAllStudentsConvocatory($convocatory){
+        return $this->findBy(Array("convocatory"=>$convocatory));
     }
 
     public function getAllStudentsWithGroup()
