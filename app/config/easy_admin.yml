@@ -24,8 +24,6 @@ easy_admin:
                     - { property: 'roles', type: 'choice', type_options: { multiple: true , choices: { 'ADMINISTRADOR': 'ROLE_ADMIN', 'PROFESOR': 'ROLE_TEACHER' }, required: true } }
         Student:
             class: AppBundle\Entity\Student
-        SchoolYear_convocatory:
-            class: AppBundle\Entity\SchoolYear_convocatory
         SchoolYear:
             class: AppBundle\Entity\SchoolYear
         SchoolGroup:

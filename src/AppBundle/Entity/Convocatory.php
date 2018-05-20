@@ -22,14 +22,21 @@ class Convocatory
     /**
      * @var string
      *
-     * @ORM\Column(name="convocatory", type="string", length=255, nullable=false)
+     * @ORM\Column(name="convocatory", type="string", length=255,
+     *     columnDefinition="ENUM('MARZO', 'SEPTIEMBRE')", nullable=false)
      */
     private $convocatory;
 
     /**
-     * @ORM\OneToMany(targetEntity="SchoolYear_convocatory", mappedBy="convocatory")
+     * @ORM\ManyToOne(targetEntity="SchoolYear", inversedBy="convocatories")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $schoolYear_convocatories;
+    private $schoolYear;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="convocatory")
+     */
+    private $students;
 
     /**
      * Get id
@@ -109,5 +116,63 @@ class Convocatory
     public function __toString()
     {
         return $this->convocatory;
+    }
+
+    /**
+     * Set schoolYear
+     *
+     * @param \AppBundle\Entity\SchoolYear $schoolYear
+     *
+     * @return Convocatory
+     */
+    public function setSchoolYear(\AppBundle\Entity\SchoolYear $schoolYear)
+    {
+        $this->schoolYear = $schoolYear;
+
+        return $this;
+    }
+
+    /**
+     * Get schoolYear
+     *
+     * @return \AppBundle\Entity\SchoolYear
+     */
+    public function getSchoolYear()
+    {
+        return $this->schoolYear;
+    }
+
+    /**
+     * Add student
+     *
+     * @param \AppBundle\Entity\Student $student
+     *
+     * @return Convocatory
+     */
+    public function addStudent(\AppBundle\Entity\Student $student)
+    {
+        $this->students[] = $student;
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \AppBundle\Entity\Student $student
+     */
+    public function removeStudent(\AppBundle\Entity\Student $student)
+    {
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }

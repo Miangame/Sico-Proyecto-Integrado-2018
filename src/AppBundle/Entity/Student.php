@@ -48,11 +48,12 @@ class Student
      */
     private $distribution_company;
 
+
     /**
-     * @ORM\ManyToOne(targetEntity="SchoolYear_convocatory", inversedBy="students", cascade={"persist"})
-     * @ORM\JoinColumn(name="schoolYear_convocatory_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Convocatory", inversedBy="students")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $schoolYear_convocatory;
+    private $convocatory;
 
     /**
      * Get id
@@ -262,5 +263,29 @@ class Student
     public function __toString()
     {
         return $this->getFirstName().' '.$this->getLastName();
+    }
+
+    /**
+     * Set convocatory
+     *
+     * @param \AppBundle\Entity\Convocatory $convocatory
+     *
+     * @return Student
+     */
+    public function setConvocatory(\AppBundle\Entity\Convocatory $convocatory)
+    {
+        $this->convocatory = $convocatory;
+
+        return $this;
+    }
+
+    /**
+     * Get convocatory
+     *
+     * @return \AppBundle\Entity\Convocatory
+     */
+    public function getConvocatory()
+    {
+        return $this->convocatory;
     }
 }
