@@ -35,9 +35,9 @@ class Cycle
     private $school_groups;
 
     /**
-     * @ORM\OneToMany(targetEntity="Distribution_module_cycle", mappedBy="cycle")
+     * @ORM\OneToMany(targetEntity="Module", mappedBy="cycle")
      */
-    private $distributions_module_cycle;
+    private $modules_cycles;
 
     /**
      * Get id
@@ -114,39 +114,6 @@ class Cycle
         return $this->school_groups;
     }
 
-    /**
-     * Add distributionsModuleCycle
-     *
-     * @param \AppBundle\Entity\Distribution_module_cycle $distributionsModuleCycle
-     *
-     * @return Cycle
-     */
-    public function addDistributionsModuleCycle(\AppBundle\Entity\Distribution_module_cycle $distributionsModuleCycle)
-    {
-        $this->distributions_module_cycle[] = $distributionsModuleCycle;
-
-        return $this;
-    }
-
-    /**
-     * Remove distributionsModuleCycle
-     *
-     * @param \AppBundle\Entity\Distribution_module_cycle $distributionsModuleCycle
-     */
-    public function removeDistributionsModuleCycle(\AppBundle\Entity\Distribution_module_cycle $distributionsModuleCycle)
-    {
-        $this->distributions_module_cycle->removeElement($distributionsModuleCycle);
-    }
-
-    /**
-     * Get distributionsModuleCycle
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDistributionsModuleCycle()
-    {
-        return $this->distributions_module_cycle;
-    }
 
     /**
      * Set name
@@ -175,5 +142,39 @@ class Cycle
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Add modulesCycle
+     *
+     * @param \AppBundle\Entity\Module $modulesCycle
+     *
+     * @return Cycle
+     */
+    public function addModulesCycle(\AppBundle\Entity\Module $modulesCycle)
+    {
+        $this->modules_cycles[] = $modulesCycle;
+
+        return $this;
+    }
+
+    /**
+     * Remove modulesCycle
+     *
+     * @param \AppBundle\Entity\Module $modulesCycle
+     */
+    public function removeModulesCycle(\AppBundle\Entity\Module $modulesCycle)
+    {
+        $this->modules_cycles->removeElement($modulesCycle);
+    }
+
+    /**
+     * Get modulesCycles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModulesCycles()
+    {
+        return $this->modules_cycles;
     }
 }

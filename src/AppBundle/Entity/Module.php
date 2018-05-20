@@ -41,9 +41,10 @@ class Module
     private $hours;
 
     /**
-     * @ORM\OneToMany(targetEntity="Distribution_module_cycle", mappedBy="module")
+     * @ORM\ManyToOne(targetEntity="Cycle", inversedBy="modules_cycles", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $distributions_module_cycle;
+    private $cycle;
 
     /**
      * @ORM\OneToMany(targetEntity="Distribution_module_teacher", mappedBy="module")
@@ -141,30 +142,6 @@ class Module
     }
 
     /**
-     * Add distributionsModuleCycle
-     *
-     * @param \AppBundle\Entity\Distribution_module_cycle $distributionsModuleCycle
-     *
-     * @return Module
-     */
-    public function addDistributionsModuleCycle(\AppBundle\Entity\Distribution_module_cycle $distributionsModuleCycle)
-    {
-        $this->distributions_module_cycle[] = $distributionsModuleCycle;
-
-        return $this;
-    }
-
-    /**
-     * Remove distributionsModuleCycle
-     *
-     * @param \AppBundle\Entity\Distribution_module_cycle $distributionsModuleCycle
-     */
-    public function removeDistributionsModuleCycle(\AppBundle\Entity\Distribution_module_cycle $distributionsModuleCycle)
-    {
-        $this->distributions_module_cycle->removeElement($distributionsModuleCycle);
-    }
-
-    /**
      * Get distributionsModuleCycle
      *
      * @return \Doctrine\Common\Collections\Collection
@@ -230,5 +207,34 @@ class Module
     public function getCourse()
     {
         return $this->course;
+    }
+
+    public function __toString()
+    {
+        return $this->getInitials();
+    }
+
+    /**
+     * Set cycle
+     *
+     * @param \AppBundle\Entity\Cycle $cycle
+     *
+     * @return Module
+     */
+    public function setCycle(\AppBundle\Entity\Cycle $cycle)
+    {
+        $this->cycle = $cycle;
+
+        return $this;
+    }
+
+    /**
+     * Get cycle
+     *
+     * @return \AppBundle\Entity\Cycle
+     */
+    public function getCycle()
+    {
+        return $this->cycle;
     }
 }

@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class ModuleRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getModules()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('t, u.name')
+            ->from('AppBundle:Module', 't')
+            ->join('t.cycle', 'u');
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
