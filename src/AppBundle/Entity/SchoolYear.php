@@ -30,14 +30,14 @@ class SchoolYear
     private $request_companies;
 
     /**
-     * @ORM\OneToMany(targetEntity="SchoolYear_convocatory", mappedBy="schoolYear")
-     */
-    private $schoolYear_convocatories;
-
-    /**
      * @ORM\OneToMany(targetEntity="Distribution_module_teacher", mappedBy="schoolYear")
      */
     private $distributions_module_teacher;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Convocatory", mappedBy="schoolYear")
+     */
+    private $convocatories;
 
     /**
      * Get id
@@ -185,5 +185,39 @@ class SchoolYear
     public function __toString()
     {
         return $this->course;
+    }
+
+    /**
+     * Add convocatory
+     *
+     * @param \AppBundle\Entity\Convocatory $convocatory
+     *
+     * @return SchoolYear
+     */
+    public function addConvocatory(\AppBundle\Entity\Convocatory $convocatory)
+    {
+        $this->convocatories[] = $convocatory;
+
+        return $this;
+    }
+
+    /**
+     * Remove convocatory
+     *
+     * @param \AppBundle\Entity\Convocatory $convocatory
+     */
+    public function removeConvocatory(\AppBundle\Entity\Convocatory $convocatory)
+    {
+        $this->convocatories->removeElement($convocatory);
+    }
+
+    /**
+     * Get convocatories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getConvocatories()
+    {
+        return $this->convocatories;
     }
 }
