@@ -14,4 +14,20 @@ class ConvocatoryRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->findAll();
     }
+
+    public function getConvocatories($convocatory = null)
+    {
+        $query = "AND cv.id = ".intval($convocatory)."";
+
+        if(!$convocatory) {
+            $query = "";
+        }
+
+        return $this->getEntityManager()->createQuery("
+                                      SELECT cv.id as id, CONCAT(cv.convocatory,' / ',sy.course) as convocatory
+                                      FROM AppBundle:Convocatory cv,
+                                      AppBundle:SchoolYear sy
+                                      WHERE cv.schoolYear = sy.id 
+                                      ".$query." ")->getArrayResult();
+    }
 }

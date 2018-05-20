@@ -56,6 +56,12 @@ class User extends BaseUser
      */
     protected $img;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $current_convocatory;
+
+
 
     /**
      * Add distributionProject
@@ -258,5 +264,29 @@ class User extends BaseUser
     public function __toString()
     {
         return $this->getFirstName().' '.$this->getLastName();
+    }
+
+    /**
+     * Set currentConvocatory
+     *
+     * @param integer $currentConvocatory
+     *
+     * @return User
+     */
+    public function setCurrentConvocatory($currentConvocatory)
+    {
+        $this->current_convocatory = $currentConvocatory;
+
+        return $this;
+    }
+
+    /**
+     * Get currentConvocatory
+     *
+     * @return integer
+     */
+    public function getCurrentConvocatory()
+    {
+        return $this->current_convocatory;
     }
 }

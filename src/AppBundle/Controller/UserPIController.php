@@ -17,9 +17,12 @@ class UserPIController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine();
 
+        $current_user = $this->getUser();
+
         return $this->render('user/pi/view.html.twig', array(
             'projects' => $this->get('app.projectsHelper')->getAllProject(),
-            'distributions' => $this->get('app.distributionprojectHelper')->getAllDistribution()
+            'distributions' => $this->get('app.distributionprojectHelper')->
+            getDistributionConvocatory($current_user->getCurrentConvocatory())
         ));
     }
 

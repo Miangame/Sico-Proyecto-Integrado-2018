@@ -18,11 +18,12 @@ class Distribution_projectController extends Controller
     public function newDistributionProjectAction(Request $request)
     {
         $distribution = new Distribution_project();
+        $current_user = $this->getUser();
 
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "project" => $this->get('app.projectsHelper')->prepareOptions(),
-            "student" => $this->get('app.studentsHelper')->prepareOptions()
+            "student" => $this->get('app.studentsHelper')->prepareOptions($current_user->getCurrentConvocatory())
         );
 
         $form = $this->createForm(Distribution_ProjectType::class,$distribution,$options);
@@ -59,12 +60,14 @@ class Distribution_projectController extends Controller
      */
     public function editProjectAction(Request $request, Distribution_project $distribution)
     {
+        $current_user = $this->getUser();
+
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "user_selected" => $distribution->getUser(),
             "project" => $this->get('app.projectsHelper')->prepareOptions(),
             "project_selected" => $distribution->getProject(),
-            "student" => $this->get('app.studentsHelper')->prepareOptions(),
+            "student" => $this->get('app.studentsHelper')->prepareOptions($current_user->getCurrentConvocatory()),
             "student_selected" => $distribution->getStudent(),
         );
 

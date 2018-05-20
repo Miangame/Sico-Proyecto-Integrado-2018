@@ -92,16 +92,16 @@
                 <tbody>
                 {% for distribution in distributions %}
                 <tr>
-                    <td>{{ distribution.getProject() }}</td>
-                    <td>{{ distribution.getStudent() }}</td>
-                    <td>{{ distribution.getUser() }}</td>
+                    <td>{{ distribution.project_name }}</td>
+                    <td>{{ distribution.student_name }}</td>
+                    <td>{{ distribution.user_name }}</td>
                     <td>
-                        <a href="{{ path('user_pi_edit_distribution_project',{'id': distribution.getId()}) }}">
+                        <a href="{{ path('user_pi_edit_distribution_project',{'id': distribution.id}) }}">
                             <i class="small material-icons">edit</i>
                         </a>
                     </td>
                     <td>
-                        <a data-modal="modalAsign" class="modalDelete" href="{{ path('user_pi_delete_distribution_project',{'id': distribution.getId()}) }}">
+                        <a data-modal="modalAsign" class="modalDelete" href="{{ path('user_pi_delete_distribution_project',{'id': distribution.id}) }}">
                             <i class="small red-text material-icons">delete</i>
                         </a>
                     </td>
