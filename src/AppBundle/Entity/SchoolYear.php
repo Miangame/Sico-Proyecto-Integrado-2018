@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * SchoolYear
@@ -20,6 +21,7 @@ class SchoolYear
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(name="course", type="string", length=255)
      */
     private $course;

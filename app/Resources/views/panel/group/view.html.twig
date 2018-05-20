@@ -1,30 +1,33 @@
 {% extends 'panel/base.html.twig' %}
 {% block body %}
-    <h2>Gestión de ciclos</h2>
-    <a href="{{ path('new_cycle') }}" class="waves-effect waves-light btn">Crear ciclo</a>
+    <h2>Gestión de grupos</h2>
+
+    <a href="{{ path('new_group') }}" class="waves-effect waves-light btn" id="createGroup">Crear Grupos</a>
+
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
+            <th>Nombre</th>
+            <th>Iniciales</th>
             <th>Ciclo</th>
-            <th>Horas/semana</th>
             <th>Modificar</th>
             <th>Borrar</th>
         </tr>
         </thead>
 
-        <tbody>
-        {% for cycle in cycles %}
+        <tbody id="groupsTable">
+        {% for group in groups %}
             <tr>
-                <td>{{ cycle.name }}</td>
-                <td>{{ cycle.hours }}</td>
+                <td>{{ group.name }}</td>
+                <td>{{ group.initials }}</td>
+                <td>{{ group.cycle }}</td>
                 <td>
-                    <a href="{{ path('edit_cycle', {'id': cycle.id}) }}">
+                    <a href="{{ path('edit_group', {'id': group.id}) }}">
                         <i class="small material-icons">edit</i>
                     </a>
                 </td>
                 <td>
-                    <a data-modal="modalCycle" href="{{ path('delete_cycle', {'id': cycle.id}) }}"
-                       class="modalDelete modal-trigger">
+                    <a data-modal="modalGroup"  href="{{ path('delete_group', {'id': group.id}) }}" class="modalDelete modal-trigger">
                         <i class="small material-icons red-text">delete</i>
                     </a>
                 </td>
@@ -34,9 +37,9 @@
     </table>
 
     <!-- Modal Structure -->
-    <div id="modalCycle" class="modal">
+    <div id="modalGroup" class="modal">
         <div class="modal-content">
-            <p>¿Está seguro de borrar el ciclo?</p>
+            <p>¿Está seguro de borrar el grupo?</p>
         </div>
         <div class="modal-footer">
             <a href="#"
@@ -44,4 +47,5 @@
             <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
         </div>
     </div>
+
 {% endblock %}

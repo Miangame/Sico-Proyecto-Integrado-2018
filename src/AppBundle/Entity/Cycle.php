@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Cycle
@@ -20,11 +21,19 @@ class Cycle
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 30,
+     *      minMessage = "No puede tener menos de {{ limit }} hora a la semana",
+     *      maxMessage = "No puede tener más de {{ limit }} horas a la semana"
+     * )
      * @ORM\Column(name="hours", type="integer", nullable=false)
      */
     private $hours;

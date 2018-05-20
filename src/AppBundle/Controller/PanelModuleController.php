@@ -3,8 +3,10 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Cycle;
 use AppBundle\Entity\Module;
 use AppBundle\Form\ModuleType;
+use AppBundle\Services\CyclesHelper;
 use AppBundle\Services\ModulesHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +38,63 @@ class PanelModuleController extends Controller
     {
         $module = new Module();
 
-        $form = $this->createForm(ModuleType::class, $module);
+        $cycles = array();
+
+        /** @var CyclesHelper $cyclesHelper */
+        $cyclesHelper = $this->get('app.cyclesHelper');
+
+
+        /** @var Cycle $group */
+        foreach ($cyclesHelper->getCycles() as $cycle) {
+            $cycles[$cycle->__toString()] = $cycle;
+        }
+
+        $options = array(
+            "cycles" => $cycles
+        );
+
+        $form = $this->createForm(ModuleType::class, $module, $options);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $moduleRequest = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($moduleRequest);
+            $entityManager->flush();
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Módulo creado');
+            return $this->redirectToRoute('panel_modules');
+        }
+
+        return $this->render('panel/module/new.html.twig', array(
+            'form' => $form->createView(),
+            'title' => "Nuevo módulo",
+        ));
+    }
+
+    /**
+     * @Route("/{id}/edit", name="edit_module")
+     */
+    public function editModuleAction(Request $request, Module $module)
+    {
+        $cycles = array();
+
+        /** @var CyclesHelper $cyclesHelper */
+        $cyclesHelper = $this->get('app.cyclesHelper');
+
+        /** @var Cycle $group */
+        foreach ($cyclesHelper->getCycles() as $cycle) {
+            $cycles[$cycle->__toString()] = $cycle;
+        }
+
+        $options = array(
+            "cycles" => $cycles,
+            "cycle_selected" => $module->getCycle()
+        );
+
+        $form = $this->createForm(ModuleType::class, $module, $options);
 
         $form->handleRequest($request);
 

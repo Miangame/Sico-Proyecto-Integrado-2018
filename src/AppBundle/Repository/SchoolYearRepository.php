@@ -10,4 +10,8 @@ namespace AppBundle\Repository;
  */
 class SchoolYearRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getCourses()
+    {
+        return $this->findAll();
+    }
 }

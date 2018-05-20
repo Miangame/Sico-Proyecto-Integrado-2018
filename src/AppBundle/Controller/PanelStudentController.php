@@ -5,12 +5,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Convocatory;
 use AppBundle\Entity\School_group;
-use AppBundle\Entity\SchoolYear_convocatory;
 use AppBundle\Entity\Student;
 use AppBundle\Form\StudentType;
 use AppBundle\Services\ConvocatoriesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
-use AppBundle\Services\SchoolYearConvocatoriesHelper;
 use AppBundle\Services\StudentsHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,7 +61,7 @@ class PanelStudentController extends Controller
             $groups[$group->__toString()] = $group;
         }
 
-        /** @var Convocatory $schoolYearConvocatory */
+        /** @var Convocatory $convocatory */
         foreach ($convocatoriesHelper->getAllConvocatories() as $convocatory) {
             $convocatories[$convocatory->__toString()] = $convocatory;
         }
@@ -114,7 +112,7 @@ class PanelStudentController extends Controller
             $groups[$group->__toString()] = $group;
         }
 
-        /** @var Convocatory $schoolYearConvocatory */
+        /** @var Convocatory $convocatory */
         foreach ($convocatoriesHelper->getAllConvocatories() as $convocatory) {
             $convocatories[$convocatory->__toString()] = $convocatory;
         }
