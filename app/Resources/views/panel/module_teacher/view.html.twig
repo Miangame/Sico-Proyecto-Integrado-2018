@@ -1,7 +1,7 @@
 {% extends 'panel/base.html.twig' %}
 {% block body %}
     <h2>Gestión de asignaciones</h2>
-    <a class="waves-effect waves-light btn">Crear asignación</a>
+    <a href="{{ path('new_distribution_module_teacher') }}" class="waves-effect waves-light btn">Crear asignación</a>
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
@@ -10,44 +10,41 @@
             <th>Ciclo</th>
             <th>Horas</th>
             <th>Modificar</th>
+            <th>Borrar</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr>
-            <td>Profesor 1</td>
-            <td>DWES</td>
-            <td>DAW</td>
-            <td>8</td>
-            <td>
-                <a href="#">
-                    <i class="small material-icons">edit</i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>Profesor 2</td>
-            <td>DWEC</td>
-            <td>DAW</td>
-            <td>6</td>
-            <td>
-                <a href="#">
-                    <i class="small material-icons">edit</i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>Profesor 3</td>
-            <td>IS</td>
-            <td>ASIR</td>
-            <td>5</td>
-            <td>
-                <a href="#">
-                    <i class="small material-icons">edit</i>
-                </a>
-            </td>
-        </tr>
-
+        {% for moduleTeacher in modulesTeachers %}
+            <tr>
+                <td>{{ moduleTeacher.teacher }}</td>
+                <td>{{ moduleTeacher.module }}</td>
+                <td>{{ moduleTeacher.gr }}</td>
+                <td>{{ moduleTeacher.hours }}</td>
+                <td>
+                    <a href="{{ path('edit_distribution_module_teacher', {'id': moduleTeacher.id}) }}">
+                        <i class="small material-icons">edit</i>
+                    </a>
+                </td>
+                <td>
+                    <a data-modal="modalModuleTeacher"  href="{{ path('delete_distribution_module_teacher', {'id': moduleTeacher.id}) }}" class="modalDelete modal-trigger">
+                        <i class="small material-icons red-text">delete</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
+
+    <!-- Modal Structure -->
+    <div id="modalModuleTeacher" class="modal">
+        <div class="modal-content">
+            <p>¿Está seguro de borrar la asignación?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#"
+               class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+    </div>
 {% endblock %}

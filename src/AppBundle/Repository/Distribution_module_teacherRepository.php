@@ -10,4 +10,16 @@ namespace AppBundle\Repository;
  */
 class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getDistributions()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, g.name gr, c.course course, m.hours hours')
+            ->from('AppBundle:Distribution_module_teacher', 't')
+            ->join('t.module', 'm')
+            ->join('t.teacher', 'u')
+            ->join('t.group', 'g')
+            ->join('t.schoolYear', 'c');
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
