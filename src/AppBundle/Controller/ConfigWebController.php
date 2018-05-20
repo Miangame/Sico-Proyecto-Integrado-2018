@@ -16,6 +16,9 @@ class ConfigWebController extends Controller
      */
     public function dashboardAction(Request $request,User $current_user)
     {
+        if($this->getUser()->getId() != $current_user->getId())
+            return $this->redirectToRoute('index_web');
+
         $optionsConvocatory = Array(
             "convocatories" => $this->get('app.convocatoriesHelper')->prepareOptions(),
         );
