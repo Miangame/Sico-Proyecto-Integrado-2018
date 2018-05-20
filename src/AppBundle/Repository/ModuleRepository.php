@@ -19,4 +19,9 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
+
+    public function getAllModules()
+    {
+        return $this->findAll();
+    }
 }

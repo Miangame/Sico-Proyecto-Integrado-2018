@@ -22,4 +22,12 @@ class ModulesHelper
 
         return $moduleRepository->getModules();
     }
+
+    public function getAllModules()
+    {
+        /** @var ModuleRepository $moduleRepository */
+        $moduleRepository = $this->em->getRepository('AppBundle:Module');
+
+        return $moduleRepository->getAllModules();
+    }
 }

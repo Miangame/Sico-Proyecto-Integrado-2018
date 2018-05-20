@@ -34,3 +34,6 @@ services:
     app.coursesHelper:
         class: AppBundle\Services\CoursesHelper
         arguments: ["@doctrine.orm.entity_manager"]
+    app.distributionModuleTeacherHelper:
+        class: AppBundle\Services\DistributionModuleTeacherHelper
+        arguments: ["@doctrine.orm.entity_manager"]
