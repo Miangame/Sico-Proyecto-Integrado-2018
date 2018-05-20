@@ -1,48 +1,49 @@
 {% extends 'panel/base.html.twig' %}
 {% block body %}
     <h2>Gestión de módulos</h2>
-    <a class="waves-effect waves-light btn">Crear módulo</a>
-    <table class="responsive-table">
+    <a href="{{ path('new_module') }}" class="waves-effect waves-light btn">Crear módulo</a>
+    <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
             <th>Módulo</th>
             <th>Ciclo</th>
             <th>Horas</th>
             <th>Modificar</th>
+            <th>Borrar</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr>
-            <td>DWES</td>
-            <td>DAW</td>
-            <td>4</td>
-            <td>
-                <a href="#">
-                    <i class="small material-icons">edit</i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>DWEC</td>
-            <td>DAW</td>
-            <td>5</td>
-            <td>
-                <a href="#">
-                    <i class="small material-icons">edit</i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>IS</td>
-            <td>ASIR</td>
-            <td>6</td>
-            <td>
-                <a href="#">
-                    <i class="small material-icons">edit</i>
-                </a>
-            </td>
-        </tr>
+        {% for module in modules %}
+            <tr>
+                <td>{{ module[0].initials }}</td>
+                <td>{{ module.name }}</td>
+                <td>{{ module[0].hours }}</td>
+                <td>
+                    <a href="#">
+                        <i class="small material-icons">edit</i>
+                    </a>
+                </td>
+                <td>
+                    <a data-modal="modalModule" href="{{ path('delete_module', {'id': module[0].id}) }}"
+                       class="modalDelete modal-trigger">
+                        <i class="small material-icons red-text">delete</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
+
+    <!-- Modal Structure -->
+    <div id="modalModule" class="modal">
+        <div class="modal-content">
+            <p>¿Está seguro de borrar el módulo?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#"
+               class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+    </div>
 {% endblock %}

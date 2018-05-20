@@ -38,8 +38,6 @@ easy_admin:
             class: AppBundle\Entity\Distribution_project
         Distribution_module_teacher:
             class: AppBundle\Entity\Distribution_module_teacher
-        Distribution_module_cycle:
-            class: AppBundle\Entity\Distribution_module_cycle
         Distribution_company:
             class: AppBundle\Entity\Distribution_company
         Cycle:
