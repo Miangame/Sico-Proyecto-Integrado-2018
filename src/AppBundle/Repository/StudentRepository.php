@@ -21,8 +21,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
             ->select('t, u.name, w.convocatory')
             ->from('AppBundle:Student', 't')
             ->join('t.group', 'u')
-            ->join('t.schoolYear_convocatory', 'x')
-            ->join('x.convocatory', 'w');
+            ->join('t.convocatory', 'w');
 
         return $qb->getQuery()->getArrayResult();
     }

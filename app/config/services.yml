@@ -28,3 +28,9 @@ services:
     app.modulesHelper:
         class: AppBundle\Services\ModulesHelper
         arguments: ["@doctrine.orm.entity_manager"]
+    app.cyclesHelper:
+        class: AppBundle\Services\CyclesHelper
+        arguments: ["@doctrine.orm.entity_manager"]
+    app.coursesHelper:
+        class: AppBundle\Services\CoursesHelper
+        arguments: ["@doctrine.orm.entity_manager"]

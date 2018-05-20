@@ -1,32 +1,45 @@
 {% extends 'panel/base.html.twig' %}
 {% block body %}
     <h2>Gestión de cursos</h2>
-    <a class="waves-effect waves-light btn">Crear cursos</a>
-    <table class="responsive-table">
+    <a href="{{ path('new_course') }}" class="waves-effect waves-light btn">Crear cursos</a>
+    <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
             <th>Cursos</th>
             <th>Modificar</th>
+            <th>Borrar</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr>
-            <td>16/17</td>
-            <td>
-                <a href="#">
-                    <i class="small material-icons">edit</i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>17/18</td>
-            <td>
-                <a href="#">
-                    <i class="small material-icons">edit</i>
-                </a>
-            </td>
-        </tr>
+
+        {% for course in courses %}
+            <tr>
+                <td>{{ course.course }}</td>
+                <td>
+                    <a href="{{ path('edit_course', {'id': course.id}) }}">
+                        <i class="small material-icons">edit</i>
+                    </a>
+                </td>
+                <td>
+                    <a data-modal="modalCourse"  href="{{ path('delete_course', {'id': course.id}) }}" class="modalDelete modal-trigger">
+                        <i class="small material-icons red-text">delete</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
+
+    <!-- Modal Structure -->
+    <div id="modalCourse" class="modal">
+        <div class="modal-content">
+            <p>¿Está seguro de borrar el curso?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#"
+               class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+    </div>
 {% endblock %}

@@ -10,4 +10,8 @@ namespace AppBundle\Repository;
  */
 class CycleRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getCycles()
+    {
+        return $this->findAll();
+    }
 }

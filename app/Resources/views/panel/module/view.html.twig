@@ -20,7 +20,7 @@
                 <td>{{ module.name }}</td>
                 <td>{{ module[0].hours }}</td>
                 <td>
-                    <a href="#">
+                    <a href="{{ path('edit_module', {'id': module[0].id}) }}">
                         <i class="small material-icons">edit</i>
                     </a>
                 </td>
