@@ -22,6 +22,7 @@ class SchoolYear
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Regex("/^\d{2}\/\d{2}$/")
      * @ORM\Column(name="course", type="string", length=255)
      */
     private $course;
