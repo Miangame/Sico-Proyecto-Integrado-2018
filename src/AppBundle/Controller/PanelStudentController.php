@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Convocatory;
 use AppBundle\Entity\School_group;
 use AppBundle\Entity\SchoolYear_convocatory;
 use AppBundle\Entity\Student;
@@ -48,27 +49,28 @@ class PanelStudentController extends Controller
     {
         $student = new Student();
         $groups = array();
-        $schoolYear_convocatories = array();
+        $convocatories = array();
 
         /** @var SchoolGroupsHelper $schoolGroupsHelper */
         $schoolGroupsHelper = $this->get('app.schoolGroupsHelper');
 
-        /** @var SchoolYearConvocatoriesHelper $schoolYear_convocatoriesHelper */
-        $schoolYear_convocatoriesHelper = $this->get('app.schoolYearConvocatoriesHelper');
+        /** @var ConvocatoriesHelper $convocatoriesHelper */
+        $convocatoriesHelper = $this->get('app.convocatoriesHelper');
+
 
         /** @var School_group $group */
         foreach ($schoolGroupsHelper->getGroups() as $group) {
             $groups[$group->__toString()] = $group;
         }
 
-        /** @var SchoolYear_convocatory $schoolYearConvocatory */
-        foreach ($schoolYear_convocatoriesHelper->getSchoolYearConvocatories() as $schoolYearConvocatory) {
-            $schoolYear_convocatories[$schoolYearConvocatory->__toString()] = $schoolYearConvocatory;
+        /** @var Convocatory $schoolYearConvocatory */
+        foreach ($convocatoriesHelper->getAllConvocatories() as $convocatory) {
+            $convocatories[$convocatory->__toString()] = $convocatory;
         }
 
         $options = array(
             "groups" => $groups,
-            "convocatories" => $schoolYear_convocatories
+            "convocatories" => $convocatories
         );
 
         $form = $this->createForm(StudentType::class, $student, $options);
@@ -98,29 +100,30 @@ class PanelStudentController extends Controller
     public function editStudentAction(Request $request, Student $student)
     {
         $groups = array();
-        $schoolYear_convocatories = array();
+        $convocatories = array();
 
         /** @var SchoolGroupsHelper $schoolGroupsHelper */
         $schoolGroupsHelper = $this->get('app.schoolGroupsHelper');
 
-        /** @var SchoolYearConvocatoriesHelper $schoolYear_convocatoriesHelper */
-        $schoolYear_convocatoriesHelper = $this->get('app.schoolYearConvocatoriesHelper');
+        /** @var ConvocatoriesHelper $convocatoriesHelper */
+        $convocatoriesHelper = $this->get('app.convocatoriesHelper');
+
 
         /** @var School_group $group */
         foreach ($schoolGroupsHelper->getGroups() as $group) {
             $groups[$group->__toString()] = $group;
         }
 
-        /** @var SchoolYear_convocatory $schoolYearConvocatory */
-        foreach ($schoolYear_convocatoriesHelper->getSchoolYearConvocatories() as $schoolYearConvocatory) {
-            $schoolYear_convocatories[$schoolYearConvocatory->__toString()] = $schoolYearConvocatory;
+        /** @var Convocatory $schoolYearConvocatory */
+        foreach ($convocatoriesHelper->getAllConvocatories() as $convocatory) {
+            $convocatories[$convocatory->__toString()] = $convocatory;
         }
 
         $options = array(
             "groups" => $groups,
             "group_selected" => $student->getGroup(),
-            "convocatories" => $schoolYear_convocatories,
-            "schoolYear_convocatory_selected" => $student->getSchoolYearConvocatory()
+            "convocatories" => $convocatories,
+            "convocatory_selected" => $student->getConvocatory()
         );
 
         $form = $this->createForm(StudentType::class, $student, $options);

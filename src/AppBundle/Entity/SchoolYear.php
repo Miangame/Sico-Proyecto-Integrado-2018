@@ -114,39 +114,6 @@ class SchoolYear
         return $this->request_companies;
     }
 
-    /**
-     * Add schoolYearConvocatory
-     *
-     * @param \AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory
-     *
-     * @return SchoolYear
-     */
-    public function addSchoolYearConvocatory(\AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory)
-    {
-        $this->schoolYear_convocatories[] = $schoolYearConvocatory;
-
-        return $this;
-    }
-
-    /**
-     * Remove schoolYearConvocatory
-     *
-     * @param \AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory
-     */
-    public function removeSchoolYearConvocatory(\AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory)
-    {
-        $this->schoolYear_convocatories->removeElement($schoolYearConvocatory);
-    }
-
-    /**
-     * Get schoolYearConvocatories
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSchoolYearConvocatories()
-    {
-        return $this->schoolYear_convocatories;
-    }
 
     /**
      * Add distributionsModuleTeacher

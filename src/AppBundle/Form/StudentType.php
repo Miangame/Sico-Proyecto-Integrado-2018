@@ -25,10 +25,10 @@ class StudentType extends AbstractType
                 'choices' => $options["groups"],
                 'data' => $options["group_selected"]
                 ))
-            ->add('schoolYear_convocatory', ChoiceType::class, array(
+            ->add('convocatory', ChoiceType::class, array(
                 'label' => 'Convocatoria',
                 'choices' => $options["convocatories"],
-                'data' => $options["schoolYear_convocatory_selected"]
+                'data' => $options["convocatory_selected"]
                 ))
             ->add('save', SubmitType::class, array('label' => 'Enviar alumno','attr' => ['class' => 'w-100 waves-effect waves-light btn']));
     }
@@ -40,7 +40,7 @@ class StudentType extends AbstractType
             'groups' => null,
             'group_selected' => null,
             'convocatories' => null,
-            'schoolYear_convocatory_selected' => null
+            'convocatory_selected' => null
         ]);
 
     }

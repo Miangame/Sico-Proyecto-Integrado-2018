@@ -71,36 +71,13 @@ class Convocatory
     {
         return $this->convocatory;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->schoolYear_convocatories = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add schoolYearConvocatory
-     *
-     * @param \AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory
-     *
-     * @return Convocatory
-     */
-    public function addSchoolYearConvocatory(\AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory)
-    {
-        $this->schoolYear_convocatories[] = $schoolYearConvocatory;
-
-        return $this;
-    }
-
-    /**
-     * Remove schoolYearConvocatory
-     *
-     * @param \AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory
-     */
-    public function removeSchoolYearConvocatory(\AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory)
-    {
-        $this->schoolYear_convocatories->removeElement($schoolYearConvocatory);
     }
 
     /**
@@ -115,7 +92,7 @@ class Convocatory
 
     public function __toString()
     {
-        return $this->convocatory;
+        return $this->getSchoolYear() . " - " . $this->convocatory;
     }
 
     /**

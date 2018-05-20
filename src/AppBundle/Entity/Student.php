@@ -112,6 +112,7 @@ class Student
     {
         return $this->last_name;
     }
+
     /**
      * Constructor
      */
@@ -189,30 +190,6 @@ class Student
     }
 
     /**
-     * Set schoolYearConvocatory
-     *
-     * @param \AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory
-     *
-     * @return Student
-     */
-    public function setSchoolYearConvocatory(\AppBundle\Entity\SchoolYear_convocatory $schoolYearConvocatory)
-    {
-        $this->schoolYear_convocatory = $schoolYearConvocatory;
-
-        return $this;
-    }
-
-    /**
-     * Get schoolYearConvocatory
-     *
-     * @return \AppBundle\Entity\SchoolYear_convocatory
-     */
-    public function getSchoolYearConvocatory()
-    {
-        return $this->schoolYear_convocatory;
-    }
-
-    /**
      * Set groupId
      *
      * @param \AppBundle\Entity\School_group $groupId
@@ -262,7 +239,7 @@ class Student
 
     public function __toString()
     {
-        return $this->getFirstName().' '.$this->getLastName();
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 
     /**
