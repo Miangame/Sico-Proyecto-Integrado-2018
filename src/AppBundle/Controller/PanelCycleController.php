@@ -53,9 +53,10 @@ class PanelCycleController extends Controller
             return $this->redirectToRoute('panel_cycles');
         }
 
-        return $this->render('panel/cycle/new.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nuevo ciclo",
+            'redirect' => "panel_cycles"
         ));
     }
 
@@ -79,9 +80,10 @@ class PanelCycleController extends Controller
             return $this->redirectToRoute('panel_cycles');
         }
 
-        return $this->render('panel/cycle/edit.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar ciclo",
+            'redirect' => "panel_cycles"
         ));
     }
 

@@ -103,9 +103,10 @@ class PanelModuleTeacherController extends Controller
             return $this->redirectToRoute('panel_modules_teachers');
         }
 
-        return $this->render('panel/module_teacher/new.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nueva asignación",
+            'redirect' => "panel_modules_teachers",
         ));
     }
 
@@ -177,9 +178,10 @@ class PanelModuleTeacherController extends Controller
             return $this->redirectToRoute('panel_modules_teachers');
         }
 
-        return $this->render('panel/module_teacher/edit.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar asignación",
+            'redirect' => "panel_modules_teachers",
         ));
     }
 

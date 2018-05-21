@@ -87,9 +87,10 @@ class PanelTeacherController extends Controller
             return $this->redirectToRoute('panel_teachers');
         }
 
-        return $this->render('panel/teacher/new.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nuevo Profesor",
+            'redirect' => "panel_teachers",
         ));
     }
 
@@ -113,9 +114,10 @@ class PanelTeacherController extends Controller
             return $this->redirectToRoute('panel_teachers');
         }
 
-        return $this->render('panel/teacher/edit.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar profesor",
+            'redirect' => "panel_teachers",
         ));
     }
 

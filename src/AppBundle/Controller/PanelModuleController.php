@@ -68,9 +68,10 @@ class PanelModuleController extends Controller
             return $this->redirectToRoute('panel_modules');
         }
 
-        return $this->render('panel/module/new.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nuevo módulo",
+            'redirect' => "panel_modules",
         ));
     }
 
@@ -109,9 +110,10 @@ class PanelModuleController extends Controller
             return $this->redirectToRoute('panel_modules');
         }
 
-        return $this->render('panel/module/new.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nuevo módulo",
+            'redirect' => "panel_modules",
         ));
     }
 

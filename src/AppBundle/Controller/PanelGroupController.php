@@ -63,9 +63,10 @@ class PanelGroupController extends Controller
             return $this->redirectToRoute('panel_groups');
         }
 
-        return $this->render('panel/group/new.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nuevo grupo",
+            'redirect' => "panel_groups",
         ));
     }
 
@@ -104,9 +105,10 @@ class PanelGroupController extends Controller
             return $this->redirectToRoute('panel_groups');
         }
 
-        return $this->render('panel/group/edit.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar grupo",
+            'redirect' => "panel_groups",
         ));
     }
 

@@ -51,9 +51,10 @@ class PanelCourseController extends Controller
             return $this->redirectToRoute('panel_courses');
         }
 
-        return $this->render('panel/course/new.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nuevo curso",
+            'redirect' => 'panel_courses'
         ));
     }
 
@@ -77,9 +78,10 @@ class PanelCourseController extends Controller
             return $this->redirectToRoute('panel_courses');
         }
 
-        return $this->render('panel/course/edit.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar curso",
+            'redirect' => 'panel_courses'
         ));
     }
 

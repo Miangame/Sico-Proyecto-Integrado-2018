@@ -30,7 +30,7 @@ class StudentType extends AbstractType
                 'choices' => $options["convocatories"],
                 'data' => $options["convocatory_selected"]
                 ))
-            ->add('save', SubmitType::class, array('label' => 'Enviar alumno','attr' => ['class' => 'w-100 waves-effect waves-light btn']));
+            ->add('save', SubmitType::class, array('label' => 'Enviar alumno','attr' => ['class' => 'waves-effect waves-light btn']));
     }
 
     public function configureOptions(OptionsResolver $resolver)

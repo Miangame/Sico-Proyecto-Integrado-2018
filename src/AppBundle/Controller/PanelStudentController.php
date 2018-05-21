@@ -86,9 +86,10 @@ class PanelStudentController extends Controller
             return $this->redirectToRoute('panel_students');
         }
 
-        return $this->render('panel/student/new.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nuevo alumno",
+            'redirect' => "panel_students",
         ));
     }
 
@@ -139,9 +140,10 @@ class PanelStudentController extends Controller
             return $this->redirectToRoute('panel_students');
         }
 
-        return $this->render('panel/student/edit.html.twig', array(
+        return $this->render('panel/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar alumno",
+            'redirect' => "panel_students"
         ));
     }
 
