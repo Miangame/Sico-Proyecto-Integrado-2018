@@ -3,7 +3,7 @@
     <h3 class="col s12">Configuración de la web</h3>
     <div class="row">
         <div class="col s12 p-0">
-            <h5>Convocatoria</h5>
+            <h5>Usuario</h5>
             <blockquote class="grey-text">
                 * Convocatoria que se desea administrar en la web como puede ser FCT, PI, Reparto...etc. Todos los
                 los cambios se aplicarán sobre la misma.
@@ -12,7 +12,15 @@
             {{ form_widget(formConfigConvocatory) }}
             {{ form_end(formConfigConvocatory) }}
         </div>
+
         <div class="divider col s12 mt-4"></div>
+
+        <div class="col s12 mt-1">
+            <h5>General</h5>
+            {{ form_start(formConfigGlobal, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(formConfigGlobal) }}
+            {{ form_end(formConfigGlobal) }}
+        </div>
 
     </div>
 
