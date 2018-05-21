@@ -1,6 +1,6 @@
 Bienvenido a SICO
 ========================
-Created by `Javier Ponferrada López y Miguel Ángel Gavilán Merino
+Created by `Javier Ponferrada López y Miguel Ángel Gavilán Merino`
 ## Índice de contenido
 1. [Introducción](#1--introducción)
 
