@@ -16,6 +16,6 @@ class IndexWebController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('user/base.html.twig', array());
+        return $this->render('user/index.html.twig', array());
     }
 }

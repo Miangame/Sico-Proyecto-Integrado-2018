@@ -175,6 +175,25 @@
   grid-gap: 10px;
 }
 
+.tooltip {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 10px;
+  text-align: left;
+}
+
+.warning_state, .ok_state {
+  color: #FFF;
+}
+
+.warning_state {
+  background: #ff7b7b;
+}
+
+.ok_state {
+  background: #6de076;
+}
+
 form > div > div > ul > li {
   color: #ed1515;
 }
