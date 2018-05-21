@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block nav %}
+    {{ render(controller('AppBundle:UserDashboard:dashboard')) }}
+{% endblock %}
+{% block body %}
+    <div class="row mt-1">
+        <div class="col s12 m5">
+            <h5>Alumnos</h5>
+            <table class="responsive-table centered z-depth-1">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>PI</th>
+                    <th>FCT</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Javier Ponferrada</td>
+                    <td><a href="" class="tooltipped" data-position="top" data-tooltip="
+                        <div class='tooltip'>
+                            <i class='material-icons tiny'>school</i>~
+                        </div>
+                        <div class='tooltip'>
+                            <i class='material-icons tiny'>description</i>~
+                        </div>
+                    "><i class="material-icons red-text">brightness_1</i></a></td>
+                    <td><a href="" class="tooltipped" data-position="top" data-tooltip="
+                        <div class='tooltip'>
+                            <i class='material-icons tiny'>school</i>Miguel Gavilán
+                        </div>
+                        <div class='tooltip'>
+                            <i class='material-icons tiny'>domain</i>Sopinet
+                        </div>
+                    "><i class="material-icons green-text">brightness_1</i></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col s12 m7">
+            <h5>Profesores</h5>
+            <table class="responsive-table centered z-depth-1">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>PI</th>
+                    <th>FCT</th>
+                    <th>Reducción</th>
+                    <th>Puntuación</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Lourdes Magarín</td>
+                    <td>6</td>
+                    <td>6</td>
+                    <td>3</td>
+                    <td class="ok_state">0</td>
+                </tr>
+                <tr>
+                    <td>Jose Aguilera</td>
+                    <td>6</td>
+                    <td>6</td>
+                    <td>3</td>
+                    <td class="warning_state">4</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

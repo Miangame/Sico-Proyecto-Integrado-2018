@@ -24,4 +24,6 @@ $(document).ready(function () {
         M.Modal.getInstance($(nameModal)).open();
         $(nameModal+' .actionDelete').prop('href', $(this).prop('href'));
     });
+
+    $('.tooltipped').tooltip();
 });
