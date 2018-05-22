@@ -46,9 +46,10 @@ class CompanyController extends Controller
 
 
 
-        return $this->render('user/fct/company/new.html.twig', array(
+        return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nueva empresa",
+            'redirect' => 'user_fct'
         ));
     }
 
@@ -78,9 +79,10 @@ class CompanyController extends Controller
 
         }
 
-        return $this->render('user/fct/company/edit.html.twig', array(
+        return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Editar empresa",
+            'redirect' => 'user_fct'
         ));
     }
 

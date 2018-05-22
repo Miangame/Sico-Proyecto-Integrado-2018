@@ -42,9 +42,10 @@ class ProjectController extends Controller
 
 
 
-        return $this->render('user/pi/project/new.html.twig', array(
+        return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nuevo proyecto",
+            'redirect' => 'user_pi'
         ));
     }
 
@@ -74,9 +75,10 @@ class ProjectController extends Controller
 
         }
 
-        return $this->render('user/pi/project/edit.html.twig', array(
+        return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Editar proyecto",
+            'redirect' => 'user_pi'
         ));
     }
 
