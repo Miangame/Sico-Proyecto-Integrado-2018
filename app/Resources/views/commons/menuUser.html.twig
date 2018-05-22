@@ -17,6 +17,11 @@
                 </a>
             </li>
         </ul>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>
+                <h5 class="mr-4">{{ convocatory }}</h5>
+            </li>
+        </ul>
     </div>
 </nav>
 <ul id="slide-out" class="sidenav">
@@ -31,7 +36,11 @@
             <a href="#email">
                 <span class="white-text email">{{ user.getFirstName() }} {{ user.getLastName() }}</span>
             </a>
-            <div>
+            <div class="divider"></div>
+            <a href="#">
+                <span class="white-text email pw-1">{{ convocatory }}</span>
+            </a>
+            <div class="pw-1">
                 <a href="{{ path('fos_user_security_logout') }}" class="waves-effect waves-light btn-small red">
                     <i class="small material-icons">power_settings_new</i>
                 </a>

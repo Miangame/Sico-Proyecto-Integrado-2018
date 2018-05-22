@@ -35,4 +35,10 @@ class ConvocatoriesHelper
         }
         return $convocatories;
     }
+
+    public function getConvocatory($id){
+        $convocatoriesRepository = $this->em->getRepository("AppBundle:Convocatory");
+        $convocatory = $convocatoriesRepository->find(($id?$id:""));
+        return empty($convocatory) ? "Sin convocatoria":$convocatory;
+    }
 }
