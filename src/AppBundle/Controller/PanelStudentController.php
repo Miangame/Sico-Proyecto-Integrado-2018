@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * @Route("/panel/student")
+ * @Route("/user/student")
  */
 class PanelStudentController extends Controller
 {
@@ -34,7 +34,7 @@ class PanelStudentController extends Controller
 
         $students = $studentsHelper->getAllStudents();
 
-        return $this->render('panel/student/view.html.twig', array(
+        return $this->render('user/student/view.html.twig', array(
             'students' => $students,
             'convocatories' => $convocatories
         ));
@@ -86,7 +86,7 @@ class PanelStudentController extends Controller
             return $this->redirectToRoute('panel_students');
         }
 
-        return $this->render('panel/forms/form.html.twig', array(
+        return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nuevo alumno",
             'redirect' => "panel_students",
@@ -140,7 +140,7 @@ class PanelStudentController extends Controller
             return $this->redirectToRoute('panel_students');
         }
 
-        return $this->render('panel/forms/form.html.twig', array(
+        return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar alumno",
             'redirect' => "panel_students"

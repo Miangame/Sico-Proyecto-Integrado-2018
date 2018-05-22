@@ -54,9 +54,10 @@ class Distribution_companyController extends Controller
 
 
 
-        return $this->render('user/fct/distribution_company/new.html.twig', array(
+        return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nueva asignación",
+            'redirect' => 'user_fct'
         ));
     }
 
@@ -97,9 +98,10 @@ class Distribution_companyController extends Controller
 
         }
 
-        return $this->render('user/fct/distribution_company/edit.html.twig', array(
+        return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar asignación",
+            'redirect' => 'user_fct'
         ));
     }
 
