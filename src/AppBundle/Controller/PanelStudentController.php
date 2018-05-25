@@ -8,6 +8,7 @@ use AppBundle\Entity\School_group;
 use AppBundle\Entity\Student;
 use AppBundle\Form\StudentType;
 use AppBundle\Services\ConvocatoriesHelper;
+use AppBundle\Services\CoursesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
 use AppBundle\Services\StudentsHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,13 +31,19 @@ class PanelStudentController extends Controller
         /** @var ConvocatoriesHelper $convocatoriesHelper */
         $convocatoriesHelper = $this->get('app.convocatoriesHelper');
 
+        /** @var CoursesHelper $coursesHelper */
+        $coursesHelper = $this->get('app.coursesHelper');
+
+        $courses = $coursesHelper->getCourses();
+
         $convocatories = $convocatoriesHelper->getAllConvocatories();
 
         $students = $studentsHelper->getAllStudents();
 
         return $this->render('user/student/view.html.twig', array(
             'students' => $students,
-            'convocatories' => $convocatories
+            'convocatories' => $convocatories,
+            'courses' => $courses
         ));
     }
 

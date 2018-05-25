@@ -5,16 +5,24 @@
     <a href="{{ path('new_student') }}" class="waves-effect waves-light btn" id="createStudent">Crear alumnos</a>
     <div id="containerSelectCycleStudent">
         <select name="" id="selectCycleStudent">
-            <option value="todos">Todos</option>
+            <option value="todos">- Elija ciclo -</option>
             <option value="2DAW">DAW</option>
             <option value="2ASIR">ASIR</option>
         </select>
     </div>
     <div id="containerSelectConvocatoryStudent">
         <select name="" id="selectConvocatoryStudent">
-            <option value="todos">Todos</option>
+            <option value="todos">- Elija convocatoria -</option>
             {% for convocatory in convocatories %}
                 <option value="{{ convocatory.convocatory }}">{{ convocatory.convocatory }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div id="containerSelectCourseStudent">
+        <select name="" id="selectCourseStudent">
+            <option value="todos">- Elija curso -</option>
+            {% for course in courses %}
+                <option value="{{ course.course }}">{{ course.course }}</option>
             {% endfor %}
         </select>
     </div>
@@ -24,6 +32,7 @@
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Ciclo</th>
+            <th>Curso</th>
             <th>Convocatoria</th>
             <th>Modificar</th>
             <th>Borrar</th>
@@ -36,6 +45,7 @@
                 <td>{{ student[0].first_name }}</td>
                 <td>{{ student[0].last_name }}</td>
                 <td>{{ student.name }}</td>
+                <td>{{ student.course }}</td>
                 <td>{{ student.convocatory }}</td>
                 <td>
                     <a href="{{ path('edit_student', {'id': student[0].id}) }}">
@@ -43,7 +53,8 @@
                     </a>
                 </td>
                 <td>
-                    <a data-modal="modalStudent"  href="{{ path('delete_student', {'id': student[0].id}) }}" class="modalDelete modal-trigger">
+                    <a data-modal="modalStudent" href="{{ path('delete_student', {'id': student[0].id}) }}"
+                       class="modalDelete modal-trigger">
                         <i class="small material-icons red-text">delete</i>
                     </a>
                 </td>
@@ -99,6 +110,30 @@
                     if (convocatoria === "todos") {
                         tr[i].style.display = "";
                     } else {
+                        td = tr[i].getElementsByTagName("td")[4];
+
+                        if (td) {
+                            if (td.innerHTML.toUpperCase() === convocatoria.toUpperCase()) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            };
+
+            let selectCourseStudents = function(){
+                let tr, td, i;
+                let convocatoria = $(this).val();
+
+                tr = $("#studentsTable tr");
+
+                for (i = 0; i < tr.length; i++) {
+
+                    if (convocatoria === "todos") {
+                        tr[i].style.display = "";
+                    } else {
                         td = tr[i].getElementsByTagName("td")[3];
 
                         if (td) {
@@ -115,6 +150,7 @@
             $(function () {
                 $("#selectCycleStudent").on("change", selectCycleStudents);
                 $("#selectConvocatoryStudent").on("change", selectConvocatoryStudents);
+                $("#selectCourseStudent").on("change", selectCourseStudents);
             });
         }
     </script>
