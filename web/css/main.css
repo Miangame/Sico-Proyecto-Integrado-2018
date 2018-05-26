@@ -248,7 +248,7 @@ form > div > div > ul > li {
   height: 100px;
 }
 
-#containerSelectCycleStudent, #containerSelectConvocatoryStudent, #containerSelectCourseStudent {
+#containerSelectCycleStudent, #containerSelectConvocatoryStudent, #containerSelectCourseStudent, #containerSelectCourseDistribution {
   float: right;
   margin: 10px;
 }

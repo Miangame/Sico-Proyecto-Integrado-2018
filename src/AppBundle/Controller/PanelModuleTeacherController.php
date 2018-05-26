@@ -8,13 +8,22 @@ use AppBundle\Entity\Module;
 use AppBundle\Entity\School_group;
 use AppBundle\Entity\User;
 use AppBundle\Form\DistributionModuleTeacherType;
+use AppBundle\Services\ConvocatoriesHelper;
 use AppBundle\Services\CoursesHelper;
+use AppBundle\Services\DistributionModuleTeacherHelper;
 use AppBundle\Services\ModulesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
 use AppBundle\Services\UsersHelper;
+//use http\Env\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Route("/panel/module_teacher")
@@ -27,13 +36,19 @@ class PanelModuleTeacherController extends Controller
     public function viewAction(Request $request)
     {
 
-        /** @var  $distributionModuleTeacherHelper */
+        /** @var DistributionModuleTeacherHelper $distributionModuleTeacherHelper */
         $distributionModuleTeacherHelper = $this->get('app.distributionModuleTeacherHelper');
 
-        $modulesTeachers = $distributionModuleTeacherHelper->getDistributions();
+        /** @var CoursesHelper $coursesHelper */
+        $coursesHelper = $this->get('app.coursesHelper');
+
+        $modulesTeachers = $distributionModuleTeacherHelper->getDistributionsLastYear();
+
+        $courses = $coursesHelper->getCourses();
 
         return $this->render('panel/module_teacher/view.html.twig', array(
             'modulesTeachers' => $modulesTeachers,
+            'courses' => $courses,
         ));
     }
 
@@ -197,5 +212,29 @@ class PanelModuleTeacherController extends Controller
             ->getFlashBag()
             ->add('success', 'Distribución borrada');
         return $this->redirectToRoute('panel_modules_teachers');
+    }
+
+    /**
+     * @Route("/getData", name="get_distribution_data")
+     * @Method({"GET"})
+     */
+    public function getDistributionData(Request $request)
+    {
+        $encoders = array(new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+
+        $serializer = new Serializer($normalizers, $encoders);
+
+        /** @var DistributionModuleTeacherHelper $distributionModuleTeacherHelper */
+        $distributionModuleTeacherHelper = $this->get('app.distributionModuleTeacherHelper');
+        $modulesTeachers = $distributionModuleTeacherHelper->getDistribution($_GET['course']);
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+
+        $response->setData(array(
+            'response' => 'success',
+            'distributions' => $serializer->serialize($modulesTeachers, 'json')
+        ));
+        return $response;
     }
 }

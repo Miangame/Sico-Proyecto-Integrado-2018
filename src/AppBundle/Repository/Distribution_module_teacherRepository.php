@@ -22,4 +22,34 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
 
         return $qb->getQuery()->getArrayResult();
     }
+
+    public function getDistributionsLastYear()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, g.name gr, c.course course, m.hours hours')
+            ->from('AppBundle:Distribution_module_teacher', 't')
+            ->join('t.module', 'm')
+            ->join('t.teacher', 'u')
+            ->join('t.group', 'g')
+            ->join('t.schoolYear', 'c')
+            ->orderBy('c.course', 'DESC')
+            ->setMaxResults(1);
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function getDistribution($course)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, g.name gr, c.course course, m.hours hours')
+            ->from('AppBundle:Distribution_module_teacher', 't')
+            ->join('t.module', 'm')
+            ->join('t.teacher', 'u')
+            ->join('t.group', 'g')
+            ->join('t.schoolYear', 'c')
+            ->where('c.course=:course')
+            ->setParameter('course', $course);
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
