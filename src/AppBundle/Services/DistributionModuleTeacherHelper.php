@@ -19,4 +19,14 @@ class DistributionModuleTeacherHelper
     {
         return $this->em->getRepository("AppBundle:Distribution_module_teacher")->getDistributions();
     }
+
+    public function getDistributionsLastYear()
+    {
+        return $this->em->getRepository("AppBundle:Distribution_module_teacher")->getDistributionsLastYear();
+    }
+
+    public function getDistribution($course)
+    {
+        return $this->em->getRepository("AppBundle:Distribution_module_teacher")->getDistribution($course);
+    }
 }

@@ -2,6 +2,13 @@
 {% block body %}
     <h2>Gestión de asignaciones</h2>
     <a href="{{ path('new_distribution_module_teacher') }}" class="waves-effect waves-light btn">Crear asignación</a>
+    <div id="containerSelectCourseDistribution">
+        <select name="" id="selectCourseDistribution">
+            {% for course in courses %}
+                <option value="{{ course.course }}">{{ course.course }}</option>
+            {% endfor %}
+        </select>
+    </div>
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
@@ -9,6 +16,7 @@
             <th>Módulo</th>
             <th>Ciclo</th>
             <th>Horas</th>
+            <th>Curso</th>
             <th>Modificar</th>
             <th>Borrar</th>
         </tr>
@@ -21,13 +29,16 @@
                 <td>{{ moduleTeacher.module }}</td>
                 <td>{{ moduleTeacher.gr }}</td>
                 <td>{{ moduleTeacher.hours }}</td>
+                <td>{{ moduleTeacher.course }}</td>
                 <td>
                     <a href="{{ path('edit_distribution_module_teacher', {'id': moduleTeacher.id}) }}">
                         <i class="small material-icons">edit</i>
                     </a>
                 </td>
                 <td>
-                    <a data-modal="modalModuleTeacher"  href="{{ path('delete_distribution_module_teacher', {'id': moduleTeacher.id}) }}" class="modalDelete modal-trigger">
+                    <a data-modal="modalModuleTeacher"
+                       href="{{ path('delete_distribution_module_teacher', {'id': moduleTeacher.id}) }}"
+                       class="modalDelete modal-trigger">
                         <i class="small material-icons red-text">delete</i>
                     </a>
                 </td>
@@ -47,4 +58,42 @@
             <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
         </div>
     </div>
+
+    <script>
+        {
+            let changeData = function () {
+                let distributions = "";
+                let course =
+                $("tbody").html("");
+                $.ajax({
+                    type: "GET",
+                    url: "{{ path('get_distribution_data') }}",
+                    data: {'course': $(this).val()},
+                    success: function (response) {
+                        distributions = JSON.parse(response.distributions);
+                        distributions.forEach(function (distribution) {
+                            let url = '{{ path("delete_distribution_module_teacher", {'id': 'idDist'}) }}';
+                            url.replace("idDist", distribution.id);
+
+                            $("tbody").html("" +
+                                "<tr>" +
+                                "<td>"+ distribution.teacher +"</td>" +
+                                "<td>"+ distribution.module +"</td>" +
+                                "<td>"+ distribution.gr +"</td>" +
+                                "<td>"+ distribution.hours +"</td>" +
+                                "<td>"+ distribution.course +"</td>" +
+                                "<td><a href=\"" + url + "\"><i class=\"small material-icons\">edit</i></a></td>" +
+                                "<td><a data-modal=\"modalModuleTeacher\" href=\""+ url +"\" class=\"modalDelete modal-trigger\"><i class=\"small material-icons red-text\">delete</i></a></td>" +
+                                "</tr>");
+                        });
+                    }
+                });
+            };
+
+            $(function () {
+                $("#selectCourseDistribution").on("change", changeData);
+
+            });
+        }
+    </script>
 {% endblock %}
