@@ -16,25 +16,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Javier Ponferrada</td>
-                    <td><a href="" class="tooltipped" data-position="top" data-tooltip="
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.__toString() }}</td>
+                        <td><a href="" class="tooltipped" data-position="top" data-tooltip="
                         <div class='tooltip'>
-                            <i class='material-icons tiny'>school</i>~
+                            <i class='material-icons tiny'>school</i>{{ student.pi_tutor }}
                         </div>
                         <div class='tooltip'>
-                            <i class='material-icons tiny'>description</i>~
+                            <i class='material-icons tiny'>description</i>{{ student.pi_project }}
                         </div>
-                    "><i class="material-icons red-text">brightness_1</i></a></td>
-                    <td><a href="" class="tooltipped" data-position="top" data-tooltip="
+                    "><i class="material-icons {{ student.pi_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i></a></td>
+                        <td><a href="" class="tooltipped" data-position="top" data-tooltip="
                         <div class='tooltip'>
-                            <i class='material-icons tiny'>school</i>Miguel Gavilán
+                            <i class='material-icons tiny'>school</i>{{ student.fct_tutor }}
                         </div>
                         <div class='tooltip'>
-                            <i class='material-icons tiny'>domain</i>Sopinet
+                            <i class='material-icons tiny'>domain</i>{{ student.fct_company }}
                         </div>
-                    "><i class="material-icons green-text">brightness_1</i></a></td>
-                </tr>
+                    "><i class="material-icons {{ student.fct_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i></a></td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -53,24 +55,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Lourdes Magarín</td>
-                    <td>6</td>
-                    <td>6</td>
-                    <td>3</td>
-                    <td class="ok_state">0</td>
-                    <td class="ok_state">2</td>
-                    <td class="warning_state">-4</td>
-                </tr>
-                <tr>
-                    <td>Jose Aguilera</td>
-                    <td>6</td>
-                    <td>6</td>
-                    <td>3</td>
-                    <td class="warning_state">4</td>
-                    <td class="warning_state">1</td>
-                    <td class="ok_state">0</td>
-                </tr>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.getTeacher() }}</td>
+                        <td>{{ user.getPI() }}</td>
+                        <td>{{ user.getFCT() }}</td>
+                        <td>{{ user.getReduction() }}</td>
+                        <td class="ok_state">0</td>
+                        <td class="ok_state">2</td>
+                        <td class="warning_state">-4</td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>

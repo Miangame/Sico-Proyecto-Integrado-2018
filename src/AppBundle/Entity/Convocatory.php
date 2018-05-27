@@ -119,6 +119,10 @@ class Convocatory
         return $this->schoolYear;
     }
 
+    public function getIdSchoolYear(){
+        return $this->schoolYear->getId();
+    }
+
     /**
      * Add student
      *

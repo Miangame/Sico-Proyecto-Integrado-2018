@@ -19,6 +19,46 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
         return $this->findBy(Array("convocatory"=>$convocatory));
     }
 
+    public function getAllStudentsNoDistribution($convocatory,$type){
+        $table = "";
+        if($type == 'company')
+            $table = 'AppBundle:Distribution_company';
+        else
+            $table = 'AppBundle:Distribution_project';
+
+        $q2b = $this->getEntityManager()->createQueryBuilder()
+            ->select('st.id')
+            ->from($table, 'd')
+            ->join('d.student', 'st');
+
+        $arrayIds = $this->arrayIdsToString($q2b->getQuery()->getArrayResult());
+
+        return $this->getStudentsNotIN($convocatory,$arrayIds);
+    }
+
+    public function getStudentsNotIN($convocatory,$arrayIds){
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('t')
+            ->from('AppBundle:Student', 't')
+            ->where('t.convocatory = :convocatory_id')
+            ->andWhere('t.id NOT IN('.implode(",",$arrayIds).')')
+            ->setParameter('convocatory_id',$convocatory);
+
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    private function arrayIdsToString($array){
+        $arrayIds = Array();
+
+        foreach ($array as $id){
+            $arrayIds[] = $id["id"];
+        }
+
+        return $arrayIds;
+    }
+
     public function getAllStudentsWithGroup()
     {
         $qb = $this->getEntityManager()->createQueryBuilder()

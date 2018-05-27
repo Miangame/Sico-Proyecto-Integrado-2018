@@ -28,7 +28,8 @@ class Distribution_companyController extends Controller
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "company" => $this->get('app.companiesHelper')->prepareOptions(),
-            "student" => $this->get('app.studentsHelper')->prepareOptions($current_user->getCurrentConvocatory())
+            "student" => $this->get('app.studentsHelper')
+                ->prepareOptions($current_user->getCurrentConvocatory(),'new','company')
         );
 
         $form = $this->createForm(Distribution_CompanyType::class,$distribution,$options);
@@ -73,7 +74,8 @@ class Distribution_companyController extends Controller
             "user_selected" => $distribution->getUser(),
             "company" => $this->get('app.companiesHelper')->prepareOptions(),
             "company_selected" => $distribution->getCompany(),
-            "student" => $this->get('app.studentsHelper')->prepareOptions($current_user->getCurrentConvocatory()),
+            "student" => $this->get('app.studentsHelper')
+                ->prepareOptions($current_user->getCurrentConvocatory(),'edit','company'),
             "student_selected" => $distribution->getStudent(),
         );
 
