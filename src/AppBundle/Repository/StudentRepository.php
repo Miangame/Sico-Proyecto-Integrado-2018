@@ -15,13 +15,15 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
         return $this->findAll();
     }
 
-    public function getAllStudentsConvocatory($convocatory){
-        return $this->findBy(Array("convocatory"=>$convocatory));
+    public function getAllStudentsConvocatory($convocatory)
+    {
+        return $this->findBy(Array("convocatory" => $convocatory));
     }
 
-    public function getAllStudentsNoDistribution($convocatory,$type){
+    public function getAllStudentsNoDistribution($convocatory, $type)
+    {
         $table = "";
-        if($type == 'company')
+        if ($type == 'company')
             $table = 'AppBundle:Distribution_company';
         else
             $table = 'AppBundle:Distribution_project';
@@ -33,26 +35,28 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
 
         $arrayIds = $this->arrayIdsToString($q2b->getQuery()->getArrayResult());
 
-        return $this->getStudentsNotIN($convocatory,$arrayIds);
+        return $this->getStudentsNotIN($convocatory, $arrayIds);
     }
 
-    public function getStudentsNotIN($convocatory,$arrayIds){
+    public function getStudentsNotIN($convocatory, $arrayIds)
+    {
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('t')
             ->from('AppBundle:Student', 't')
             ->where('t.convocatory = :convocatory_id')
-            ->andWhere('t.id NOT IN('.implode(",",$arrayIds).')')
-            ->setParameter('convocatory_id',$convocatory);
+            ->andWhere('t.id NOT IN(' . implode(",", $arrayIds) . ')')
+            ->setParameter('convocatory_id', $convocatory);
 
 
         return $qb->getQuery()->getResult();
     }
 
 
-    private function arrayIdsToString($array){
+    private function arrayIdsToString($array)
+    {
         $arrayIds = Array();
 
-        foreach ($array as $id){
+        foreach ($array as $id) {
             $arrayIds[] = $id["id"];
         }
 
@@ -67,6 +71,22 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
             ->join('t.group', 'u')
             ->join('t.convocatory', 'w')
             ->join('w.schoolYear', 'x');
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function getStudentsBySchoolYearConvocatory($schoolYear, $convocatory)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('t, u.name, w.convocatory, x.course')
+            ->from('AppBundle:Student', 't')
+            ->join('t.group', 'u')
+            ->join('t.convocatory', 'w')
+            ->join('w.schoolYear', 'x')
+            ->where('x.id = :sc_id')
+            ->andWhere('w.id = :convocatory_id')
+            ->setParameter('sc_id', $schoolYear)
+            ->setParameter('convocatory_id', $convocatory);
 
         return $qb->getQuery()->getArrayResult();
     }

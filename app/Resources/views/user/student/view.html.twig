@@ -10,22 +10,6 @@
             <option value="2ASIR">ASIR</option>
         </select>
     </div>
-    <div id="containerSelectConvocatoryStudent">
-        <select name="" id="selectConvocatoryStudent">
-            <option value="todos">- Elija convocatoria -</option>
-            {% for convocatory in convocatories %}
-                <option value="{{ convocatory.convocatory }}">{{ convocatory.convocatory }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div id="containerSelectCourseStudent">
-        <select name="" id="selectCourseStudent">
-            <option value="todos">- Elija curso -</option>
-            {% for course in courses %}
-                <option value="{{ course.course }}">{{ course.course }}</option>
-            {% endfor %}
-        </select>
-    </div>
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
@@ -123,7 +107,7 @@
                 }
             };
 
-            let selectCourseStudents = function(){
+            let selectCourseStudents = function () {
                 let tr, td, i;
                 let convocatoria = $(this).val();
 
