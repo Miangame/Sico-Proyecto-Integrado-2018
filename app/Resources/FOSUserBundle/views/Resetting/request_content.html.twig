@@ -1,0 +1,27 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+    <div class="row allHeight centerVertical">
+        <div class="col m8 offset-m2 l4 offset-l4 z-depth-4 p-1">
+            <div class="col s12">
+                <div class="row centerTotal">
+                    <img id="logo-login" src="{{ asset('img/logo-color.png') }}">
+                </div>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">perm_identity</i>
+                <label type="text" class="validate" for="username">Introduzca el email</label>
+                <input type="text" id="username" name="username" required="required" />
+            </div>
+            <div class="input-field col s12">
+                <button id="_submit"  class="btn waves-effect waves-light w-100" type="submit" name="action">Enviar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+            {#<div>#}
+                {#<input type="submit" value="{{ 'resetting.request.submit'|trans }}" />#}
+            {#</div>#}
+        </div>
+    </div>
+
+</form>

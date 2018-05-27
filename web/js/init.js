@@ -4,6 +4,16 @@
 
 // Or with jQuery
 
+let cargarModalDelete = function () {
+    $('.modalDelete').on('click', function (event) {
+        event.preventDefault();
+
+        const nameModal = '#' + $(this).data('modal');
+        M.Modal.getInstance($(nameModal)).open();
+        $(nameModal + ' .actionDelete').prop('href', $(this).prop('href'));
+    });
+};
+
 $(document).ready(function () {
     //Init sidenav
     $('.sidenav').sidenav();
@@ -17,13 +27,7 @@ $(document).ready(function () {
     $('.tabs').tabs();
     $('ul.tabs').tabs();
 
-    $('.modalDelete').on('click', function (event) {
-        event.preventDefault();
-
-        const nameModal = '#'+$(this).data('modal');
-        M.Modal.getInstance($(nameModal)).open();
-        $(nameModal+' .actionDelete').prop('href', $(this).prop('href'));
-    });
+    cargarModalDelete();
 
     $('.tooltipped').tooltip();
 });

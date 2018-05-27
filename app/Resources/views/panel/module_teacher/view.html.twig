@@ -63,7 +63,7 @@
         {
             let changeData = function () {
                 let distributions = "";
-                let course =
+
                 $("tbody").html("");
                 $.ajax({
                     type: "GET",
@@ -72,20 +72,27 @@
                     success: function (response) {
                         distributions = JSON.parse(response.distributions);
                         distributions.forEach(function (distribution) {
-                            let url = '{{ path("delete_distribution_module_teacher", {'id': 'idDist'}) }}';
-                            url.replace("idDist", distribution.id);
+                            let id = distribution.id;
+
+                            let url = "{{ path('edit_distribution_module_teacher', {'id': 'idDist'}) }}";
+                            let url2 = "{{ path('delete_distribution_module_teacher', {'id': 'idDist'}) }}";
+
+                            url = url.replace("idDist", id);
+                            url2 = url2.replace("idDist", id);
 
                             $("tbody").html("" +
                                 "<tr>" +
-                                "<td>"+ distribution.teacher +"</td>" +
-                                "<td>"+ distribution.module +"</td>" +
-                                "<td>"+ distribution.gr +"</td>" +
-                                "<td>"+ distribution.hours +"</td>" +
-                                "<td>"+ distribution.course +"</td>" +
+                                "<td>" + distribution.teacher + "</td>" +
+                                "<td>" + distribution.module + "</td>" +
+                                "<td>" + distribution.gr + "</td>" +
+                                "<td>" + distribution.hours + "</td>" +
+                                "<td>" + distribution.course + "</td>" +
                                 "<td><a href=\"" + url + "\"><i class=\"small material-icons\">edit</i></a></td>" +
-                                "<td><a data-modal=\"modalModuleTeacher\" href=\""+ url +"\" class=\"modalDelete modal-trigger\"><i class=\"small material-icons red-text\">delete</i></a></td>" +
+                                "<td><a data-modal=\"modalModuleTeacher\" href=\"" + url2 + "\" class=\"modalDelete modal-trigger\"><i class=\"small material-icons red-text\">delete</i></a></td>" +
                                 "</tr>");
                         });
+
+                        cargarModalDelete()
                     }
                 });
             };
