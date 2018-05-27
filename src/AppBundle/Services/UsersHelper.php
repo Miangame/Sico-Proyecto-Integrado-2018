@@ -44,20 +44,22 @@ class UsersHelper
 
         $teachers  = Array();
         $teacherResult = $teacherRepository->getUsersValid();
-        foreach ($teacherResult as $teacher){
-            array_push(
-                $teachers, new TeacherData(
-                    $teacher,
-                    $teacherRepository->getPIDistribution($convocatory,$teacher->getId()),
-                    $teacherRepository->getFCTDistribution($convocatory,$teacher->getId()),
-                    $this->calcRecuction(
-                        $teacherRepository->getHoursModules(
-                            $convocatoryRepository->findOneBy(Array('id'=>$convocatory))->getIdSchoolYear(),
-                            $teacher->getId()
+        if($convocatory) {
+            foreach ($teacherResult as $teacher) {
+                array_push(
+                    $teachers, new TeacherData(
+                        $teacher,
+                        $teacherRepository->getPIDistribution($convocatory, $teacher->getId()),
+                        $teacherRepository->getFCTDistribution($convocatory, $teacher->getId()),
+                        $this->calcRecuction(
+                            $teacherRepository->getHoursModules(
+                                $convocatoryRepository->findOneBy(Array('id' => $convocatory))->getIdSchoolYear(),
+                                $teacher->getId()
+                            )
                         )
                     )
-                )
-            );
+                );
+            }
         }
         return $teachers;
     }
