@@ -35,10 +35,12 @@ class StudentsHelper
             $dsc = $distributionCompany->getAllForStudent($student->getId());
             $student->fct_tutor = (empty($dsc[0]) ? '~' : $dsc[0]->getUser()->__toString());
             $student->fct_company = (empty($dsc[0]) ? '~': $dsc[0]->getCompany()->__toString());
+            $student->fct_id = (empty($dsc[0]) ? '~': $dsc[0]->getId());
 
             $dsp = $distributionProject->getAllForStudent($student->getId());
             $student->pi_tutor = (empty($dsp[0]) ? '~' : $dsp[0]->getUser()->__toString());
             $student->pi_project = (empty($dsp[0]) ? '~' : $dsp[0]->getProject()->__toString());
+            $student->pi_id = (empty($dsp[0]) ? '~' : $dsp[0]->getId());
         }
         return $students;
     }

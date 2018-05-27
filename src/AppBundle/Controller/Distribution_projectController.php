@@ -52,7 +52,7 @@ class Distribution_projectController extends Controller
 
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
-            'title' => "Nueva asignación",
+            'title' => "Nueva asignación PI",
             'redirect' => 'user_pi'
         ));
     }
@@ -96,7 +96,7 @@ class Distribution_projectController extends Controller
 
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
-            'title' => "Modificar asignación",
+            'title' => "Modificar asignación Pi",
             'redirect' => 'user_pi'
         ));
     }
