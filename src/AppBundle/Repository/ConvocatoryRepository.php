@@ -17,9 +17,9 @@ class ConvocatoryRepository extends \Doctrine\ORM\EntityRepository
 
     public function getConvocatories($convocatory = null)
     {
-        $query = "AND cv.id = ".intval($convocatory)."";
+        $query = "AND cv.id = " . intval($convocatory) . "";
 
-        if(!$convocatory) {
+        if (!$convocatory) {
             $query = "";
         }
 
@@ -28,6 +28,18 @@ class ConvocatoryRepository extends \Doctrine\ORM\EntityRepository
                                       FROM AppBundle:Convocatory cv,
                                       AppBundle:SchoolYear sy
                                       WHERE cv.schoolYear = sy.id 
-                                      ".$query." ")->getArrayResult();
+                                      " . $query . " ")->getArrayResult();
+    }
+
+    public function getIdCourseByConvocatory($convocatory)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('u.id')
+            ->from('AppBundle:Convocatory', 't')
+            ->join('t.schoolYear', 'u')
+            ->where('t.id=:convocatory_id')
+            ->setParameter('convocatory_id', $convocatory);
+
+        return $qb->getQuery()->getArrayResult()[0]['id'];
     }
 }

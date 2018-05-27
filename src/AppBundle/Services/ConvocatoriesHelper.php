@@ -30,15 +30,24 @@ class ConvocatoriesHelper
 
         $convocatories = Array();
 
-        foreach ($convocatoriesRepository->getConvocatories($current_convocatory) as $convocatory){
+        foreach ($convocatoriesRepository->getConvocatories($current_convocatory) as $convocatory) {
             $convocatories[$convocatory["convocatory"]] = $convocatory["id"];
         }
         return $convocatories;
     }
 
-    public function getConvocatory($id){
+    public function getConvocatory($id)
+    {
         $convocatoriesRepository = $this->em->getRepository("AppBundle:Convocatory");
-        $convocatory = $convocatoriesRepository->find(($id?$id:""));
-        return empty($convocatory) ? "Sin convocatoria":$convocatory;
+        $convocatory = $convocatoriesRepository->find(($id ? $id : ""));
+        return empty($convocatory) ? "Sin convocatoria" : $convocatory;
+    }
+
+    public function getIdCourseByConvocatory($convocatory)
+    {
+        /** @var ConvocatoryRepository $convocatoriesRepository */
+        $convocatoriesRepository = $this->em->getRepository("AppBundle:Convocatory");
+
+        return $convocatoriesRepository->getIdCourseByConvocatory($convocatory);
     }
 }

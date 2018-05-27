@@ -25,6 +25,14 @@ class StudentsHelper
         return $studentsRepository->getAllStudentsWithGroup();
     }
 
+    public function getStudentsBySchoolYearConvocatory($schoolYear, $convocatory)
+    {
+        /** @var StudentRepository $studentsRepository */
+        $studentsRepository = $this->em->getRepository("AppBundle:Student");
+
+        return $studentsRepository->getStudentsBySchoolYearConvocatory($schoolYear, $convocatory);
+    }
+
     public function getStudentsDistribution($convocatory){
         $studentsRepository = $this->em->getRepository("AppBundle:Student");
         $distributionCompany = $this->em->getRepository("AppBundle:Distribution_company");
