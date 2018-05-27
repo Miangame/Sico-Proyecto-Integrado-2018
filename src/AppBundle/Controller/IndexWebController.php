@@ -16,6 +16,10 @@ class IndexWebController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('user/index.html.twig', array());
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        return $this->render('user/index.html.twig', array(
+            'students' => $this->get('app.studentsHelper')->getStudentsDistribution($current_convocatory),
+            'users' => $this->get('app.usersHelper')->getUserDistribution($current_convocatory)
+        ));
     }
 }

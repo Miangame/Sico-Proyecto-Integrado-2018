@@ -29,4 +29,9 @@ class Distribution_projectRepository extends \Doctrine\ORM\EntityRepository
                                       AND dp.project = pj.id
                                       AND st.convocatory = ".intval($convocatory)." ")->getArrayResult();
     }
+
+    public function getAllForStudent($idStudent)
+    {
+        return $this->findBy(['student'=>$idStudent]);
+    }
 }

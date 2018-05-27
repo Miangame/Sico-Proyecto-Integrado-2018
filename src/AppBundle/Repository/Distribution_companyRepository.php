@@ -42,6 +42,11 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
         return $this->findBy(['company'=>$company]);
     }
 
+    public function getAllForStudent($idStudent)
+    {
+        return $this->findBy(['student'=>$idStudent]);
+    }
+
 
 
 

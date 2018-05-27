@@ -23,7 +23,8 @@ class Distribution_projectController extends Controller
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "project" => $this->get('app.projectsHelper')->prepareOptions(),
-            "student" => $this->get('app.studentsHelper')->prepareOptions($current_user->getCurrentConvocatory())
+            "student" => $this->get('app.studentsHelper')
+                ->prepareOptions($current_user->getCurrentConvocatory(),'new','project')
         );
 
         $form = $this->createForm(Distribution_ProjectType::class,$distribution,$options);
@@ -68,7 +69,8 @@ class Distribution_projectController extends Controller
             "user_selected" => $distribution->getUser(),
             "project" => $this->get('app.projectsHelper')->prepareOptions(),
             "project_selected" => $distribution->getProject(),
-            "student" => $this->get('app.studentsHelper')->prepareOptions($current_user->getCurrentConvocatory()),
+            "student" => $this->get('app.studentsHelper')
+                ->prepareOptions($current_user->getCurrentConvocatory(),'edit','project'),
             "student_selected" => $distribution->getStudent(),
         );
 

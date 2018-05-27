@@ -156,4 +156,9 @@ class Distribution_module_teacher
     {
         return $this->schoolYear;
     }
+
+    public function __toString()
+    {
+        return $this->getModule().'/'.$this->getSchoolYear().'/'.$this->getGroup().'/'.$this->getTeacher();
+    }
 }
