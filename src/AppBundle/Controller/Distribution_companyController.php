@@ -57,7 +57,7 @@ class Distribution_companyController extends Controller
 
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
-            'title' => "Nueva asignación",
+            'title' => "Nueva asignación FCT",
             'redirect' => 'user_fct'
         ));
     }
@@ -102,7 +102,7 @@ class Distribution_companyController extends Controller
 
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
-            'title' => "Modificar asignación",
+            'title' => "Modificar asignación FCT",
             'redirect' => 'user_fct'
         ));
     }
