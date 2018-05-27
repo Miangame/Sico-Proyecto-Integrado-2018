@@ -44,7 +44,8 @@ class UsersHelper
 
         $teachers  = Array();
         $teacherResult = $teacherRepository->getUsersValid();
-        if($convocatory) {
+
+        if($convocatoryRepository->findBy(array('id' => $convocatory)) != null) {
             foreach ($teacherResult as $teacher) {
                 array_push(
                     $teachers, new TeacherData(
