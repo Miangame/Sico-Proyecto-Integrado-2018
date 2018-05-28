@@ -7,6 +7,8 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Distribution_module_teacher;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,6 +33,9 @@ class DistributionModuleTeacherType extends AbstractType
                 'choices' => $options["groups"],
                 'label' => 'Grupo',
                 'data' => $options["group_selected"]
+            ))
+            ->add('hours', IntegerType::class, array(
+                'label' => 'Horas'
             ))
             ->add('schoolYear', ChoiceType::class, array(
                 'choices' => $options["courses"],

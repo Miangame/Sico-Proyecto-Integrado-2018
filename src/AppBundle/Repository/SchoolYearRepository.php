@@ -14,4 +14,9 @@ class SchoolYearRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->findBy(array(), array('course' => 'DESC'));
     }
+
+    public function getLastCourse()
+    {
+        return $this->findOneBy(array(), array('course' => 'DESC'));
+    }
 }
