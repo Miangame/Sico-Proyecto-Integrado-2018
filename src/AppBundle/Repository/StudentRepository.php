@@ -35,7 +35,9 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
 
         $arrayIds = $this->arrayIdsToString($q2b->getQuery()->getArrayResult());
 
-        return $this->getStudentsNotIN($convocatory, $arrayIds);
+        if(count($arrayIds) > 0)
+            return $this->getStudentsNotIN($convocatory, $arrayIds);
+        return $this->getAllStudentsConvocatory($convocatory);
     }
 
     public function getStudentsNotIN($convocatory, $arrayIds)
