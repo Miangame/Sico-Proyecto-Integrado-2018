@@ -70,8 +70,10 @@
                     url: "{{ path('get_distribution_data') }}",
                     data: {'course': $(this).val()},
                     success: function (response) {
+                        let html = "";
                         distributions = JSON.parse(response.distributions);
                         distributions.forEach(function (distribution) {
+                            console.log(distribution);
                             let id = distribution.id;
 
                             let url = "{{ path('edit_distribution_module_teacher', {'id': 'idDist'}) }}";
@@ -80,7 +82,7 @@
                             url = url.replace("idDist", id);
                             url2 = url2.replace("idDist", id);
 
-                            $("tbody").html("" +
+                            html += "" +
                                 "<tr>" +
                                 "<td>" + distribution.teacher + "</td>" +
                                 "<td>" + distribution.module + "</td>" +
@@ -89,18 +91,22 @@
                                 "<td>" + distribution.course + "</td>" +
                                 "<td><a href=\"" + url + "\"><i class=\"small material-icons\">edit</i></a></td>" +
                                 "<td><a data-modal=\"modalModuleTeacher\" href=\"" + url2 + "\" class=\"modalDelete modal-trigger\"><i class=\"small material-icons red-text\">delete</i></a></td>" +
-                                "</tr>");
-                        });
+                                "</tr>";
+                    });
 
-                        cargarModalDelete()
-                    }
-                });
-            };
+                $("tbody").html(html);
+                cargarModalDelete()
+            }
+        }
+        )
+        ;
+        }
+        ;
 
-            $(function () {
-                $("#selectCourseDistribution").on("change", changeData);
+        $(function () {
+            $("#selectCourseDistribution").on("change", changeData);
 
-            });
+        });
         }
     </script>
 {% endblock %}

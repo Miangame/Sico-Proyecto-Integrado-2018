@@ -5,11 +5,14 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * Distribution_module_teacher
  *
- * @ORM\Table(name="Distribution_module_teacher")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Distribution_module_teacherRepository")
+ * @ORM\Table(name="Distribution_module_teacher", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="unicos", columns={"module_id", "user_id", "group_id", "schoolYear_id"})
+ *     })
  */
 class Distribution_module_teacher
 {
@@ -50,6 +53,17 @@ class Distribution_module_teacher
      */
     protected $schoolYear;
 
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 10,
+     *      minMessage = "No puede tener menos de {{ limit }} hora a la semana",
+     *      maxMessage = "No puede tener más de {{ limit }} horas a la semana"
+     * )
+     * @ORM\Column(name="hours", type="integer", nullable=false)
+     */
+    protected $hours;
 
     /**
      * Get id
@@ -159,6 +173,30 @@ class Distribution_module_teacher
 
     public function __toString()
     {
-        return $this->getModule().'/'.$this->getSchoolYear().'/'.$this->getGroup().'/'.$this->getTeacher();
+        return $this->getModule() . '/' . $this->getSchoolYear() . '/' . $this->getGroup() . '/' . $this->getTeacher();
+    }
+
+    /**
+     * Set hours
+     *
+     * @param integer $hours
+     *
+     * @return Distribution_module_teacher
+     */
+    public function setHours($hours)
+    {
+        $this->hours = $hours;
+
+        return $this;
+    }
+
+    /**
+     * Get hours
+     *
+     * @return integer
+     */
+    public function getHours()
+    {
+        return $this->hours;
     }
 }

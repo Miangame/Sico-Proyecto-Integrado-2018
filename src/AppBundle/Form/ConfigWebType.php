@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -26,10 +27,10 @@ class ConfigWebType extends AbstractType
     {
 
         $builder
-            ->add('weight_pi', NumberType::class, array(
+            ->add('weight_pi', IntegerType::class, array(
                 'label' => 'Peso PI',
             ))
-            ->add('weight_fct', NumberType::class, array(
+            ->add('weight_fct', IntegerType::class, array(
                 'label' => 'Peso FCT',
             ))
             ->add('hours_first', CheckboxType::class, array(
