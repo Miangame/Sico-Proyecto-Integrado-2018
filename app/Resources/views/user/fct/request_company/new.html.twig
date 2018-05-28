@@ -1,0 +1,11 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+    <h3 class="col s12">{{ title }}</h3>
+    <div class="row z-depth-2 p-2">
+        <form method="POST" action="{{ path('user_fct_reqcom') }}" enctype="multipart/form-data">
+            <input type="file" name="file_uploaded">
+            <input type="submit" name="btn_submit" value="Enviar">
+        </form>
+
+    </div>
+{% endblock %}
