@@ -10,8 +10,16 @@ namespace AppBundle\Repository;
  */
 class Request_companyRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getRequestCompanies()
+    public function getRequestCompanies($convocatory)
     {
-        return $this->findAll();
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('sy.id')
+            ->from('AppBundle:Convocatory', 'c')
+            ->join('c.schoolYear', 'sy')
+            ->where('c.id = :convocatory_id')
+            ->setParameter('convocatory_id',$convocatory);
+
+        $currentYear = $qb->getQuery()->getResult()[0]["id"];
+        return $this->findBy(array("schoolYear" => $currentYear));
     }
 }

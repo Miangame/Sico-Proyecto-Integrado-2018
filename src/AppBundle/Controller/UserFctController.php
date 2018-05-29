@@ -29,7 +29,7 @@ class UserFctController extends Controller
 
         return $this->render('user/fct/view.html.twig', array(
             'companies' => $em->getRepository(Company::class)->getCompanies(),
-            'request_companies' => $em->getRepository(Request_company::class)->getRequestCompanies(),
+            'request_companies' => $em->getRepository(Request_company::class)->getRequestCompanies($current_user->getCurrentConvocatory()),
             'distribution_companies' => $em->getRepository(
                 Distribution_company::class)
                 ->getDistributionsCompaniesConvocatory($current_user->getCurrentConvocatory())
