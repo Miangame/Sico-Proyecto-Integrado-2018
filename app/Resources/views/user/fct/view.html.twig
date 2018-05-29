@@ -101,9 +101,9 @@
                 <tbody>
                 {% for request in request_companies %}
                     <tr>
-                        <td>{{ request.name_company }}</td>
-                        <td>{{ request.cif }}</td>
-                        <td>{{ request.number_of_daw + request.number_of_asir }}</td>
+                        <td>{{ request.getNameCompany() }}</td>
+                        <td>{{ request.getCif() }}</td>
+                        <td>{{ request.getNumberOfDaw() + request.getNumberOfAsir() }}</td>
                         <td>
                             <a href="#">
                                 <i class="small material-icons">info</i>

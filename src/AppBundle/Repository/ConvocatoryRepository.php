@@ -27,7 +27,8 @@ class ConvocatoryRepository extends \Doctrine\ORM\EntityRepository
                                       SELECT cv.id as id, CONCAT(cv.convocatory,' / ',sy.course) as convocatory
                                       FROM AppBundle:Convocatory cv,
                                       AppBundle:SchoolYear sy
-                                      WHERE cv.schoolYear = sy.id 
+                                      WHERE cv.schoolYear = sy.id
+                                      ORDER BY cv.id DESC
                                       " . $query . " ")->getArrayResult();
     }
 
