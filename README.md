@@ -3,7 +3,7 @@ Bienvenido a SICO
 Desarrollado por `Javier Ponferrada López y Miguel Ángel Gavilán Merino`
 ## Índice de contenido
 1. [Breve explicación](#1--breve-explicación)
-2. [Objectivos](#2--objetivos)
+2. [Objetivos](#2--objetivos)
 
 ### 1.- Breve explicación 
 Los módulos profesionales de "Proyecto de desarrollo de aplicaciones web" y "Proyecto de administración de sistemas informáticos en red" (más comúnmente denominados "Proyecto Integrado" ó PI) y de "Formación en centros de trabajo" (FCT) son dos módulos de los ciclos formativos de Grado Superior. Ambos se cursan una vez superados el resto de módulos profesionales que constituyen las enseñanzas del ciclo formativo.
