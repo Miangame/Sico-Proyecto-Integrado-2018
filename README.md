@@ -4,7 +4,7 @@ Desarrollado por `Javier Ponferrada López y Miguel Ángel Gavilán Merino`
 ## Índice de contenido
 2. [Objectivos](#2--objetivos)
 
-### 1.- Breve explicacón 
+### 1.- Breve explicación 
 Los módulos profesionales de "Proyecto de desarrollo de aplicaciones web" y "Proyecto de administración de sistemas informáticos en red" (más comúnmente denominados "Proyecto Integrado" ó PI) y de "Formación en centros de trabajo" (FCT) son dos módulos de los ciclos formativos de Grado Superior. Ambos se cursan una vez superados el resto de módulos profesionales que constituyen las enseñanzas del ciclo formativo.
 Durante el curso académico, en el Departamento de Informática y Comunicaciones del IES Gran Capitán los alumnos de los ciclos comienzan dichos módulos en Septiembre (alumnos que aprobaron todos los módulos lectivos en Junio) y en Marzo (alumnos que aprobaron todos los módulos lectivos en la segunda evaluación de Marzo).
 Tanto en Septiembre como en Marzo el profesorado del ciclo se reparte la tutoría/seguimiento de dichos módulos. Esto supone buscar un equilibrio del trabajo a repartir, en el que intervienen:
@@ -20,7 +20,7 @@ Además de buscar dicho equilibrio, los miembros del departamento se encuentran 
 
 El propósito de este proyecto es la implementación de una Web que facilite este reparto.
 
-### 2.Objetivos
+### 2.- Objetivos
 Teniendo en cuenta la introducción previa, el proyecto REPARTO-SICO consistirá en el despliegue de un servidor Web que cumpla los siguientes objetivos:
 * Facilitar el reparto de las FCTs y PIs de manera gráfica e intuitiva
 * Implantación en un servidor del departamento. 
