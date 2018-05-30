@@ -2,6 +2,7 @@ Bienvenido a SICO
 ========================
 Desarrollado por `Javier Ponferrada López y Miguel Ángel Gavilán Merino`
 ## Índice de contenido
+1. [Objectivos](#1--breve-explicación)
 2. [Objectivos](#2--objetivos)
 
 ### 1.- Breve explicación 
