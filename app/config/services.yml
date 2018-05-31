@@ -37,3 +37,6 @@ services:
     app.distributionModuleTeacherHelper:
         class: AppBundle\Services\DistributionModuleTeacherHelper
         arguments: ["@doctrine.orm.entity_manager"]
+    app.configHelper:
+        class: AppBundle\Services\ConfigGeneralHelper
+        arguments: ["@doctrine.orm.entity_manager"]

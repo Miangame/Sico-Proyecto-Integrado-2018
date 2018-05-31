@@ -10,4 +10,7 @@ namespace AppBundle\Repository;
  */
 class ConfigurationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getConfig(){
+        return $this->find(1);
+    }
 }
