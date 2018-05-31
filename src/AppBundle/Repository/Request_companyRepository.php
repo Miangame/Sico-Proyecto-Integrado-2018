@@ -19,7 +19,12 @@ class Request_companyRepository extends \Doctrine\ORM\EntityRepository
             ->where('c.id = :convocatory_id')
             ->setParameter('convocatory_id',$convocatory);
 
-        $currentYear = $qb->getQuery()->getResult()[0]["id"];
-        return $this->findBy(array("schoolYear" => $currentYear));
+        if($convocatory != null){
+            $currentYear = $qb->getQuery()->getResult()[0]["id"];
+            return $this->findBy(array("schoolYear" => $currentYear));
+        }else{
+            return Array();
+        }
+
     }
 }

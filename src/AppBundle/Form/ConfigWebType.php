@@ -35,11 +35,13 @@ class ConfigWebType extends AbstractType
             ))
             ->add('hours_first', CheckboxType::class, array(
                 'label' => 'Usar horas de primero',
+                'label_attr' => array('class' => 'hide')
             ))
             ->add('hours_secondary', CheckboxType::class, array(
                 'label' => 'Usar horas de segundo',
+                'label_attr' => array('class' => 'hide')
             ))
-            ->add('save', SubmitType::class, array('label' => 'Aplicar', 'attr' => ['class' => 'waves-effect waves-light btn']));
+            ->add('save', SubmitType::class, array('label' => 'Aplicar', 'attr' => ['class' => 'waves-effect waves-light btn mt-2']));
     }
 
     public function configureOptions(OptionsResolver $resolver)
