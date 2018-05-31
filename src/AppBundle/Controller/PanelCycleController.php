@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Cycle;
 use AppBundle\Form\CycleType;
 use AppBundle\Services\CyclesHelper;
+use AppBundle\Services\ModulesHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -24,10 +25,20 @@ class PanelCycleController extends Controller
         /** @var CyclesHelper $cyclesHelper */
         $cyclesHelper = $this->get('app.cyclesHelper');
 
+        /** @var ModulesHelper $modulesHelper */
+        $modulesHelper = $this->get('app.modulesHelper');
+
         $cycles = $cyclesHelper->getCycles();
 
+        $actualHours1 = $modulesHelper->getActualHoursByGroup(1);
+        $actualHours2 = $modulesHelper->getActualHoursByGroup(2);
+        $totalHours = $cyclesHelper->getTotalHours();
+
         return $this->render('panel/cycle/view.html.twig', array(
-            'cycles' => $cycles
+            'cycles' => $cycles,
+            'actualHours1' => $actualHours1,
+            'actualHours2' => $actualHours2,
+            'totalHours' => $totalHours,
         ));
     }
 

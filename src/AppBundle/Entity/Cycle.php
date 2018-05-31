@@ -29,14 +29,42 @@ class Cycle
     /**
      * @Assert\NotBlank()
      * @Assert\Range(
-     *      min = 1,
-     *      max = 30,
-     *      minMessage = "No puede tener menos de {{ limit }} hora a la semana",
-     *      maxMessage = "No puede tener más de {{ limit }} horas a la semana"
+     *      min = 0,
+     *      minMessage = "Las horas no deben ser menos de {{ limit }}",
      * )
-     * @ORM\Column(name="hours", type="integer", nullable=false)
+     * @ORM\Column(name="titularHours1", type="integer", nullable=false)
      */
-    private $hours;
+    private $titularHours1;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Las horas no deben ser menos de {{ limit }}",
+     * )
+     * @ORM\Column(name="desdobleHours1", type="integer", nullable=false)
+     */
+    private $desdobleHours1;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Las horas no deben ser menos de {{ limit }}",
+     * )
+     * @ORM\Column(name="titularHours2", type="integer", nullable=false)
+     */
+    private $titularHours2;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Las horas no deben ser menos de {{ limit }}",
+     * )
+     * @ORM\Column(name="desdobleHours2", type="integer", nullable=false)
+     */
+    private $desdobleHours2;
 
     /**
      * @ORM\OneToMany(targetEntity="School_group", mappedBy="cycle")
@@ -57,6 +85,7 @@ class Cycle
     {
         return $this->id;
     }
+
     /**
      * Constructor
      */
@@ -185,5 +214,101 @@ class Cycle
     public function getModulesCycles()
     {
         return $this->modules_cycles;
+    }
+
+    /**
+     * Set titularHours1
+     *
+     * @param integer $titularHours1
+     *
+     * @return Cycle
+     */
+    public function setTitularHours1($titularHours1)
+    {
+        $this->titularHours1 = $titularHours1;
+
+        return $this;
+    }
+
+    /**
+     * Get titularHours1
+     *
+     * @return integer
+     */
+    public function getTitularHours1()
+    {
+        return $this->titularHours1;
+    }
+
+    /**
+     * Set desdobleHours1
+     *
+     * @param integer $desdobleHours1
+     *
+     * @return Cycle
+     */
+    public function setDesdobleHours1($desdobleHours1)
+    {
+        $this->desdobleHours1 = $desdobleHours1;
+
+        return $this;
+    }
+
+    /**
+     * Get desdobleHours1
+     *
+     * @return integer
+     */
+    public function getDesdobleHours1()
+    {
+        return $this->desdobleHours1;
+    }
+
+    /**
+     * Set titularHours2
+     *
+     * @param integer $titularHours2
+     *
+     * @return Cycle
+     */
+    public function setTitularHours2($titularHours2)
+    {
+        $this->titularHours2 = $titularHours2;
+
+        return $this;
+    }
+
+    /**
+     * Get titularHours2
+     *
+     * @return integer
+     */
+    public function getTitularHours2()
+    {
+        return $this->titularHours2;
+    }
+
+    /**
+     * Set desdobleHours2
+     *
+     * @param integer $desdobleHours2
+     *
+     * @return Cycle
+     */
+    public function setDesdobleHours2($desdobleHours2)
+    {
+        $this->desdobleHours2 = $desdobleHours2;
+
+        return $this;
+    }
+
+    /**
+     * Get desdobleHours2
+     *
+     * @return integer
+     */
+    public function getDesdobleHours2()
+    {
+        return $this->desdobleHours2;
     }
 }

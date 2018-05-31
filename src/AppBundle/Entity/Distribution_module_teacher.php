@@ -54,16 +54,14 @@ class Distribution_module_teacher
     protected $schoolYear;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Range(
-     *      min = 1,
-     *      max = 10,
-     *      minMessage = "No puede tener menos de {{ limit }} hora a la semana",
-     *      maxMessage = "No puede tener más de {{ limit }} horas a la semana"
-     * )
-     * @ORM\Column(name="hours", type="integer", nullable=false)
+     * @ORM\Column(name="hours", type="integer", nullable=true)
      */
     protected $hours;
+
+    /**
+     * @ORM\Column(name="desdoble", type="boolean", nullable=false)
+     */
+    protected $desdoble;
 
     /**
      * Get id
@@ -198,5 +196,29 @@ class Distribution_module_teacher
     public function getHours()
     {
         return $this->hours;
+    }
+
+    /**
+     * Set desdoble
+     *
+     * @param boolean $desdoble
+     *
+     * @return Distribution_module_teacher
+     */
+    public function setDesdoble($desdoble)
+    {
+        $this->desdoble = $desdoble;
+
+        return $this;
+    }
+
+    /**
+     * Get desdoble
+     *
+     * @return boolean
+     */
+    public function getDesdoble()
+    {
+        return $this->desdoble;
     }
 }

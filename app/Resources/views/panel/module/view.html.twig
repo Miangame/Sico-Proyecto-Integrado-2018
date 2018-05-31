@@ -6,8 +6,9 @@
         <thead>
         <tr>
             <th>Módulo</th>
-            <th>Ciclo</th>
+            <th>Grupo</th>
             <th>Horas</th>
+            <th>Horas desdoble</th>
             <th>Modificar</th>
             <th>Borrar</th>
         </tr>
@@ -17,8 +18,9 @@
         {% for module in modules %}
             <tr>
                 <td>{{ module[0].initials }}</td>
-                <td>{{ module.name }}</td>
+                <td>{{ module.initials }}</td>
                 <td>{{ module[0].hours }}</td>
+                <td>{{ module[0].hoursDesdoble }}</td>
                 <td>
                     <a href="{{ path('edit_module', {'id': module[0].id}) }}">
                         <i class="small material-icons">edit</i>
@@ -46,4 +48,5 @@
             <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
         </div>
     </div>
+    
 {% endblock %}

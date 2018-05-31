@@ -6,6 +6,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Distribution_module_teacher;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -34,8 +35,8 @@ class DistributionModuleTeacherType extends AbstractType
                 'label' => 'Grupo',
                 'data' => $options["group_selected"]
             ))
-            ->add('hours', IntegerType::class, array(
-                'label' => 'Horas'
+            ->add('desdoble', CheckboxType::class, array(
+                'label' => false
             ))
             ->add('schoolYear', ChoiceType::class, array(
                 'choices' => $options["courses"],

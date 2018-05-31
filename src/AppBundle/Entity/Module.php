@@ -33,22 +33,30 @@ class Module
     private $initials;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(name="course", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="School_group", inversedBy="modules")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $course;
+    private $group;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Range(
      *      min = 1,
-     *      max = 8,
      *      minMessage = "No puede tener menos de {{ limit }} hora a la semana",
-     *      maxMessage = "No puede tener más de {{ limit }} horas a la semana"
      * )
      * @ORM\Column(name="hours", type="integer", nullable=false)
      */
     private $hours;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "No puede tener menos de {{ limit }} hora a la semana",
+     * )
+     * @ORM\Column(name="hoursDesdoble", type="integer", nullable=false)
+     */
+    private $hoursDesdoble;
 
     /**
      * @Assert\NotBlank()
@@ -196,30 +204,6 @@ class Module
         return $this->distributions_module_teacher;
     }
 
-    /**
-     * Set course
-     *
-     * @param integer $course
-     *
-     * @return Module
-     */
-    public function setCourse($course)
-    {
-        $this->course = $course;
-
-        return $this;
-    }
-
-    /**
-     * Get course
-     *
-     * @return integer
-     */
-    public function getCourse()
-    {
-        return $this->course;
-    }
-
     public function __toString()
     {
         return $this->getInitials();
@@ -247,5 +231,53 @@ class Module
     public function getCycle()
     {
         return $this->cycle;
+    }
+
+    /**
+     * Set hoursDesdoble
+     *
+     * @param integer $hoursDesdoble
+     *
+     * @return Module
+     */
+    public function setHoursDesdoble($hoursDesdoble)
+    {
+        $this->hoursDesdoble = $hoursDesdoble;
+
+        return $this;
+    }
+
+    /**
+     * Get hoursDesdoble
+     *
+     * @return integer
+     */
+    public function getHoursDesdoble()
+    {
+        return $this->hoursDesdoble;
+    }
+
+    /**
+     * Set group
+     *
+     * @param \AppBundle\Entity\School_group $group
+     *
+     * @return Module
+     */
+    public function setGroup(\AppBundle\Entity\School_group $group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
+     * Get group
+     *
+     * @return \AppBundle\Entity\School_group
+     */
+    public function getGroup()
+    {
+        return $this->group;
     }
 }
