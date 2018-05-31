@@ -30,4 +30,12 @@ class ModulesHelper
 
         return $moduleRepository->getAllModules();
     }
+
+    public function getActualHoursByGroup($group)
+    {
+        /** @var ModuleRepository $moduleRepository */
+        $moduleRepository = $this->em->getRepository('AppBundle:Module');
+
+        return $moduleRepository->getActualHoursByGroup($group);
+    }
 }

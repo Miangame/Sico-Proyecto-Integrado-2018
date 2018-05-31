@@ -23,4 +23,12 @@ class CyclesHelper
 
         return $cycleRepository->getCycles();
     }
+
+    public function getTotalHours()
+    {
+        /** @var CycleRepository $cycleRepository */
+        $cycleRepository = $this->em->getRepository('AppBundle:Cycle');
+
+        return $cycleRepository->getTotalHours();
+    }
 }

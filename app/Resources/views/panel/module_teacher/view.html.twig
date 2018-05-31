@@ -17,6 +17,7 @@
             <th>Ciclo</th>
             <th>Horas</th>
             <th>Curso</th>
+            <th>Desdoble</th>
             <th>Modificar</th>
             <th>Borrar</th>
         </tr>
@@ -30,6 +31,11 @@
                 <td>{{ moduleTeacher.gr }}</td>
                 <td>{{ moduleTeacher.hours }}</td>
                 <td>{{ moduleTeacher.course }}</td>
+                {% if moduleTeacher.desdoble %}
+                    <td><i class="small material-icons green-text">check</i></td>
+                {% else %}
+                    <td><i class="small material-icons red-text">close</i></td>
+                {% endif %}
                 <td>
                     <a href="{{ path('edit_distribution_module_teacher', {'id': moduleTeacher.id}) }}">
                         <i class="small material-icons">edit</i>
@@ -62,51 +68,58 @@
     <script>
         {
             let changeData = function () {
-                let distributions = "";
+                    let distributions = "";
 
-                $("tbody").html("");
-                $.ajax({
-                    type: "GET",
-                    url: "{{ path('get_distribution_data') }}",
-                    data: {'course': $(this).val()},
-                    success: function (response) {
-                        let html = "";
-                        distributions = JSON.parse(response.distributions);
-                        distributions.forEach(function (distribution) {
-                            console.log(distribution);
-                            let id = distribution.id;
+                    $("tbody").html("");
+                    $.ajax({
+                            type: "GET",
+                            url: "{{ path('get_distribution_data') }}",
+                            data: {'course': $(this).val()},
+                            success: function (response) {
+                                let html = "";
+                                let icon = "";
+                                distributions = JSON.parse(response.distributions);
+                                distributions.forEach(function (distribution) {
+                                    let id = distribution.id;
 
-                            let url = "{{ path('edit_distribution_module_teacher', {'id': 'idDist'}) }}";
-                            let url2 = "{{ path('delete_distribution_module_teacher', {'id': 'idDist'}) }}";
+                                    let url = "{{ path('edit_distribution_module_teacher', {'id': 'idDist'}) }}";
+                                    let url2 = "{{ path('delete_distribution_module_teacher', {'id': 'idDist'}) }}";
 
-                            url = url.replace("idDist", id);
-                            url2 = url2.replace("idDist", id);
+                                    url = url.replace("idDist", id);
+                                    url2 = url2.replace("idDist", id);
 
-                            html += "" +
-                                "<tr>" +
-                                "<td>" + distribution.teacher + "</td>" +
-                                "<td>" + distribution.module + "</td>" +
-                                "<td>" + distribution.gr + "</td>" +
-                                "<td>" + distribution.hours + "</td>" +
-                                "<td>" + distribution.course + "</td>" +
-                                "<td><a href=\"" + url + "\"><i class=\"small material-icons\">edit</i></a></td>" +
-                                "<td><a data-modal=\"modalModuleTeacher\" href=\"" + url2 + "\" class=\"modalDelete modal-trigger\"><i class=\"small material-icons red-text\">delete</i></a></td>" +
-                                "</tr>";
-                    });
+                                    if (distribution.desdoble) {
+                                        icon = "<i class=\"small material-icons green-text\">check</i>";
+                                    } else {
+                                        icon = "<i class=\"small material-icons red-text\">close</i>";
+                                    }
 
-                $("tbody").html(html);
-                cargarModalDelete()
-            }
-        }
-        )
-        ;
-        }
-        ;
+                                    html += "" +
+                                        "<tr>" +
+                                        "<td>" + distribution.teacher + "</td>" +
+                                        "<td>" + distribution.module + "</td>" +
+                                        "<td>" + distribution.gr + "</td>" +
+                                        "<td>" + distribution.hours + "</td>" +
+                                        "<td>" + distribution.course + "</td>" +
+                                        "<td>" + icon + "</td>" +
+                                        "<td><a href=\"" + url + "\"><i class=\"small material-icons\">edit</i></a></td>" +
+                                        "<td><a data-modal=\"modalModuleTeacher\" href=\"" + url2 + "\" class=\"modalDelete modal-trigger\"><i class=\"small material-icons red-text\">delete</i></a></td>" +
+                                        "</tr>";
+                                });
 
-        $(function () {
-            $("#selectCourseDistribution").on("change", changeData);
+                                $("tbody").html(html);
+                                cargarModalDelete()
+                            }
+                        }
+                    )
+                    ;
+                }
+            ;
 
-        });
+            $(function () {
+                $("#selectCourseDistribution").on("change", changeData);
+
+            });
         }
     </script>
 {% endblock %}

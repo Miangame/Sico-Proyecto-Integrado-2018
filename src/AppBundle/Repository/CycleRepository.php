@@ -14,4 +14,13 @@ class CycleRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->findAll();
     }
+
+    public function getTotalHours()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(t.titularHours1) titularHours1, SUM(t.desdobleHours1) desdobleHours1, SUM(t.titularHours2) titularHours2, SUM(t.desdobleHours2) desdobleHours2')
+            ->from('AppBundle:Cycle', 't');
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

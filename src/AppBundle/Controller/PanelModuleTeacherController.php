@@ -109,6 +109,12 @@ class PanelModuleTeacherController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $studentRequest = $form->getData();
+
+            if ($studentRequest->getDesdoble()){
+                $studentRequest->setHours($studentRequest->getModule()->getHoursDesdoble());
+            } else{
+                $studentRequest->setHours($studentRequest->getModule()->getHours());
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($studentRequest);
             $entityManager->flush();

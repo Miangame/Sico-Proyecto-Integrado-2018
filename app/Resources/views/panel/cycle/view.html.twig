@@ -1,4 +1,78 @@
 {% extends 'panel/base.html.twig' %}
+
+{% set class11 = "" %}
+{% set class12 = "" %}
+{% set class21 = "" %}
+{% set class22 = "" %}
+{% set text11 = "" %}
+{% set text12 = "" %}
+{% set text21 = "" %}
+{% set text22 = "" %}
+
+{% if actualHours1[0].titularHours == null %}
+    {% set hoursTitular1 = 0 %}
+{% else %}
+    {% set hoursTitular1 = actualHours1[0].titularHours %}
+{% endif %}
+
+{% if actualHours1[0].desdobleHours == null %}
+    {% set hoursDesdoble1 = 0 %}
+{% else %}
+    {% set hoursDesdoble1 = actualHours1[0].desdobleHours %}
+{% endif %}
+
+{% if actualHours2[0].titularHours == null %}
+    {% set hoursTitular2 = 0 %}
+{% else %}
+    {% set hoursTitular2 = actualHours2[0].titularHours %}
+{% endif %}
+
+{% if actualHours2[0].desdobleHours == null %}
+    {% set hoursDesdoble2 = 0 %}
+{% else %}
+    {% set hoursDesdoble2 = actualHours2[0].desdobleHours %}
+{% endif %}
+
+{% if actualHours1[0].titularHours < totalHours[0].titularHours1 %}
+    {% set class11 = "warning_state" %}
+    {% set text11 = "(-"~(totalHours[0].titularHours1|number_format - actualHours1[0].titularHours|number_format)~" horas)" %}
+{% elseif actualHours1[0].titularHours > totalHours[0].titularHours1 %}
+    {% set class11 = "warning_state" %}
+    {% set text11 = "(+"~(actualHours1[0].titularHours|number_format-totalHours[0].titularHours1|number_format)~"horas)" %}
+{% else %}
+    {% set class11 = "ok_state" %}
+{% endif %}
+
+{% if actualHours1[0].desdobleHours < totalHours[0].desdobleHours1 %}
+    {% set class12 = "warning_state" %}
+    {% set text12 = "(-"~(totalHours[0].desdobleHours1|number_format - actualHours1[0].desdobleHours|number_format)~" horas)" %}
+{% elseif actualHours1[0].desdobleHours > totalHours[0].desdobleHours1 %}
+    {% set class12 = "warning_state" %}
+    {% set text12 = "(+"~(actualHours1[0].desdobleHours|number_format-totalHours[0].desdobleHours1|number_format)~"horas)" %}
+{% else %}
+    {% set class11 = "ok_state" %}
+{% endif %}
+
+{% if actualHours2[0].titularHours < totalHours[0].titularHours2 %}
+    {% set class21 = "warning_state" %}
+    {% set text21 = "(-"~(totalHours[0].titularHours2|number_format - actualHours2[0].titularHours|number_format)~" horas)" %}
+{% elseif actualHours2[0].titularHours > totalHours[0].titularHours2 %}
+    {% set class21 = "warning_state" %}
+    {% set text21 = "(+"~(actualHours2[0].titularHours|number_format-totalHours[0].titularHours2|number_format)~"horas)" %}
+{% else %}
+    {% set class21 = "ok_state" %}
+{% endif %}
+
+{% if actualHours2[0].desdobleHours < totalHours[0].desdobleHours2 %}
+    {% set class22 = "warning_state" %}
+    {% set text22 = "(-"~(totalHours[0].desdobleHours2|number_format - actualHours2[0].desdobleHours|number_format)~" horas)" %}
+{% elseif actualHours2[0].desdobleHours > totalHours[0].desdobleHours2 %}
+    {% set class22 = "warning_state" %}
+    {% set text22 = "+"~(actualHours2[0].desdobleHours|number_format-totalHours[0].desdobleHours2|number_format)~"horas" %}
+{% else %}
+    {% set class22 = "ok_state" %}
+{% endif %}
+
 {% block body %}
     <h2>Gestión de ciclos</h2>
     <a href="{{ path('new_cycle') }}" class="waves-effect waves-light btn">Crear ciclo</a>
@@ -6,7 +80,10 @@
         <thead>
         <tr>
             <th>Ciclo</th>
-            <th>Horas/semana</th>
+            <th>1º Horas titulares/semana</th>
+            <th>1º Horas desdoble/semana</th>
+            <th>2º Horas titulares/semana</th>
+            <th>2º Horas desdoble/semana</th>
             <th>Modificar</th>
             <th>Borrar</th>
         </tr>
@@ -16,7 +93,10 @@
         {% for cycle in cycles %}
             <tr>
                 <td>{{ cycle.name }}</td>
-                <td>{{ cycle.hours }}</td>
+                <td>{{ cycle.titularHours1 }}</td>
+                <td>{{ cycle.desdobleHours1 }}</td>
+                <td>{{ cycle.titularHours2 }}</td>
+                <td>{{ cycle.desdobleHours2 }}</td>
                 <td>
                     <a href="{{ path('edit_cycle', {'id': cycle.id}) }}">
                         <i class="small material-icons">edit</i>
@@ -30,6 +110,14 @@
                 </td>
             </tr>
         {% endfor %}
+
+        <tr class="actualHours">
+            <th>Horas actuales:</th>
+            <th class="{{ class11 }}">{{ hoursTitular1 }} {{ text11 }}</th>
+            <th class="{{ class12 }}">{{ hoursDesdoble1 }} {{ text12 }}</th>
+            <th class="{{ class21 }}">{{ hoursTitular2 }} {{ text21 }}</th>
+            <th class="{{ class22 }}">{{ hoursDesdoble2 }} {{ text22 }}</th>
+        </tr>
         </tbody>
     </table>
 
