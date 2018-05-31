@@ -35,7 +35,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
 
         $arrayIds = $this->arrayIdsToString($q2b->getQuery()->getArrayResult());
 
-        if(count($arrayIds) > 0)
+        if (count($arrayIds) > 0)
             return $this->getStudentsNotIN($convocatory, $arrayIds);
         return $this->getAllStudentsConvocatory($convocatory);
     }
@@ -80,9 +80,10 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
     public function getStudentsBySchoolYearConvocatory($schoolYear, $convocatory)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t, u.name, w.convocatory, x.course')
+            ->select('t, CONCAT(u.course, cy.name, \'-\', u.gr) name, w.convocatory, x.course')
             ->from('AppBundle:Student', 't')
             ->join('t.group', 'u')
+            ->join('u.cycle', 'cy')
             ->join('t.convocatory', 'w')
             ->join('w.schoolYear', 'x')
             ->where('x.id = :sc_id')

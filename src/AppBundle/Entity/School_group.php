@@ -22,17 +22,15 @@ class School_group
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(name="name", type="string", nullable=false)
+     * @ORM\Column(name="course", type="integer", nullable=false)
      */
-    private $name;
-
+    private $course;
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(name="initials", type="string", unique=true, nullable=false)
+     * @ORM\Column(name="gr", type="string", nullable=false)
      */
-    private $initials;
-
+    private $gr;
 
     /**
      * @Assert\NotBlank()
@@ -64,54 +62,6 @@ class School_group
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return School_group
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set initials
-     *
-     * @param string $initials
-     *
-     * @return School_group
-     */
-    public function setInitials($initials)
-    {
-        $this->initials = $initials;
-
-        return $this;
-    }
-
-    /**
-     * Get initials
-     *
-     * @return string
-     */
-    public function getInitials()
-    {
-        return $this->initials;
     }
 
     /**
@@ -216,7 +166,7 @@ class School_group
 
     public function __toString()
     {
-        return (string)$this->getName();
+        return (string)$this->getCourse() . $this->getCycle() . "-" . $this->getGr();
     }
 
     /**
@@ -285,5 +235,53 @@ class School_group
     public function getModules()
     {
         return $this->modules;
+    }
+
+    /**
+     * Set course
+     *
+     * @param integer $course
+     *
+     * @return School_group
+     */
+    public function setCourse($course)
+    {
+        $this->course = $course;
+
+        return $this;
+    }
+
+    /**
+     * Get course
+     *
+     * @return integer
+     */
+    public function getCourse()
+    {
+        return $this->course;
+    }
+
+    /**
+     * Set gr
+     *
+     * @param string $gr
+     *
+     * @return School_group
+     */
+    public function setGr($gr)
+    {
+        $this->gr = $gr;
+
+        return $this;
+    }
+
+    /**
+     * Get gr
+     *
+     * @return string
+     */
+    public function getGr()
+    {
+        return $this->gr;
     }
 }

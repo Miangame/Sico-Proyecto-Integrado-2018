@@ -2,6 +2,15 @@
 {% block body %}
     <h2>Gestión de módulos</h2>
     <a href="{{ path('new_module') }}" class="waves-effect waves-light btn">Crear módulo</a>
+    <div id="containerSelectCycleStudent">
+        <select name="" id="selectCycleModule">
+            <option value="todos">- Elija ciclo -</option>
+
+            {% for cycle in cycles %}
+                <option value="{{ cycle.name }}">{{ cycle.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
@@ -14,11 +23,11 @@
         </tr>
         </thead>
 
-        <tbody>
+        <tbody id="modulesTable">
         {% for module in modules %}
             <tr>
                 <td>{{ module[0].initials }}</td>
-                <td>{{ module.initials }}</td>
+                <td>{{ module.name }}</td>
                 <td>{{ module[0].hours }}</td>
                 <td>{{ module[0].hoursDesdoble }}</td>
                 <td>
@@ -48,5 +57,36 @@
             <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
         </div>
     </div>
-    
+
+    <script>
+        {
+            let selectCycleModule = function () {
+                let tr, td, i;
+                let convocatoria = $(this).val();
+
+                tr = $("#modulesTable tr");
+
+                for (i = 0; i < tr.length; i++) {
+
+                    if (convocatoria === "todos") {
+                        tr[i].style.display = "";
+                    } else {
+                        td = tr[i].getElementsByTagName("td")[1];
+
+                        if (td) {
+                            if (td.innerHTML.toUpperCase() === convocatoria.toUpperCase()) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            };
+
+            $(function () {
+                $("#selectCycleModule").on("change", selectCycleModule);
+            });
+        }
+    </script>
 {% endblock %}

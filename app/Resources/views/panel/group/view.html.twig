@@ -8,8 +8,6 @@
         <thead>
         <tr>
             <th>Nombre</th>
-            <th>Iniciales</th>
-            <th>Ciclo</th>
             <th>Modificar</th>
             <th>Borrar</th>
         </tr>
@@ -18,9 +16,7 @@
         <tbody id="groupsTable">
         {% for group in groups %}
             <tr>
-                <td>{{ group.name }}</td>
-                <td>{{ group.initials }}</td>
-                <td>{{ group.cycle }}</td>
+                <td>{{ group }}</td>
                 <td>
                     <a href="{{ path('edit_group', {'id': group.id}) }}">
                         <i class="small material-icons">edit</i>

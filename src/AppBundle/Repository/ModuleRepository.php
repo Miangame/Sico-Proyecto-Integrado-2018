@@ -13,9 +13,10 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
     public function getModules()
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t, u.initials')
+            ->select('t, u, v.name')
             ->from('AppBundle:Module', 't')
-            ->join('t.group', 'u');
+            ->join('t.group', 'u')
+            ->join('t.cycle', 'v');
 
         return $qb->getQuery()->getArrayResult();
     }
@@ -31,8 +32,8 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
             ->select('SUM(t.hours) titularHours, SUM(t.hoursDesdoble) desdobleHours')
             ->from('AppBundle:Module', 't')
             ->join('t.group', 'u')
-            ->where('u.initials LIKE :group')
-            ->setParameter('group', '%' . $group . '%');
+            ->where('u.group = :group')
+            ->setParameter('group', $group);
 
         return $qb->getQuery()->getArrayResult();
     }
