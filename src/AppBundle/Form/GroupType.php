@@ -18,14 +18,25 @@ class GroupType extends AbstractType
     {
 
         $builder
-            ->add('name', TextType::class, array('label' => 'Nombre'))
-            ->add('initials', TextType::class, array('label' => 'Iniciales'))
+            ->add('course', ChoiceType::class, array(
+                'label' => 'Curso',
+                'choices' => array(
+                    1 => 1,
+                    2 => 2)
+            ))
+            ->add('gr', ChoiceType::class, array(
+                'label' => 'Grupo',
+                'choices' => array(
+                    'A' => 'A',
+                    'B' => 'B',
+                    'C' => 'C')
+            ))
             ->add('cycle', ChoiceType::class, array(
-                'label' => "Ciclo",
-                'choices' => $options["cycles"]
+                    'label' => "Ciclo",
+                    'choices' => $options["cycles"]
                 )
             )
-            ->add('save', SubmitType::class, array('label' => 'Enviar grupo','attr' => ['class' => 'w-100 waves-effect waves-light btn']));
+            ->add('save', SubmitType::class, array('label' => 'Enviar grupo', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
     }
 
     public function configureOptions(OptionsResolver $resolver)

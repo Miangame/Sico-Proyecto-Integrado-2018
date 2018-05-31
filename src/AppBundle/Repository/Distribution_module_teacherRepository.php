@@ -13,12 +13,13 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
     public function getDistributions()
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, g.name gr, c.course course, t.hours hours, t.desdoble desdoble')
+            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(g.course, cy.name, \'-\'g.gr) gr, c.course course, t.hours hours, t.desdoble desdoble')
             ->from('AppBundle:Distribution_module_teacher', 't')
             ->join('t.module', 'm')
             ->join('t.teacher', 'u')
             ->join('t.group', 'g')
-            ->join('t.schoolYear', 'c');
+            ->join('t.schoolYear', 'c')
+            ->join('g.cycle', 'cy');
 
         return $qb->getQuery()->getArrayResult();
     }
@@ -30,12 +31,13 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
         $lastSchoolYear = $syRepo->getLastCourse();
 
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, g.name gr, c.course course, t.hours hours, t.desdoble desdoble')
+            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(g.course, cy.name,\'-\', g.gr) gr, c.course course, t.hours hours, t.desdoble desdoble')
             ->from('AppBundle:Distribution_module_teacher', 't')
             ->join('t.module', 'm')
             ->join('t.teacher', 'u')
             ->join('t.group', 'g')
             ->join('t.schoolYear', 'c')
+            ->join('g.cycle', 'cy')
             ->where('t.schoolYear = :schoolYear_id')
             ->setParameter('schoolYear_id', $lastSchoolYear);
 
@@ -45,12 +47,13 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
     public function getDistribution($course)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, g.name gr, c.course course, t.hours hours, t.desdoble desdoble')
+            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(g.course, cy.name, \'-\'g.gr) gr, c.course course, t.hours hours, t.desdoble desdoble')
             ->from('AppBundle:Distribution_module_teacher', 't')
             ->join('t.module', 'm')
             ->join('t.teacher', 'u')
             ->join('t.group', 'g')
             ->join('t.schoolYear', 'c')
+            ->join('g.cycle', 'cy')
             ->where('c.course=:course')
             ->setParameter('course', $course);
 

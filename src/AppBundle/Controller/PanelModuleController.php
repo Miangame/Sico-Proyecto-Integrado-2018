@@ -25,10 +25,16 @@ class PanelModuleController extends Controller
     {
         /** @var ModulesHelper $modulesHelper */
         $modulesHelper = $this->get('app.modulesHelper');
+
+        /** @var CyclesHelper $cyclesHelper */
+        $cyclesHelper = $this->get('app.cyclesHelper');
+
+        $cycles = $cyclesHelper->getCycles();
         $modules = $modulesHelper->getModules();
 
         return $this->render('panel/module/view.html.twig', array(
-            'modules' => $modules
+            'modules' => $modules,
+            'cycles' => $cycles,
         ));
     }
 
