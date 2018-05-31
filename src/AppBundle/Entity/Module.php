@@ -59,13 +59,6 @@ class Module
     private $hoursDesdoble;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\ManyToOne(targetEntity="Cycle", inversedBy="modules_cycles", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $cycle;
-
-    /**
      * @ORM\OneToMany(targetEntity="Distribution_module_teacher", mappedBy="module")
      */
     private $distributions_module_teacher;
