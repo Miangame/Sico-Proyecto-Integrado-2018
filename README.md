@@ -30,7 +30,6 @@ Teniendo en cuenta la introducción previa, el proyecto REPARTO-SICO consistirá
 * Facilitar la importación de empresas partiendo de hojas de cálculo
 * Mantener el historial de años anteriores (empresas y proyectos)
 * Ordenación de empresas por fecha de solicitud de la empresa
-* Valorar la FCT ya realizada según la opinión del alumnado y del profesorado, también por contenidos tratados…
 * Ordenación de la empresa por la valoración anterior.
 * Gestión de horarios (Septiembre/Marzo, Marzo/Junio con reducción horaria)
-* Gestión de fechas de exámenes de la última evaluación
+
