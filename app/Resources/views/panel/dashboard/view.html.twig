@@ -1,1 +1,8 @@
 {% extends 'panel/base.html.twig' %}
+
+{% block body %}
+    <div class="center">
+        <h3>Bienvenido administrador!</h3>
+        <h6>Última conexión: {{ user.lastLogin|date('d/m/Y H:i') }}</h6>
+    </div>
+{% endblock %}

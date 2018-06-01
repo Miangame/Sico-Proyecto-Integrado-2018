@@ -35,40 +35,40 @@
 
 {% if actualHours1[0].titularHours < totalHours[0].titularHours1 %}
     {% set class11 = "warning_state" %}
-    {% set text11 = "(-"~(totalHours[0].titularHours1|number_format - actualHours1[0].titularHours|number_format)~" horas)" %}
+    {% set text11 = "(-"~(totalHours[0].titularHours1 - actualHours1[0].titularHours)~" horas)" %}
 {% elseif actualHours1[0].titularHours > totalHours[0].titularHours1 %}
     {% set class11 = "warning_state" %}
-    {% set text11 = "(+"~(actualHours1[0].titularHours|number_format-totalHours[0].titularHours1|number_format)~"horas)" %}
+    {% set text11 = "(+"~(actualHours1[0].titularHours-totalHours[0].titularHours1)~"horas)" %}
 {% else %}
     {% set class11 = "ok_state" %}
 {% endif %}
 
 {% if actualHours1[0].desdobleHours < totalHours[0].desdobleHours1 %}
     {% set class12 = "warning_state" %}
-    {% set text12 = "(-"~(totalHours[0].desdobleHours1|number_format - actualHours1[0].desdobleHours|number_format)~" horas)" %}
+    {% set text12 = "(-"~(totalHours[0].desdobleHours1 - actualHours1[0].desdobleHours)~" horas)" %}
 {% elseif actualHours1[0].desdobleHours > totalHours[0].desdobleHours1 %}
     {% set class12 = "warning_state" %}
-    {% set text12 = "(+"~(actualHours1[0].desdobleHours|number_format-totalHours[0].desdobleHours1|number_format)~"horas)" %}
+    {% set text12 = "(+"~(actualHours1[0].desdobleHours-totalHours[0].desdobleHours1)~"horas)" %}
 {% else %}
     {% set class12 = "ok_state" %}
 {% endif %}
 
 {% if actualHours2[0].titularHours < totalHours[0].titularHours2 %}
     {% set class21 = "warning_state" %}
-    {% set text21 = "(-"~(totalHours[0].titularHours2|number_format - actualHours2[0].titularHours|number_format)~" horas)" %}
+    {% set text21 = "(-"~(totalHours[0].titularHours2 - actualHours2[0].titularHours)~" horas)" %}
 {% elseif actualHours2[0].titularHours > totalHours[0].titularHours2 %}
     {% set class21 = "warning_state" %}
-    {% set text21 = "(+"~(actualHours2[0].titularHours|number_format-totalHours[0].titularHours2|number_format)~"horas)" %}
+    {% set text21 = "(+"~(actualHours2[0].titularHours-totalHours[0].titularHours2)~"horas)" %}
 {% else %}
     {% set class21 = "ok_state" %}
 {% endif %}
 
 {% if hoursDesdoble2 < totalHours[0].desdobleHours2 %}
     {% set class22 = "warning_state" %}
-    {% set text22 = "(-"~(totalHours[0].desdobleHours2|number_format - hoursDesdoble2|number_format)~" horas)" %}
+    {% set text22 = "(-"~(totalHours[0].desdobleHours2-hoursDesdoble2)~" horas)" %}
 {% elseif actualHours2[0].desdobleHours > totalHours[0].desdobleHours2 %}
     {% set class22 = "warning_state" %}
-    {% set text22 = "+"~(hoursDesdoble2|number_format-totalHours[0].desdobleHours2|number_format)~"horas" %}
+    {% set text22 = "(+"~(hoursDesdoble2-totalHours[0].desdobleHours2)~"horas)" %}
 {% else %}
     {% set class22 = "ok_state" %}
 {% endif %}
