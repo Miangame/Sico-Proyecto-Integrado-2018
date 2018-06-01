@@ -38,8 +38,9 @@ class UserRepository extends EntityRepository
             ->select('SUM(md.hours)')
             ->from('AppBundle:Distribution_module_teacher', 'dt')
             ->join('dt.module', 'md')
+            ->join('dt.group', 'g')
             ->where('dt.teacher = :user_id')
-            ->andWhere('md.course = 2')
+            ->andWhere('g.course = 2')
             ->andWhere('dt.schoolYear = :year_id')
             ->setParameter('year_id',$yearId)
             ->setParameter('user_id',$userId);
