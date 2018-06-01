@@ -144,6 +144,7 @@ class Module
     {
         return $this->hours;
     }
+
     /**
      * Constructor
      */
@@ -200,30 +201,6 @@ class Module
     public function __toString()
     {
         return $this->getInitials();
-    }
-
-    /**
-     * Set cycle
-     *
-     * @param \AppBundle\Entity\Cycle $cycle
-     *
-     * @return Module
-     */
-    public function setCycle(\AppBundle\Entity\Cycle $cycle)
-    {
-        $this->cycle = $cycle;
-
-        return $this;
-    }
-
-    /**
-     * Get cycle
-     *
-     * @return \AppBundle\Entity\Cycle
-     */
-    public function getCycle()
-    {
-        return $this->cycle;
     }
 
     /**

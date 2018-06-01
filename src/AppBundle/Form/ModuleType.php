@@ -23,11 +23,6 @@ class ModuleType extends AbstractType
             ->add('initials', TextType::class, array('label' => 'Iniciales'))
             ->add('hours', IntegerType::class, array('label' => 'Horas'))
             ->add('hoursDesdoble', IntegerType::class, array('label' => 'Horas desdoble'))
-            ->add('cycle', ChoiceType::class, array(
-                'label' => "Ciclo",
-                'choices' => $options['cycles'],
-                'data' => $options['cycle_selected']
-            ))
             ->add('group', ChoiceType::class, array(
                 'label' => "Grupo",
                 'choices' => $options["groups"],
@@ -40,9 +35,7 @@ class ModuleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Module::class,
-            'cycles' => null,
             'groups' => null,
-            'cycle_selected' => null,
             'group_selected' => null
         ]);
 

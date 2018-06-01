@@ -72,11 +72,6 @@ class Cycle
     private $school_groups;
 
     /**
-     * @ORM\OneToMany(targetEntity="Module", mappedBy="cycle")
-     */
-    private $modules_cycles;
-
-    /**
      * Get id
      *
      * @return int

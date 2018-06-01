@@ -45,20 +45,10 @@ class PanelModuleController extends Controller
     {
         $module = new Module();
 
-        $cycles = array();
         $groups = array();
-
-        /** @var CyclesHelper $cyclesHelper */
-        $cyclesHelper = $this->get('app.cyclesHelper');
 
         /** @var SchoolGroupsHelper $groupsHelper */
         $groupsHelper = $this->get('app.schoolGroupsHelper');
-
-
-        /** @var Cycle $group */
-        foreach ($cyclesHelper->getCycles() as $cycle) {
-            $cycles[$cycle->__toString()] = $cycle;
-        }
 
         /** @var Cycle $group */
         foreach ($groupsHelper->getGroups() as $group) {
@@ -66,7 +56,6 @@ class PanelModuleController extends Controller
         }
 
         $options = array(
-            "cycles" => $cycles,
             "groups" => $groups
         );
 
@@ -97,20 +86,10 @@ class PanelModuleController extends Controller
      */
     public function editModuleAction(Request $request, Module $module)
     {
-        $cycles = array();
         $groups = array();
-
-        /** @var CyclesHelper $cyclesHelper */
-        $cyclesHelper = $this->get('app.cyclesHelper');
 
         /** @var SchoolGroupsHelper $groupsHelper */
         $groupsHelper = $this->get('app.schoolGroupsHelper');
-
-
-        /** @var Cycle $group */
-        foreach ($cyclesHelper->getCycles() as $cycle) {
-            $cycles[$cycle->__toString()] = $cycle;
-        }
 
         /** @var Cycle $group */
         foreach ($groupsHelper->getGroups() as $group) {
@@ -118,9 +97,7 @@ class PanelModuleController extends Controller
         }
 
         $options = array(
-            "cycles" => $cycles,
             "groups" => $groups,
-            "cycle_selected" => $module->getCycle(),
             "group_selected" => $module->getGroup(),
         );
 
