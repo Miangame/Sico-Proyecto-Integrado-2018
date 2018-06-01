@@ -32,7 +32,7 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
             ->select('SUM(t.hours) titularHours, SUM(t.hoursDesdoble) desdobleHours')
             ->from('AppBundle:Module', 't')
             ->join('t.group', 'u')
-            ->where('u.group = :group')
+            ->where('u.gr = :group')
             ->setParameter('group', $group);
 
         return $qb->getQuery()->getArrayResult();
