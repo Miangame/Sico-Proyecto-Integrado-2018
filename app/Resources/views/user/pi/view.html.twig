@@ -96,7 +96,7 @@
                     <td>{{ distribution.student_name }}</td>
                     <td>{{ distribution.user_name }}</td>
                     <td>
-                        <a href="{{ path('user_pi_edit_distribution_project',{'id': distribution.id}) }}">
+                        <a href="{{ path('user_pi_edit_distribution_project',{'id': distribution.id, 'flag': 'edit'}) }}">
                             <i class="small material-icons">edit</i>
                         </a>
                     </td>

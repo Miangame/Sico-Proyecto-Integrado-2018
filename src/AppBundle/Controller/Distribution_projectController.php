@@ -58,10 +58,11 @@ class Distribution_projectController extends Controller
     }
 
     /**
-     * @Route("/user/pi/distribution_project/{id}/edit", name="user_pi_edit_distribution_project")
+     * @Route("/user/pi/distribution_project/{id}/edit/{flag}", name="user_pi_edit_distribution_project")
      */
     public function editProjectAction(Request $request, Distribution_project $distribution)
     {
+        $redirect = 'user_pi';
         $current_user = $this->getUser();
 
         $options = Array(
@@ -94,10 +95,14 @@ class Distribution_projectController extends Controller
 
         }
 
+        if ($request->get('flag') == 'index'){
+            $redirect = 'index_web';
+        }
+
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar asignación Pi",
-            'redirect' => 'user_pi'
+            'redirect' => $redirect
         ));
     }
 
