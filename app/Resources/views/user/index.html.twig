@@ -18,7 +18,7 @@
                 <tbody>
                 {% for student in students %}
                     <tr>
-                        <td>{{ student.__toString() }}</td>
+                        <td><a href="{{ path('edit_student', {'id': student.id}) }}">{{ student.__toString() }}</a></td>
                         <td><a href="{{ student.pi_tutor == '~' ? path('user_pi_new_distribution_project') : path('user_pi_edit_distribution_project',{'id':student.pi_id}) }}" class="tooltipped" data-position="top" data-tooltip="
                         <div class='tooltip'>
                             <i class='material-icons tiny'>school</i>{{ student.pi_tutor }}
