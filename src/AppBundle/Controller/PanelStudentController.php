@@ -113,10 +113,11 @@ class PanelStudentController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="edit_student")
+     * @Route("/{id}/edit/{flag}", name="edit_student")
      */
     public function editStudentAction(Request $request, Student $student)
     {
+        $redirect = 'panel_students';
         $groups = array();
         $convocatories = array();
 
@@ -159,10 +160,14 @@ class PanelStudentController extends Controller
             return $this->redirectToRoute('panel_students');
         }
 
+        if ($request->get('flag') == 'index'){
+            $redirect = 'index_web';
+        }
+
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar alumno",
-            'redirect' => "panel_students"
+            'redirect' => $redirect
         ));
     }
 

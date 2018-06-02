@@ -29,10 +29,10 @@ class Distribution_companyController extends Controller
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "company" => $this->get('app.companiesHelper')->prepareOptions(),
             "student" => $this->get('app.studentsHelper')
-                ->prepareOptions($current_user->getCurrentConvocatory(),'new','company')
+                ->prepareOptions($current_user->getCurrentConvocatory(), 'new', 'company')
         );
 
-        $form = $this->createForm(Distribution_CompanyType::class,$distribution,$options);
+        $form = $this->createForm(Distribution_CompanyType::class, $distribution, $options);
 
 
         $form->handleRequest($request);
@@ -46,13 +46,11 @@ class Distribution_companyController extends Controller
 
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Asignación creada')
-            ;
+                ->add('success', 'Asignación creada');
 
             return $this->redirectToRoute('user_fct', ['_fragment' => 'asign']);
 
         }
-
 
 
         return $this->render('user/forms/form.html.twig', array(
@@ -63,10 +61,11 @@ class Distribution_companyController extends Controller
     }
 
     /**
-     * @Route("/user/fct/distribution_company/{id}/edit", name="user_fct_edit_distribution_company")
+     * @Route("/user/fct/distribution_company/{id}/edit/{flag}", name="user_fct_edit_distribution_company")
      */
     public function editCompanyAction(Request $request, Distribution_company $distribution)
     {
+        $redirect = 'user_fct';
         $current_user = $this->getUser();
 
         $options = Array(
@@ -75,12 +74,12 @@ class Distribution_companyController extends Controller
             "company" => $this->get('app.companiesHelper')->prepareOptions(),
             "company_selected" => $distribution->getCompany(),
             "student" => $this->get('app.studentsHelper')
-                ->prepareOptions($current_user->getCurrentConvocatory(),'edit','company'),
+                ->prepareOptions($current_user->getCurrentConvocatory(), 'edit', 'company'),
             "student_selected" => $distribution->getStudent(),
         );
 
 
-        $form = $this->createForm(Distribution_CompanyType::class,$distribution,$options);
+        $form = $this->createForm(Distribution_CompanyType::class, $distribution, $options);
 
         $form->handleRequest($request);
 
@@ -93,24 +92,27 @@ class Distribution_companyController extends Controller
 
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Asignación modificada')
-            ;
+                ->add('success', 'Asignación modificada');
 
-            return $this->redirectToRoute( 'user_fct', ['_fragment' => 'asign']);
+            return $this->redirectToRoute('user_fct', ['_fragment' => 'asign']);
 
+        }
+
+        if ($request->get('flag') == 'index') {
+            $redirect = 'index_web';
         }
 
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar asignación FCT",
-            'redirect' => 'user_fct'
+            'redirect' => $redirect
         ));
     }
 
     /**
      * @Route("/user/fct/distribution_company/{id}/delete", name="user_fct_delete_distribution_company")
      */
-    public function deleteCompanyAction(Request $request,Distribution_company $distribution_company)
+    public function deleteCompanyAction(Request $request, Distribution_company $distribution_company)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($distribution_company);
@@ -118,8 +120,7 @@ class Distribution_companyController extends Controller
 
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Asignación borrada')
-        ;
+            ->add('success', 'Asignación borrada');
         return $this->redirectToRoute('user_fct', ['_fragment' => 'asign']);
     }
 

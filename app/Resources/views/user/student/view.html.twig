@@ -32,7 +32,7 @@
                 <td>{{ student.course }}</td>
                 <td>{{ student.convocatory }}</td>
                 <td>
-                    <a href="{{ path('edit_student', {'id': student[0].id}) }}">
+                    <a href="{{ path('edit_student', {'id': student[0].id, 'flag': 'edit'}) }}">
                         <i class="small material-icons">edit</i>
                     </a>
                 </td>

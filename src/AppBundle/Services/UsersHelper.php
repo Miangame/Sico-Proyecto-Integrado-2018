@@ -5,6 +5,8 @@ namespace AppBundle\Services;
 
 use AppBundle\Entity\Student;
 use AppBundle\Repository\CompanyRepository;
+use AppBundle\Repository\ConvocatoryRepository;
+use AppBundle\Repository\Distribution_module_teacherRepository;
 use AppBundle\Repository\StudentRepository;
 use AppBundle\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
@@ -38,14 +40,23 @@ class UsersHelper
         return $users;
     }
 
-    public function getUserDistribution($convocatory){
+    public function getUserDistribution($convocatory)
+    {
+
+        /** @var UserRepository $teacherRepository */
         $teacherRepository = $this->em->getRepository("AppBundle:User");
+
+        /** @var ConvocatoryRepository $convocatoryRepository */
         $convocatoryRepository = $this->em->getRepository("AppBundle:Convocatory");
 
-        $teachers  = Array();
+        /** @var Distribution_module_teacherRepository $distributionRepository */
+        $distributionRepository = $this->em->getRepository("AppBundle:Distribution_Module_Teacher");
+
+        $teachers = Array();
         $teacherResult = $teacherRepository->getUsersValid();
 
-        if($convocatoryRepository->findBy(array('id' => $convocatory)) != null) {
+        if ($convocatoryRepository->findBy(array('id' => $convocatory)) != null) {
+            /** @var User $teacher */
             foreach ($teacherResult as $teacher) {
                 array_push(
                     $teachers, new TeacherData(
@@ -53,8 +64,7 @@ class UsersHelper
                         $teacherRepository->getPIDistribution($convocatory, $teacher->getId()),
                         $teacherRepository->getFCTDistribution($convocatory, $teacher->getId()),
                         $this->calcRecuction(
-                            $teacherRepository->getHoursModules(
-                                $convocatoryRepository->findOneBy(Array('id' => $convocatory))->getIdSchoolYear(),
+                            $distributionRepository->getHoursByUserId(
                                 $teacher->getId()
                             )
                         )
@@ -65,18 +75,19 @@ class UsersHelper
         return $teachers;
     }
 
-    private function calcRecuction($hours){
-        return ($hours % 2 == 0)? $hours / 2 : round($hours / 2);
+    private function calcRecuction($hours)
+    {
+        return ($hours % 2 == 0) ? $hours / 2 : round($hours / 2);
     }
 
     public function prepareOptions()
     {
-        /** @var UserRepository $userRepository*/
+        /** @var UserRepository $userRepository */
         $userRepository = $this->em->getRepository("AppBundle:User");
 
         $users = Array();
 
-        foreach ($userRepository->getUsersValid() as $user){
+        foreach ($userRepository->getUsersValid() as $user) {
             $users[$user->__toString()] = $user;
         }
         return $users;
