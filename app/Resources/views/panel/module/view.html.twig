@@ -1,15 +1,19 @@
 {% extends 'panel/base.html.twig' %}
 {% block body %}
     <h2>Gestión de módulos</h2>
-    <a href="{{ path('new_module') }}" class="waves-effect waves-light btn">Crear módulo</a>
-    <div id="containerSelectCycleStudent">
-        <select name="" id="selectCycleModule">
-            <option value="todos">- Elija ciclo -</option>
+    <div class="row centerVertical">
+        <div class="col s12 m9">
+            <a href="{{ path('new_module') }}" class="waves-effect waves-light btn">Crear módulo</a>
+        </div>
+        <div class="col s12 m3 ">
+            <select name="" id="selectCycleModule">
+                <option value="todos">- Elija ciclo -</option>
 
-            {% for cycle in cycles %}
-                <option value="{{ cycle.name }}">{{ cycle.name }}</option>
-            {% endfor %}
-        </select>
+                {% for cycle in cycles %}
+                    <option value="{{ cycle.name }}">{{ cycle.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
