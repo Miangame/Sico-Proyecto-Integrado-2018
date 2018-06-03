@@ -10,6 +10,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\DistributionModuleTeacherType;
 use AppBundle\Services\ConvocatoriesHelper;
 use AppBundle\Services\CoursesHelper;
+use AppBundle\Services\CyclesHelper;
 use AppBundle\Services\DistributionModuleTeacherHelper;
 use AppBundle\Services\ModulesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
@@ -35,6 +36,8 @@ class PanelModuleTeacherController extends Controller
      */
     public function viewAction(Request $request)
     {
+        /** @var CyclesHelper $cyclesHelper */
+        $cyclesHelper = $this->get('app.cyclesHelper');
 
         /** @var DistributionModuleTeacherHelper $distributionModuleTeacherHelper */
         $distributionModuleTeacherHelper = $this->get('app.distributionModuleTeacherHelper');
@@ -42,13 +45,25 @@ class PanelModuleTeacherController extends Controller
         /** @var CoursesHelper $coursesHelper */
         $coursesHelper = $this->get('app.coursesHelper');
 
+        /** @var SchoolGroupsHelper $groupsHelper */
+        $groupsHelper = $this->get('app.schoolGroupsHelper');
+
         $modulesTeachers = $distributionModuleTeacherHelper->getDistributionsLastYear();
 
         $courses = $coursesHelper->getCourses();
 
+        $totalHours = $cyclesHelper->getSumTotalHours();
+
+        $actualHours = $distributionModuleTeacherHelper->getHours();
+
+        $groups = $groupsHelper->getGroups();
+
         return $this->render('panel/module_teacher/view.html.twig', array(
             'modulesTeachers' => $modulesTeachers,
             'courses' => $courses,
+            'groups' => $groups,
+            'totalHours' => $totalHours,
+            'actualHours' => $actualHours,
         ));
     }
 
@@ -61,7 +76,6 @@ class PanelModuleTeacherController extends Controller
 
         $modules = array();
         $teachers = array();
-        $groups = array();
         $courses = array();
 
         /** @var ModulesHelper $modulesHelper */
@@ -69,9 +83,6 @@ class PanelModuleTeacherController extends Controller
 
         /** @var UsersHelper $teachersHelper */
         $teachersHelper = $this->get('app.usersHelper');
-
-        /** @var SchoolGroupsHelper $groupsHelper */
-        $groupsHelper = $this->get('app.schoolGroupsHelper');
 
         /** @var CoursesHelper $coursesHelper */
         $coursesHelper = $this->get('app.coursesHelper');
@@ -86,11 +97,6 @@ class PanelModuleTeacherController extends Controller
             $teachers[$teacher->__toString()] = $teacher;
         }
 
-        /** @var School_group $group */
-        foreach ($groupsHelper->getGroups() as $group) {
-            $groups[$group->__toString()] = $group;
-        }
-
         /** @var School_group $course */
         foreach ($coursesHelper->getCourses() as $course) {
             $courses[$course->__toString()] = $course;
@@ -99,7 +105,6 @@ class PanelModuleTeacherController extends Controller
         $options = array(
             "modules" => $modules,
             "teachers" => $teachers,
-            "groups" => $groups,
             "courses" => $courses
         );
 
@@ -108,15 +113,18 @@ class PanelModuleTeacherController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $studentRequest = $form->getData();
+            $distModTeacher = $form->getData();
 
-            if ($studentRequest->getDesdoble()) {
-                $studentRequest->setHours($studentRequest->getModule()->getHoursDesdoble());
+            if ($distModTeacher->getDesdoble()) {
+                $distModTeacher->setHours($distModTeacher->getModule()->getHoursDesdoble());
             } else {
-                $studentRequest->setHours($studentRequest->getModule()->getHours());
+                $distModTeacher->setHours($distModTeacher->getModule()->getHours());
             }
+
+            $distModTeacher->setGroup($distModTeacher->getModule()->getGroup());
+
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($studentRequest);
+            $entityManager->persist($distModTeacher);
             $entityManager->flush();
             $request->getSession()
                 ->getFlashBag()
@@ -138,7 +146,6 @@ class PanelModuleTeacherController extends Controller
     {
         $modules = array();
         $teachers = array();
-        $groups = array();
         $courses = array();
 
         /** @var ModulesHelper $modulesHelper */
@@ -146,9 +153,6 @@ class PanelModuleTeacherController extends Controller
 
         /** @var UsersHelper $teachersHelper */
         $teachersHelper = $this->get('app.usersHelper');
-
-        /** @var SchoolGroupsHelper $groupsHelper */
-        $groupsHelper = $this->get('app.schoolGroupsHelper');
 
         /** @var CoursesHelper $coursesHelper */
         $coursesHelper = $this->get('app.coursesHelper');
@@ -163,11 +167,6 @@ class PanelModuleTeacherController extends Controller
             $teachers[$teacher->__toString()] = $teacher;
         }
 
-        /** @var School_group $group */
-        foreach ($groupsHelper->getGroups() as $group) {
-            $groups[$group->__toString()] = $group;
-        }
-
         /** @var School_group $course */
         foreach ($coursesHelper->getCourses() as $course) {
             $courses[$course->__toString()] = $course;
@@ -178,8 +177,6 @@ class PanelModuleTeacherController extends Controller
             "module_selected" => $distribution->getModule(),
             "teachers" => $teachers,
             "teacher_selected" => $distribution->getTeacher(),
-            "groups" => $groups,
-            "group_selected" => $distribution->getGroup(),
             "courses" => $courses,
             "course_selected" => $distribution->getSchoolYear()
         );
@@ -189,14 +186,17 @@ class PanelModuleTeacherController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $studentRequest = $form->getData();
-            if ($studentRequest->getDesdoble()) {
-                $studentRequest->setHours($studentRequest->getModule()->getHoursDesdoble());
+            $distModTeacherRequest = $form->getData();
+            if ($distModTeacherRequest->getDesdoble()) {
+                $distModTeacherRequest->setHours($distModTeacherRequest->getModule()->getHoursDesdoble());
             } else {
-                $studentRequest->setHours($studentRequest->getModule()->getHours());
+                $distModTeacherRequest->setHours($distModTeacherRequest->getModule()->getHours());
             }
+
+            $distModTeacherRequest->setGroup($distModTeacherRequest->getModule()->getGroup());
+
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($studentRequest);
+            $entityManager->persist($distModTeacherRequest);
             $entityManager->flush();
             $request->getSession()
                 ->getFlashBag()

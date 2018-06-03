@@ -40,7 +40,6 @@ class Distribution_module_teacher
     protected $teacher;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="School_group", inversedBy="distributions_module_teacher")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false)
      */

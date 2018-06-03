@@ -22,7 +22,7 @@
                 {% for student in students %}
                     <tr>
                         <td><a href="{{ path('edit_student', {'id': student.id, 'flag': 'index'}) }}">{{ student.__toString() }}</a></td>
-                        <td><a href="{{ student.pi_tutor == '~' ? path('user_pi_new_distribution_project') : path('user_pi_edit_distribution_project',{'id':student.pi_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
+                        <td><a href="{{ student.pi_tutor == '~' ? path('user_pi_new_distribution_project', {'flag': 'index'}) : path('user_pi_edit_distribution_project',{'id':student.pi_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
                         <div class='tooltip'>
                             <i class='material-icons tiny'>school</i>{{ student.pi_tutor }}
                         </div>
@@ -30,7 +30,7 @@
                             <i class='material-icons tiny'>description</i>{{ student.pi_project }}
                         </div>
                     "><i class="material-icons {{ student.pi_tutor == '~' ? 'red-text' : 'green-text' }}">brightness_1</i></a></td>
-                        <td><a href="{{ student.fct_tutor == '~' ? path('user_fct_new_distribution_company') : path('user_fct_edit_distribution_company',{'id':student.fct_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
+                        <td><a href="{{ student.fct_tutor == '~' ? path('user_fct_new_distribution_company', {'flag': 'index'}) : path('user_fct_edit_distribution_company',{'id':student.fct_id, 'flag': 'index'}) }}" class="tooltipped" data-position="top" data-tooltip="
                         <div class='tooltip'>
                             <i class='material-icons tiny'>school</i>{{ student.fct_tutor }}
                         </div>
