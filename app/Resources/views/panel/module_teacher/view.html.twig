@@ -1,16 +1,39 @@
 {% extends 'panel/base.html.twig' %}
+
+{% set class = "" %}
+
+{% if actualHours != totalHours %}
+    {% set class = 'warning_state' %}
+{% else %}
+    {% set class = 'ok_state' %}
+{% endif %}
+
 {% block body %}
     <h2>Gestión de asignaciones</h2>
     <a href="{{ path('new_distribution_module_teacher') }}" class="waves-effect waves-light btn">Crear asignación</a>
-    <div id="containerSelectCourseDistribution">
+    <div id="containerSelectCycleStudent">
         <select name="" id="selectCourseDistribution">
             {% for course in courses %}
                 <option value="{{ course.course }}">{{ course.course }}</option>
             {% endfor %}
         </select>
     </div>
+    <div id="containerSelectConvocatoryStudent">
+        <select name="" id="selectGroupDistribution">
+            <option value="todos">Todos</option>
+            {% for group in groups %}
+                <option value="{{ group.__toString() }}">{{ group.__toString() }}</option>
+            {% endfor %}
+        </select>
+    </div>
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
+        <tr class="actualHours">
+            <th>Horas actuales:</th>
+            <th></th>
+            <th></th>
+            <th class="{{ class }}">{{ actualHours }}/{{ totalHours }}</th>
+        </tr>
         <tr>
             <th>Profesor</th>
             <th>Módulo</th>
@@ -23,7 +46,7 @@
         </tr>
         </thead>
 
-        <tbody>
+        <tbody id="distributionTable">
         {% for moduleTeacher in modulesTeachers %}
             <tr>
                 <td>{{ moduleTeacher.teacher }}</td>
@@ -111,14 +134,35 @@
                                 cargarModalDelete()
                             }
                         }
-                    )
-                    ;
+                    );
+                };
+
+            let changeGroup = function () {
+                let tr, td, i;
+                let group = $(this).val();
+
+                tr = $("#distributionTable tr");
+
+                for (i = 0; i < tr.length; i++) {
+
+                    if (group === "todos") {
+                        tr[i].style.display = "";
+                    } else {
+                        td = tr[i].getElementsByTagName("td")[2];
+                        if (td) {
+                            if (td.innerHTML.toUpperCase() === group.toUpperCase()) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
                 }
-            ;
+            };
 
             $(function () {
                 $("#selectCourseDistribution").on("change", changeData);
-
+                $("#selectGroupDistribution").on("change", changeGroup);
             });
         }
     </script>

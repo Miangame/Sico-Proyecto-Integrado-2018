@@ -29,4 +29,9 @@ class DistributionModuleTeacherHelper
     {
         return $this->em->getRepository("AppBundle:Distribution_module_teacher")->getDistribution($course);
     }
+
+    public function getHours()
+    {
+        return $this->em->getRepository("AppBundle:Distribution_module_teacher")->getHours();
+    }
 }

@@ -17,6 +17,7 @@ class Distribution_projectController extends Controller
      */
     public function newDistributionProjectAction(Request $request)
     {
+        $redirect = 'user_pi';
         $distribution = new Distribution_project();
         $current_user = $this->getUser();
 
@@ -24,10 +25,10 @@ class Distribution_projectController extends Controller
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "project" => $this->get('app.projectsHelper')->prepareOptions(),
             "student" => $this->get('app.studentsHelper')
-                ->prepareOptions($current_user->getCurrentConvocatory(),'new','project')
+                ->prepareOptions($current_user->getCurrentConvocatory(), 'new', 'project')
         );
 
-        $form = $this->createForm(Distribution_ProjectType::class,$distribution,$options);
+        $form = $this->createForm(Distribution_ProjectType::class, $distribution, $options);
 
 
         $form->handleRequest($request);
@@ -41,13 +42,15 @@ class Distribution_projectController extends Controller
 
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Asignación creada')
-            ;
+                ->add('success', 'Asignación creada');
 
-            return $this->redirectToRoute('user_pi', ['_fragment' => 'asign']);
+            if ($request->get('flag') == 'index') {
+                $redirect = 'index_web';
+            }
+
+            return $this->redirectToRoute($redirect, ['_fragment' => 'asign']);
 
         }
-
 
 
         return $this->render('user/forms/form.html.twig', array(
@@ -71,11 +74,11 @@ class Distribution_projectController extends Controller
             "project" => $this->get('app.projectsHelper')->prepareOptions(),
             "project_selected" => $distribution->getProject(),
             "student" => $this->get('app.studentsHelper')
-                ->prepareOptions($current_user->getCurrentConvocatory(),'edit','project'),
+                ->prepareOptions($current_user->getCurrentConvocatory(), 'edit', 'project'),
             "student_selected" => $distribution->getStudent(),
         );
 
-        $form = $this->createForm(Distribution_ProjectType::class,$distribution,$options);
+        $form = $this->createForm(Distribution_ProjectType::class, $distribution, $options);
 
         $form->handleRequest($request);
 
@@ -88,14 +91,17 @@ class Distribution_projectController extends Controller
 
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Asignación modificada')
-            ;
+                ->add('success', 'Asignación modificada');
 
-            return $this->redirectToRoute( 'user_pi', ['_fragment' => 'asign']);
+            if ($request->get('flag') == 'index') {
+                $redirect = 'index_web';
+            }
+
+            return $this->redirectToRoute($redirect, ['_fragment' => 'asign']);
 
         }
 
-        if ($request->get('flag') == 'index'){
+        if ($request->get('flag') == 'index') {
             $redirect = 'index_web';
         }
 
@@ -109,7 +115,7 @@ class Distribution_projectController extends Controller
     /**
      * @Route("/user/pi/distribution_project/{id}/delete", name="user_pi_delete_distribution_project")
      */
-    public function deleteProjectAction(Request $request,Distribution_project $distribution_project)
+    public function deleteProjectAction(Request $request, Distribution_project $distribution_project)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($distribution_project);
@@ -117,8 +123,7 @@ class Distribution_projectController extends Controller
 
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Asignación borrada')
-        ;
+            ->add('success', 'Asignación borrada');
         return $this->redirectToRoute('user_pi', ['_fragment' => 'asign']);
     }
 

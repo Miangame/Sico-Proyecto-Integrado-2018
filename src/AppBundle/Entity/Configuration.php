@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Configuration
@@ -15,16 +16,25 @@ class Configuration
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      minMessage = "El peso debe ser al menos {{ limit }}"
+     *     )
      * @ORM\Column(name="weight_pi", type="integer", nullable=false)
      */
     private $weight_pi;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      minMessage = "El peso debe ser al menos {{ limit }}"
+     *     )
      * @ORM\Column(name="weight_fct", type="integer", nullable=false)
      */
     private $weight_fct;
@@ -143,5 +153,19 @@ class Configuration
     public function getHoursSecondary()
     {
         return $this->hours_secondary;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Configuration
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

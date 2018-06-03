@@ -30,11 +30,6 @@ class DistributionModuleTeacherType extends AbstractType
                 'label' => 'Profesor',
                 'data' => $options["teacher_selected"]
             ))
-            ->add('group', ChoiceType::class, array(
-                'choices' => $options["groups"],
-                'label' => 'Grupo',
-                'data' => $options["group_selected"]
-            ))
             ->add('desdoble', CheckboxType::class, array(
                 'label' => false
             ))

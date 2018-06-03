@@ -22,6 +22,8 @@ class Distribution_companyController extends Controller
      */
     public function newDistributionCompanyAction(Request $request)
     {
+        $redirect = 'user_fct';
+
         $distribution = new Distribution_company();
         $current_user = $this->getUser();
 
@@ -48,10 +50,13 @@ class Distribution_companyController extends Controller
                 ->getFlashBag()
                 ->add('success', 'Asignación creada');
 
-            return $this->redirectToRoute('user_fct', ['_fragment' => 'asign']);
+            if ($request->get('flag') == 'index') {
+                $redirect = 'index_web';
+            }
+
+            return $this->redirectToRoute($redirect, ['_fragment' => 'asign']);
 
         }
-
 
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
@@ -94,7 +99,11 @@ class Distribution_companyController extends Controller
                 ->getFlashBag()
                 ->add('success', 'Asignación modificada');
 
-            return $this->redirectToRoute('user_fct', ['_fragment' => 'asign']);
+            if ($request->get('flag') == 'index') {
+                $redirect = 'index_web';
+            }
+
+            return $this->redirectToRoute($redirect, ['_fragment' => 'asign']);
 
         }
 
