@@ -1,16 +1,20 @@
 {% extends 'user/base.html.twig' %}
 {% block body %}
     <h2>Gestión de alumnos</h2>
-
-    <a href="{{ path('new_student') }}" class="waves-effect waves-light btn" id="createStudent">Crear alumnos</a>
-    <div id="containerSelectCycleStudent">
-        <select name="" id="selectCycleStudent">
-            <option value="todos">- Elija ciclo -</option>
-            {% for cycle in cycles %}
-                <option value="{{ cycle.name }}">{{ cycle.name }}</option>
-            {% endfor %}
-        </select>
+    <div class="row centerVertical">
+        <div class="col s12 m9">
+            <a href="{{ path('new_student') }}" class="waves-effect waves-light btn" id="createStudent">Crear alumnos</a>
+        </div>
+        <div class="col s12 m3 ">
+            <select name="" id="selectCycleStudent">
+                <option value="todos">- Elija ciclo -</option>
+                {% for cycle in cycles %}
+                    <option value="{{ cycle.name }}">{{ cycle.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
+
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
@@ -83,58 +87,9 @@
                 }
             };
 
-            let selectConvocatoryStudents = function () {
-                let tr, td, i;
-                let convocatoria = $(this).val();
-
-                tr = $("#studentsTable tr");
-
-                for (i = 0; i < tr.length; i++) {
-
-                    if (convocatoria === "todos") {
-                        tr[i].style.display = "";
-                    } else {
-                        td = tr[i].getElementsByTagName("td")[4];
-
-                        if (td) {
-                            if (td.innerHTML.toUpperCase() === convocatoria.toUpperCase()) {
-                                tr[i].style.display = "";
-                            } else {
-                                tr[i].style.display = "none";
-                            }
-                        }
-                    }
-                }
-            };
-
-            let selectCourseStudents = function () {
-                let tr, td, i;
-                let convocatoria = $(this).val();
-
-                tr = $("#studentsTable tr");
-
-                for (i = 0; i < tr.length; i++) {
-
-                    if (convocatoria === "todos") {
-                        tr[i].style.display = "";
-                    } else {
-                        td = tr[i].getElementsByTagName("td")[3];
-
-                        if (td) {
-                            if (td.innerHTML.toUpperCase() === convocatoria.toUpperCase()) {
-                                tr[i].style.display = "";
-                            } else {
-                                tr[i].style.display = "none";
-                            }
-                        }
-                    }
-                }
-            };
 
             $(function () {
                 $("#selectCycleStudent").on("change", selectCycleStudents);
-                $("#selectConvocatoryStudent").on("change", selectConvocatoryStudents);
-                $("#selectCourseStudent").on("change", selectCourseStudents);
             });
         }
     </script>

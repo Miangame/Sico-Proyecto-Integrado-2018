@@ -3,10 +3,11 @@
 namespace AppBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Company
- *
+ * @UniqueEntity("cif")
  * @ORM\Table(name="Company")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CompanyRepository")
  */
@@ -27,9 +28,9 @@ class Company
     private $name;
 
     /**
-     * @Assert\Regex("/^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/")
+     * @Assert\Regex("/^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/i")
      * @Assert\NotBlank()
-     * @ORM\Column(name="cif", type="string", nullable=false)
+     * @ORM\Column(name="cif", type="string", nullable=false, unique=true)
      */
     private $cif;
 
