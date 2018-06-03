@@ -101,12 +101,14 @@ class ProjectController extends Controller
     /**
      * @Route("/user/pi/project/{id}/show", name="user_pi_show_project", methods="GET")
      */
-    public function showCompany(Project $project)
+    public function showProject(Project $project)
     {
         $em = $this->getDoctrine();
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
 
         return $this->render('user/pi/project/show.html.twig', array(
             'project' => $project,
+            'distributions' => $this->get('app.distributionprojectHelper')->getDistributionByProject($project, $current_convocatory)
         ));
     }
 

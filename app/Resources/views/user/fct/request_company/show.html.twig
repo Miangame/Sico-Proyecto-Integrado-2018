@@ -1,0 +1,66 @@
+{% extends 'user/base.html.twig' %}
+{% block body %}
+    <div class="row mt-2">
+        <div class="col s12 m6 centerTotalVertical p-1 mt-1 z-depth-2">
+            <div class="rc_company_company">
+                <div class="containerImg_rc_Company">
+                    <img src="{{ asset('img/company.svg') }}" alt="" class="img-perfil-company">
+                </div>
+                <div class="containerInfo_prev_rc_company">
+                    <p id="titleInfo_prev_rc_company">{{ request_company.getNameCompany() }}</p>
+                    <div class="row">
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">perm_identity</i>
+                            <p>{{ request_company.cif }}</p>
+                        </div>
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">mail_outline</i>
+                            <p>{{ request_company.email }}</p>
+                        </div>
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">phone</i>
+                            <p>{{ request_company.phone }}</p>
+                        </div>
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">school</i>
+                            <p>ASIR ({{ request_company.getNumberOfAsir() }}) / DAW ({{ request_company.getNumberOfDaw() }})</p>
+                        </div>
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">map</i>
+                            <p>{{ request_company.getHeadquartersOfWork() }}</p>
+                        </div>
+                        <div class="attributeUser col s6">
+                            <i class="material-icons prefix">my_location</i>
+                            <p>{{ request_company.getHeadquartersPrincipal() }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col m6 s12 w-100">
+            <div class="p-1 mt-1 z-depth-2">
+                <h5>Otros datos</h5>
+                <div class="divider"></div>
+                <h6 class="mt-2">Tutor</h6>
+                <ul class="collection">
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle">person</i>
+                        <span class="title">Nombre: {{ request_company.getTutor() }}</span>
+                        <p class="subtitle-collection">DNI: {{ request_company.getNifTutor() }}</p>
+                    </li>
+                </ul>
+                <h6 class="mt-2">Representante legal</h6>
+                <ul class="collection">
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle">person</i>
+                        <span class="title">{{ request_company.getManager() }}</span>
+                        <p class="subtitle-collection">DNI: {{ request_company.getNifManager() }}</p>
+                    </li>
+                </ul>
+                <h6 class="mt-2">Tareas a realizar</h6>
+                <p class="title grey-text p-1 z-depth-1">{{ request_company.getTasksToBeDone() }}</p>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

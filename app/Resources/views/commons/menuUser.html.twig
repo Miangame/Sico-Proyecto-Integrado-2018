@@ -19,7 +19,7 @@
         </ul>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-                <h5 class="mr-4">{{ convocatory }}</h5>
+                <a href="{{ path('user_config', {'id': user.id}) }}"><h5 class="mr-4">{{ convocatory }}</h5></a>
             </li>
         </ul>
     </div>
@@ -37,7 +37,7 @@
                 <span class="white-text email">{{ user.getFirstName() }} {{ user.getLastName() }}</span>
             </a>
             <div class="divider"></div>
-            <a href="#">
+            <a href="{{ path('user_config', {'id': user.id}) }}">
                 <span class="white-text email pw-1">{{ convocatory }}</span>
             </a>
             <div class="pw-1">

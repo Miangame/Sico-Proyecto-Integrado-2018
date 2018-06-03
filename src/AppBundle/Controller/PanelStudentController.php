@@ -44,12 +44,14 @@ class PanelStudentController extends Controller
 
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
 
-        if ($current_convocatory == null) {
-            return $this->render('user/errors/errorNoConvocatory.html.twig');
+        if ($current_convocatory) {
+            $current_schoolYear = $convocatoriesHelper->getIdCourseByConvocatory($current_convocatory);
+            $students = $studentsHelper->getStudentsBySchoolYearConvocatory($current_schoolYear, $current_convocatory);
+        }else{
+            $students = Array();
         }
 
-        $current_schoolYear = $convocatoriesHelper->getIdCourseByConvocatory($current_convocatory);
-        $students = $studentsHelper->getStudentsBySchoolYearConvocatory($current_schoolYear, $current_convocatory);
+
 
         return $this->render('user/student/view.html.twig', array(
             'students' => $students,

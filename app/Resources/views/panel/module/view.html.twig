@@ -15,6 +15,7 @@
         <thead>
         <tr>
             <th>Módulo</th>
+            <th>Grupo</th>
             <th>Ciclo</th>
             <th>Horas</th>
             <th>Horas desdoble</th>
@@ -27,6 +28,7 @@
         {% for module in modules %}
             <tr>
                 <td>{{ module[0].initials }}</td>
+                <td>{{ module[0].group.course }}º{{ module.name }}-{{ module[0].group.gr }}</td>
                 <td>{{ module.name }}</td>
                 <td>{{ module[0].hours }}</td>
                 <td>{{ module[0].hoursDesdoble }}</td>

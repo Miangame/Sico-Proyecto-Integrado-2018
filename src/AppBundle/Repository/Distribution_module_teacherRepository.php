@@ -68,6 +68,33 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
             ->where('dmt.teacher=:id_user')
             ->setParameter('id_user', $userId);
 
-        return $qb->getQuery()->getArrayResult()[0][1];
+        $result = $qb->getQuery()->getArrayResult()[0][1];
+        return ($result ? $result : 0);
+    }
+
+    public function getHours2ByUserId($userId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(dmt.hours)')
+            ->from('AppBundle:Distribution_module_teacher', 'dmt')
+            ->join('dmt.group','sg')
+            ->where('dmt.teacher = :id_user')
+            ->andWhere('sg.course = 2')
+            ->setParameter('id_user', $userId);
+
+        $result = $qb->getQuery()->getArrayResult()[0][1];
+        return ($result ? $result : 0);
+    }
+
+    public function getHours2()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(dmt.hours)')
+            ->from('AppBundle:Distribution_module_teacher', 'dmt')
+            ->join('dmt.group','sg')
+            ->where('sg.course = 2');
+
+        $result = $qb->getQuery()->getArrayResult()[0][1];
+        return ($result ? $result : 0);
     }
 }
