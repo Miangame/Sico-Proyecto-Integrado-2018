@@ -32,11 +32,12 @@ class Request_companyController extends Controller
 
         if(isset($btn_submit)) {
             if(isset($file)) {
+                $routeDirectory = '../web/uploads/assets';
                 $file = $request->files->get('file_uploaded');
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
                 $original_name = $file->getClientOriginalName();
-                $file->move($this->container->getParameter('file_directory'), $fileName);
-                $path = $this->container->getParameter('file_directory') . '/' . $fileName;
+                $file->move($routeDirectory, $fileName);
+                $path = $routeDirectory . '/' . $fileName;
 
                 $file_entity = new UploadedFile ($path, $original_name);
 
@@ -147,7 +148,7 @@ class Request_companyController extends Controller
         $newCompany->setCif($request_company->getCif());
         $newCompany->setPhone($request_company->getPhone());
         $newCompany->setEmail($request_company->getEmail());
-
+    try{
         $em = $this->getDoctrine()->getManager();
         $em->persist($newCompany);
         $em->flush();
@@ -156,6 +157,24 @@ class Request_companyController extends Controller
             ->getFlashBag()
             ->add('success', 'Empresa creada')
         ;
+    }catch (DBALException $e){
+        $prev = $e->getPrevious();
+        $msg = "";
+        switch ($prev->getCode()){
+            case 23000:
+                $msg = "Ya existe la empresa";
+                break;
+            default:
+                $msg = "No se ha creado la empresa";
+                break;
+        }
+
+        $request->getSession()
+            ->getFlashBag()
+            ->add('error', $msg)
+        ;
+    }
+
         return $this->redirectToRoute('user_fct', ['_fragment' => 'emp']);
     }
 }
