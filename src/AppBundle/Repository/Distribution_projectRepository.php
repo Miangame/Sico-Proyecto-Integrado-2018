@@ -30,6 +30,20 @@ class Distribution_projectRepository extends \Doctrine\ORM\EntityRepository
                                       AND st.convocatory = ".intval($convocatory)." ")->getArrayResult();
     }
 
+    public function getDistributionByProject($project,$convocatory)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('st')
+            ->from('AppBundle:Student', 'st')
+            ->join('st.distribution_project', 'dp')
+            ->join('dp.project', 'pr')
+            ->where('pr.id = :project_id')
+            ->andWhere('st.convocatory = :convocatory_id')
+            ->setParameter('project_id', $project)
+            ->setParameter('convocatory_id', $convocatory);
+
+        return $qb->getQuery()->getResult();
+    }
     public function getAllForStudent($idStudent)
     {
         return $this->findBy(['student'=>$idStudent]);

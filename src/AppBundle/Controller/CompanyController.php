@@ -108,10 +108,11 @@ class CompanyController extends Controller
     public function showCompany(Company $company)
     {
         $em = $this->getDoctrine();
+        $convocatory = $this->getUser()->getCurrentConvocatory();
 
         return $this->render('user/fct/company/show.html.twig', array(
             'company' => $company,
-            'distributions' => $em->getRepository(Distribution_company::class)->getDistributionBYCompany($company)
+            'distributions' => $em->getRepository(Distribution_company::class)->getDistributionBYCompany($company, $convocatory)
         ));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Company;
 use AppBundle\Entity\Project;
 use AppBundle\Entity\Request_company;
 use AppBundle\Form\ProjectType;
@@ -108,4 +109,53 @@ class Request_companyController extends Controller
         ));
     }
 
+    /**
+     * @Route("user/fct/request_company/{id}/delete", name="user_fct_delete_request_company")
+     */
+    public function deleteProjectAction(Request $request,Request_company $request_company)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($request_company);
+        $em->flush();
+
+        $request->getSession()
+            ->getFlashBag()
+            ->add('success', 'Solicitud borrada')
+        ;
+        return $this->redirectToRoute('user_fct', ['_fragment' => 'solemp']);
+    }
+
+    /**
+     * @Route("user/fct/request_company/{id}/show", name="user_fct_show_request_company", methods="GET")
+     */
+    public function showProject(Request_company $request_company)
+    {
+        $em = $this->getDoctrine();
+
+        return $this->render('user/fct/request_company/show.html.twig', array(
+            'request_company' => $request_company,
+        ));
+    }
+
+    /**
+     * @Route("/user/fct/requestCompany/{id}/new", name="user_fct_new_com_req")
+     */
+    public function newCompanyAction(Request $request, Request_company $request_company)
+    {
+        $newCompany = new Company();
+        $newCompany->setName($request_company->getNameCompany());
+        $newCompany->setCif($request_company->getCif());
+        $newCompany->setPhone($request_company->getPhone());
+        $newCompany->setEmail($request_company->getEmail());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($newCompany);
+        $em->flush();
+
+        $request->getSession()
+            ->getFlashBag()
+            ->add('success', 'Empresa creada')
+        ;
+        return $this->redirectToRoute('user_fct', ['_fragment' => 'emp']);
+    }
 }

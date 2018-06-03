@@ -3,9 +3,12 @@
 namespace AppBundle\Services;
 
 
+use AppBundle\Entity\Configuration;
 use AppBundle\Entity\Student;
 use AppBundle\Repository\CompanyRepository;
+use AppBundle\Repository\ConfigurationRepository;
 use AppBundle\Repository\ConvocatoryRepository;
+use AppBundle\Repository\CycleRepository;
 use AppBundle\Repository\Distribution_module_teacherRepository;
 use AppBundle\Repository\StudentRepository;
 use AppBundle\Repository\UserRepository;
@@ -40,6 +43,11 @@ class UsersHelper
         return $users;
     }
 
+    /**
+     * Mostrar Profesores con los datos del reparto
+     * @param $convocatory
+     * @return array
+     */
     public function getUserDistribution($convocatory)
     {
 
@@ -49,6 +57,9 @@ class UsersHelper
         /** @var ConvocatoryRepository $convocatoryRepository */
         $convocatoryRepository = $this->em->getRepository("AppBundle:Convocatory");
 
+        /** @var CycleRepository $cycleRepository */
+        $cycleRepository = $this->em->getRepository("AppBundle:Cycle");
+
         /** @var Distribution_module_teacherRepository $distributionRepository */
         $distributionRepository = $this->em->getRepository("AppBundle:Distribution_Module_Teacher");
 
@@ -56,18 +67,46 @@ class UsersHelper
         $teacherResult = $teacherRepository->getUsersValid();
 
         if ($convocatoryRepository->findBy(array('id' => $convocatory)) != null) {
+            $sumTotalPond = $this->sumTotalPond($teacherResult,$convocatory,$teacherRepository);
+
             /** @var User $teacher */
             foreach ($teacherResult as $teacher) {
+                $numFCT = $teacherRepository->getFCTDistribution($convocatory, $teacher->getId());
+                $numPI = $teacherRepository->getPIDistribution($convocatory, $teacher->getId());
+                $reduct = $this->calcReduction(
+                    $distributionRepository->getHoursByUserId(
+                        $teacher->getId()
+                    )
+                );
+                $porc2 = $this->calcPorc2(
+                    $distributionRepository->getHours2ByUserId($teacher->getId()),
+                    $distributionRepository->getHours2()
+                );
+                $porcCycle = $this->calcPorcCycle(
+                    $distributionRepository->getHoursByUserId($teacher->getId()),
+                    $cycleRepository->getHours()
+                );
+                $porcReduct = $this->calcPorcReduct(
+                    $reduct,
+                    $this->sumTotalReduct($teacherResult, $distributionRepository)
+                );
+                $ideal2 = ($sumTotalPond * $porc2) / 100;
+                $idealCycle = ($sumTotalPond * $porcCycle) / 100;
+                $idealReduct = ($sumTotalPond * $porcReduct) / 100;
+
+                $restaIdeal2 = round($ideal2 - $sumTotalPond,2);
+                $restaIdealCycle = round($idealCycle - $sumTotalPond,2);
+                $restaIdealReduct = round($idealReduct - $sumTotalPond,2);
+
                 array_push(
                     $teachers, new TeacherData(
                         $teacher,
-                        $teacherRepository->getPIDistribution($convocatory, $teacher->getId()),
-                        $teacherRepository->getFCTDistribution($convocatory, $teacher->getId()),
-                        $this->calcRecuction(
-                            $distributionRepository->getHoursByUserId(
-                                $teacher->getId()
-                            )
-                        )
+                        $numPI,
+                        $numFCT,
+                        $reduct,
+                        $restaIdeal2,
+                        $restaIdealCycle,
+                        $restaIdealReduct
                     )
                 );
             }
@@ -75,7 +114,97 @@ class UsersHelper
         return $teachers;
     }
 
-    private function calcRecuction($hours)
+    /**
+     * Calcular el porcentaje de reducción
+     * @param $reduct
+     * @param $totalReduct
+     * @return float|int
+     */
+    private function calcPorcReduct($reduct, $totalReduct){
+        return (($reduct * 100) / $totalReduct);
+    }
+
+    /**
+     * Sumar todas las horas de reducción de todos los usuarios
+     * @param $teachers
+     * @param $distributionRepository
+     * @return float|int
+     */
+    private function sumTotalReduct($teachers,$distributionRepository){
+        $sum = 0;
+        foreach ($teachers as $teacher){
+            $sum += $this->calcReduction($distributionRepository->getHoursByUserId(
+                $teacher->getId()
+            ));
+        }
+
+        return $sum;
+    }
+
+    /**
+     * Calcular cuanto porcetaje equivale el total de horas de un profesor en torno al total de horas de todos los
+     * profesores
+     *
+     * @param $totalHoursTeacher
+     * @param $totalHours
+     * @return float|int
+     */
+    private function calcPorcCycle($totalHoursTeacher, $totalHours){
+        return (($totalHoursTeacher * 100) / $totalHours);
+    }
+
+    /**
+     * Calcular la ponderación de un profesor tomando en cuenta el número de FCT's y PI's
+     *
+     * @param $numFCT
+     * @param $numPI
+     * @return float|int
+     */
+    private function calcSumPonderation($numFCT, $numPI){
+        /** @var ConfigurationRepository $config */
+        $config = $this->em->getRepository('AppBundle:Configuration')->find(1);
+        $pesoFCT = $config->getWeightFCT();
+        $pesoPI = $config->getWeightPi();
+        return ($numFCT * $pesoFCT) + ($numPI * $pesoPI);
+    }
+
+    /**
+     * Calcular el porcentaje de horas de segundo de un profesor tomando en cuenta el total de
+     * horas de segundo
+     *
+     * @param $total2HoursUser
+     * @param $total2Hours
+     * @return float|int
+     */
+    private function calcPorc2($total2HoursUser, $total2Hours){
+        return (($total2HoursUser * 100) / $total2Hours);
+    }
+
+    /**
+     * Sumar el total de ponderaciones de todos los profesores
+     * @param $teachers
+     * @param $convocatory
+     * @param $teacherRepository
+     * @return float|int
+     */
+    private function sumTotalPond($teachers,$convocatory,$teacherRepository){
+        $sum = 0;
+        foreach ($teachers as $teacher){
+            $numFCT = $teacherRepository->getFCTDistribution($convocatory, $teacher->getId());
+            $numPI = $teacherRepository->getPIDistribution($convocatory, $teacher->getId());
+            $sum += $this->calcSumPonderation($numFCT, $numPI);
+        }
+
+        return $sum;
+    }
+
+    /**
+     * Calcular la reducción de un profesor tomando en cuenta las horas del mismo
+     *
+     * @param $hours
+     * @return float|int
+     */
+    private function calcReduction($hours)
     {
         return ($hours % 2 == 0) ? $hours / 2 : round($hours / 2);
     }

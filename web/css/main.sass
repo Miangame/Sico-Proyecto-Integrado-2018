@@ -166,12 +166,14 @@ $text-large: 2rem
     text-align: left
 
 // States Point Teachers
-.warning_state,.ok_state
+.warning_state,.ok_state,.warning_up_state
     color: #FFF
 .warning_state
     background: #ff7b7b
 .ok_state
     background: #6de076
+.warning_up_state
+    background: #6caadd
 
 form>div>div>ul>li
     color: #ed1515
@@ -196,4 +198,19 @@ main
 
 .actualHours td,th
     text-align: center
-  
+
+
+// Request Company
+.rc_company_company
+    .containerImg_rc_Company
+        display: flex
+        justify-content: center
+        align-items: center
+        img
+            width: 40%
+    .containerInfo_prev_rc_company
+        padding: 20px
+        box-sizing: border-box
+        #titleInfo_prev_rc_company
+            font-size: 1.3rem
+            font-weight: bold

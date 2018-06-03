@@ -29,7 +29,13 @@
                         Nueva asignación
                     </a>
                 </li>
-
+                {% for distribution in distributions %}
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle">person</i>
+                        <span class="title">{{ distribution }}</span>
+                        <p class="subtitle-collection">{{ distribution.group }}</p>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </div>

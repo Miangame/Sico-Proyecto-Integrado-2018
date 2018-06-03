@@ -19,7 +19,8 @@ class IndexWebController extends Controller
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
         return $this->render('user/index.html.twig', array(
             'students' => $this->get('app.studentsHelper')->getStudentsDistribution($current_convocatory),
-            'users' => $this->get('app.usersHelper')->getUserDistribution($current_convocatory)
+            'users' => $this->get('app.usersHelper')->getUserDistribution($current_convocatory),
+            'convocatory' => $this->get('app.convocatoriesHelper')->getConvocatory($current_convocatory)
         ));
     }
 }

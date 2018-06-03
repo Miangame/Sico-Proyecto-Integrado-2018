@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% set ismarzo = false %}
+{% if convocatory != "Sin convocatoria" %}
+    {% set ismarzo = convocatory.getConvocatory() == "MARZO" %}
+{% endif %}
 {% block nav %}
     {{ render(controller('AppBundle:UserDashboard:dashboard')) }}
 {% endblock %}
@@ -42,32 +45,57 @@
         </div>
         <div class="col s12 m8">
             <h5>Profesores</h5>
-            <table class="responsive-table centered z-depth-1">
-                <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>PI</th>
-                    <th>FCT</th>
-                    <th>Reducción</th>
-                    <th>Puntuación</th>
-                    <th>Marzo 16/17</th>
-                    <th>Septiembre 16/17</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for user in users %}
+            {% if ismarzo %}
+                <table class="responsive-table centered z-depth-1">
+                    <thead>
                     <tr>
-                        <td>{{ user.getTeacher() }}</td>
-                        <td>{{ user.getPI() }}</td>
-                        <td>{{ user.getFCT() }}</td>
-                        <td>{{ user.getReduction() }}</td>
-                        <td class="ok_state">0</td>
-                        <td class="ok_state">2</td>
-                        <td class="warning_state">-4</td>
+                        <th>Nombre</th>
+                        <th>PI</th>
+                        <th>FCT</th>
+                        <th>Reducción</th>
+                        <th>Resta ideal 2º</th>
+                        <th>Resta ideal ciclo completo</th>
+                        <th>Resta ideal reducción</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.getTeacher() }}</td>
+                            <td>{{ user.getPI() }}</td>
+                            <td>{{ user.getFCT() }}</td>
+                            <td>{{ user.getReduction() }}</td>
+                            <td class="{{ valclass(user.getRestIdeal()) }}">{{ user.getRestIdeal() }}</td>
+                            <td class="{{ valclass(user.getRestIdealCycle()) }}">{{ user.getRestIdealCycle() }}</td>
+                            <td class="{{ valclass(user.getRestIdealReduc()) }}">{{ user.getRestIdealReduc() }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <table class="responsive-table centered z-depth-1">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>PI</th>
+                        <th>FCT</th>
+                        <th>Resta ideal 2º</th>
+                        <th>Resta ideal ciclo completo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.getTeacher() }}</td>
+                            <td>{{ user.getPI() }}</td>
+                            <td>{{ user.getFCT() }}</td>
+                            <td class="{{ valclass(user.getRestIdeal()) }}">{{ user.getRestIdeal() }}</td>
+                            <td class="{{ valclass(user.getRestIdealCycle()) }}">{{ user.getRestIdealCycle() }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

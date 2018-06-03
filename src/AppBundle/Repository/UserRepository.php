@@ -33,21 +33,6 @@ class UserRepository extends EntityRepository
         return $user_teacher;
     }
 
-    public function getHoursModules($yearId,$userId){
-        $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('SUM(md.hours)')
-            ->from('AppBundle:Distribution_module_teacher', 'dt')
-            ->join('dt.module', 'md')
-            ->join('dt.group', 'g')
-            ->where('dt.teacher = :user_id')
-            ->andWhere('g.course = 2')
-            ->andWhere('dt.schoolYear = :year_id')
-            ->setParameter('year_id',$yearId)
-            ->setParameter('user_id',$userId);
-
-        return $qb->getQuery()->getResult()[0][1];
-    }
-
     public function getFCTDistribution($convocatory,$userId){
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('dc.id')

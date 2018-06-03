@@ -228,7 +228,7 @@
   text-align: left;
 }
 
-.warning_state, .ok_state {
+.warning_state, .ok_state, .warning_up_state {
   color: #FFF;
 }
 
@@ -238,6 +238,10 @@
 
 .ok_state {
   background: #6de076;
+}
+
+.warning_up_state {
+  background: #6caadd;
 }
 
 form > div > div > ul > li {
@@ -269,4 +273,24 @@ main {
 
 .actualHours td, th {
   text-align: center;
+}
+
+.rc_company_company .containerImg_rc_Company {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rc_company_company .containerImg_rc_Company img {
+  width: 40%;
+}
+
+.rc_company_company .containerInfo_prev_rc_company {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.rc_company_company .containerInfo_prev_rc_company #titleInfo_prev_rc_company {
+  font-size: 1.3rem;
+  font-weight: bold;
 }
