@@ -20,10 +20,11 @@ class AppExtension extends \Twig_Extension
      * @param $value
      * @return string
      */
-    public function getClass($value){
+    public function getClass($value)
+    {
         if ($value < -0.5)
             return "warning_state";
-        else if ($value >= -0.5 || $value <= 0.5)
+        else if ($value >= -0.5 AND $value <= 0.5)
             return "ok_state";
         else
             return "warning_up_state";
