@@ -13,7 +13,7 @@ use AppBundle\Repository\Distribution_module_teacherRepository;
 use AppBundle\Repository\StudentRepository;
 use AppBundle\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
-use FOS\UserBundle\Model\User;
+use AppBundle\Entity\User;
 use FOS\UserBundle\Model\UserManager;
 use AppBundle\Model\TeacherData;
 
@@ -67,12 +67,13 @@ class UsersHelper
         $teacherResult = $teacherRepository->getUsersValid();
 
         if ($convocatoryRepository->findBy(array('id' => $convocatory)) != null) {
-            $sumTotalPond = $this->sumTotalPond($teacherResult,$convocatory,$teacherRepository);
+            $sumTotalPond = $this->sumTotalPond($teacherResult, $convocatory, $teacherRepository);
 
             /** @var User $teacher */
             foreach ($teacherResult as $teacher) {
                 $numFCT = $teacherRepository->getFCTDistribution($convocatory, $teacher->getId());
                 $numPI = $teacherRepository->getPIDistribution($convocatory, $teacher->getId());
+                $sumTeacher = $numFCT + $numPI;
                 $reduct = $this->calcReduction(
                     $distributionRepository->getHoursByUserId(
                         $teacher->getId()
@@ -94,9 +95,9 @@ class UsersHelper
                 $idealCycle = ($sumTotalPond * $porcCycle) / 100;
                 $idealReduct = ($sumTotalPond * $porcReduct) / 100;
 
-                $restaIdeal2 = round($ideal2 - $sumTotalPond,2);
-                $restaIdealCycle = round($idealCycle - $sumTotalPond,2);
-                $restaIdealReduct = round($idealReduct - $sumTotalPond,2);
+                $restaIdeal2 = round($ideal2 - $sumTeacher, 2);
+                $restaIdealCycle = round($idealCycle - $sumTeacher, 2);
+                $restaIdealReduct = round($idealReduct - $sumTeacher, 2);
 
                 array_push(
                     $teachers, new TeacherData(
@@ -120,7 +121,8 @@ class UsersHelper
      * @param $totalReduct
      * @return float|int
      */
-    private function calcPorcReduct($reduct, $totalReduct){
+    private function calcPorcReduct($reduct, $totalReduct)
+    {
         return (($reduct * 100) / $totalReduct);
     }
 
@@ -130,9 +132,10 @@ class UsersHelper
      * @param $distributionRepository
      * @return float|int
      */
-    private function sumTotalReduct($teachers,$distributionRepository){
+    private function sumTotalReduct($teachers, $distributionRepository)
+    {
         $sum = 0;
-        foreach ($teachers as $teacher){
+        foreach ($teachers as $teacher) {
             $sum += $this->calcReduction($distributionRepository->getHoursByUserId(
                 $teacher->getId()
             ));
@@ -149,7 +152,8 @@ class UsersHelper
      * @param $totalHours
      * @return float|int
      */
-    private function calcPorcCycle($totalHoursTeacher, $totalHours){
+    private function calcPorcCycle($totalHoursTeacher, $totalHours)
+    {
         return (($totalHoursTeacher * 100) / $totalHours);
     }
 
@@ -160,7 +164,8 @@ class UsersHelper
      * @param $numPI
      * @return float|int
      */
-    private function calcSumPonderation($numFCT, $numPI){
+    private function calcSumPonderation($numFCT, $numPI)
+    {
         /** @var ConfigurationRepository $config */
         $config = $this->em->getRepository('AppBundle:Configuration')->find(1);
         $pesoFCT = $config->getWeightFCT();
@@ -176,7 +181,8 @@ class UsersHelper
      * @param $total2Hours
      * @return float|int
      */
-    private function calcPorc2($total2HoursUser, $total2Hours){
+    private function calcPorc2($total2HoursUser, $total2Hours)
+    {
         return (($total2HoursUser * 100) / $total2Hours);
     }
 
@@ -187,9 +193,10 @@ class UsersHelper
      * @param $teacherRepository
      * @return float|int
      */
-    private function sumTotalPond($teachers,$convocatory,$teacherRepository){
+    private function sumTotalPond($teachers, $convocatory, $teacherRepository)
+    {
         $sum = 0;
-        foreach ($teachers as $teacher){
+        foreach ($teachers as $teacher) {
             $numFCT = $teacherRepository->getFCTDistribution($convocatory, $teacher->getId());
             $numPI = $teacherRepository->getPIDistribution($convocatory, $teacher->getId());
             $sum += $this->calcSumPonderation($numFCT, $numPI);
