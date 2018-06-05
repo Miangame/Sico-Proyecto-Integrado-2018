@@ -3,7 +3,20 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-<p>
-{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
-</p>
+    <div class="row allHeight centerVertical">
+        <div class="col m8 offset-m2 l4 offset-l4 z-depth-4 p-1">
+            <div class="col s12">
+                <div class="row centerTotal">
+                    <img id="logo-login" src="{{ asset('img/logo-color.png') }}">
+                </div>
+            </div>
+            <p>
+                {{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
+            </p>
+            <div class="input-field col s12 center-align">
+                <a href="{{ path('panel_teachers') }}">Volver</a>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
