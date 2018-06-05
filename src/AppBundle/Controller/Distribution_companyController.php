@@ -58,10 +58,14 @@ class Distribution_companyController extends Controller
 
         }
 
+        if ($request->get('flag') == 'index') {
+            $redirect = 'index_web';
+        }
+
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Nueva asignación FCT",
-            'redirect' => 'user_fct'
+            'redirect' => $redirect
         ));
     }
 
