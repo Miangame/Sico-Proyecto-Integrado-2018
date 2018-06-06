@@ -29,18 +29,19 @@ class PerfilController extends Controller
 
 
         $file = $request->files->get('file_uploaded');
-
         $error = "";
 
-        if(isset($file)) {
+        if(isset($file)) {// Existe el archivo enviado
             $routeDirectory = '../web/img/photos';
 
-            $file = $request->files->get('file_uploaded');
             $fileName = $currentUser->getUserName(). '.' . $file->guessExtension();
             $path = $fileName;
             preg_match('/^.*(png|jpg|jpeg)$/i', $file->guessExtension(), $validExt, PREG_OFFSET_CAPTURE);
-            if($validExt){
-                if(!$file->move($routeDirectory, $fileName))
+            if($validExt){ // El archivo tiene la extensión correcta
+
+                if($file->getSize()>=2000000)// El archivo se ha pasado de 2MB
+                    $error = "Imagen demasiado grande (Max 2MB)";
+                else if(!$file->move($routeDirectory, $fileName))// Se ha movido correctamente
                     $error = "No se ha podido guardar la imagen";
                 else{// archivo correcto
                     $user->setImg($path);
@@ -48,13 +49,14 @@ class PerfilController extends Controller
                     $entityManager->persist($user);
                     $entityManager->flush();
                 }
+
             }else{
                 $error = "Imagen no válida(png/jpg/jpeg)";
             }
 
 
             if($error == "") {
-                $msg = 'Perfil modificado';
+                $msg = 'Imagen modificada';
                 $type = 'success';
             }else{
                 $msg = $error;
@@ -65,8 +67,6 @@ class PerfilController extends Controller
                 ->getFlashBag()
                 ->add($type, $msg);
 
-        }else{
-            $error = "No has subido ningún archivo";
         }
 
         return $this->render('commons/perfil.html.twig', array(
