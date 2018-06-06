@@ -41,4 +41,5 @@ security:
         - { path: ^/panel, role: ROLE_ADMIN }
         - { path: ^/user, role: ROLE_TEACHER }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/perfil, role: [ROLE_ADMIN, ROLE_TEACHER] }
 

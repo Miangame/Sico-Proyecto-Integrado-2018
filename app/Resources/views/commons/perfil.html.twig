@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% set img = '' %}
+{% if user_perfil.img == null %}
+    {% set img = 'user.png' %}
+{% else %}
+    {% set img = user_perfil.img %}
+{% endif %}
+
+{% block nav %}
+    {{ render(controller(current_rol)) }}
+{% endblock %}
+{% block body %}
+    <div class="row mt-2">
+        <div class="col s12 m6 z-depth-2 p-1 mt-1">
+            <form method="POST" action="{{ path('perfil',{'id': user_perfil.getId()}) }}" enctype="multipart/form-data">
+                <div class="row centerTotalVertical">
+                    <div class="hide">
+                        <input type="file" id="file_uploaded" name="file_uploaded">
+                    </div>
+                    <label for="file_uploaded">
+                        <div class="col imgPerfil">
+                            <img src="{{ asset('img/photos/' ~ img) }}" alt="">
+                            <i class="material-icons prefix small icon_upload">cloud_upload</i>
+                        </div>
+                    </label>
+                    <div class="col">
+                        <div class="attributeUser">
+                            <h5>{{ user_perfil }}</h5>
+                        </div>
+
+                        <div class="attributeUser">
+                            <i class="material-icons prefix">email</i>
+                            <p>{{ user_perfil.getEmail() }}</p>
+                        </div>
+
+                        <div class="attributeUser">
+                            <i class="material-icons prefix">account_circle</i>
+                            <p>{{ user_perfil.getUserName() }}</p>
+                        </div>
+                    </div>
+                    <div class="attributeUser col s12">
+                        <blockquote class="text-justify-total"></blockquote>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col m6 s12 w-100">
+            <div class="z-depth-1 p-1 mt-1">
+                <h5 class="">Cambiar contraseña</h5>
+                <blockquote class="grey-text">
+                    * Puedes cambiar la contraseña si te es necesario.
+                </blockquote>
+                <a href="{{ path('fos_user_change_password') }}" class="waves-effect waves-light btn">Cambiar mi contraseña</a>
+            </div>
+        </div>
+        <script>
+            $('#file_uploaded').on('change', function(event){
+                console.log('asdd');
+                this.form.submit();
+            })
+        </script>
+    </div>
+{% endblock %}
