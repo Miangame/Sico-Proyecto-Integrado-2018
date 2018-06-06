@@ -50,6 +50,11 @@ class Configuration
     private $hours_secondary;
 
     /**
+     * @ORM\Column(name="organization_name", type="string", nullable=true)
+     */
+    private $organization_name;
+
+    /**
      * Get id
      *
      * @return int
@@ -167,5 +172,29 @@ class Configuration
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * Set organizationName
+     *
+     * @param string $organizationName
+     *
+     * @return Configuration
+     */
+    public function setOrganizationName($organizationName)
+    {
+        $this->organization_name = $organizationName;
+
+        return $this;
+    }
+
+    /**
+     * Get organizationName
+     *
+     * @return string
+     */
+    public function getOrganizationName()
+    {
+        return $this->organization_name;
     }
 }
