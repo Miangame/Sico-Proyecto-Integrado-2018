@@ -20,4 +20,5 @@
 .idea/
 /pdf/
 !/app/Resources/views/pdf/*
+/web/img/photos
 *~

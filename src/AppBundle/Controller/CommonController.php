@@ -8,14 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-/**
- * @Route("/", name="dashboard")
- * @Security("has_role('ROLE_USER')")
- */
+
 class CommonController extends Controller
 {
     /**
      * @Route("/", name="dashboard")
+     * @Security("has_role('ROLE_USER')")
      */
     public function dashboardAction(Request $request)
     {
