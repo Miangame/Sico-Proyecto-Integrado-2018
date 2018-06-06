@@ -39,15 +39,6 @@ class Configuration
      */
     private $weight_fct;
 
-    /**
-     * @ORM\Column(name="hours_first", type="boolean", nullable=false)
-     */
-    private $hours_first;
-
-    /**
-     * @ORM\Column(name="hours_secondary", type="boolean", nullable=false)
-     */
-    private $hours_secondary;
 
     /**
      * Get id
