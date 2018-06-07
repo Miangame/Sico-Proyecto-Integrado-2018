@@ -1,8 +1,4 @@
 {% extends 'base.html.twig' %}
-{% set ismarzo = false %}
-{% if convocatory != "Sin convocatoria" %}
-    {% set ismarzo = convocatory.getConvocatory() == "MARZO" %}
-{% endif %}
 {% block nav %}
     {{ render(controller('AppBundle:UserDashboard:dashboard')) }}
 {% endblock %}
@@ -45,57 +41,69 @@
         </div>
         <div class="col s12 m8">
             <h5>Profesores</h5>
-            {% if ismarzo %}
-                <table class="responsive-table centered z-depth-1">
-                    <thead>
+            <table class="responsive-table centered z-depth-1">
+                <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>PI</th>
-                        <th>FCT</th>
-                        <th>Reducción</th>
-                        <th>Resta ideal 2º</th>
-                        <th>Resta ideal ciclo completo</th>
-                        <th>Resta ideal reducción</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <div class="switch">
+                                <label>
+                                    <input data-column="cl_reduction" class="ch_hide" type="checkbox" checked>
+                                    <span class="lever"></span>
+                                </label>
+                            </div></th>
+                        <th>
+                            <div class="switch">
+                                <label>
+                                    <input data-column="cl_rest_ideal" class="ch_hide" type="checkbox" checked>
+                                    <span class="lever"></span>
+                                </label>
+                            </div></th>
+                        <th>
+                            <div class="switch">
+                                <label>
+                                    <input data-column="cl_rest_ideal_ciclo" class="ch_hide" type="checkbox" checked>
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="switch">
+                                <label>
+                                    <input data-column="cl_rest_ideal_reduc" class="ch_hide" type="checkbox" checked>
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
+                        </th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {% for user in users %}
-                        <tr>
-                            <td>{{ user.getTeacher() }}</td>
-                            <td>{{ user.getPI() }}</td>
-                            <td>{{ user.getFCT() }}</td>
-                            <td>{{ user.getReduction() }}</td>
-                            <td class="{{ valclass(user.getRestIdeal()) }}">{{ user.getRestIdeal() }}</td>
-                            <td class="{{ valclass(user.getRestIdealCycle()) }}">{{ user.getRestIdealCycle() }}</td>
-                            <td class="{{ valclass(user.getRestIdealReduc()) }}">{{ user.getRestIdealReduc() }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <table class="responsive-table centered z-depth-1">
-                    <thead>
+                </thead>
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>PI</th>
+                    <th>FCT</th>
+                    <th class="cl_reduction cl-h">Reducción</th>
+                    <th class="cl_rest_ideal cl-h">Resta ideal 2º</th>
+                    <th class="cl_rest_ideal_ciclo cl-h">Resta ideal ciclo completo</th>
+                    <th class="cl_rest_ideal_reduc cl-h">Resta ideal reducción</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
                     <tr>
-                        <th>Nombre</th>
-                        <th>PI</th>
-                        <th>FCT</th>
-                        <th>Resta ideal 2º</th>
-                        <th>Resta ideal ciclo completo</th>
+                        <td>{{ user.getTeacher() }}</td>
+                        <td>{{ user.getPI() }}</td>
+                        <td>{{ user.getFCT() }}</td>
+                        <td class="cl_reduction cl-h">{{ user.getReduction() }}</td>
+                        <td class="cl_rest_ideal cl-h {{ valclass(user.getRestIdeal()) }}">{{ user.getRestIdeal() }}</td>
+                        <td class="cl_rest_ideal_ciclo cl-h {{ valclass(user.getRestIdealCycle()) }}">{{ user.getRestIdealCycle() }}</td>
+                        <td class="cl_rest_ideal_reduc cl-h {{ valclass(user.getRestIdealReduc()) }}">{{ user.getRestIdealReduc() }}</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {% for user in users %}
-                        <tr>
-                            <td>{{ user.getTeacher() }}</td>
-                            <td>{{ user.getPI() }}</td>
-                            <td>{{ user.getFCT() }}</td>
-                            <td class="{{ valclass(user.getRestIdeal()) }}">{{ user.getRestIdeal() }}</td>
-                            <td class="{{ valclass(user.getRestIdealCycle()) }}">{{ user.getRestIdealCycle() }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}

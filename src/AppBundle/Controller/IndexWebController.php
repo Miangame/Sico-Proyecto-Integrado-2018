@@ -24,5 +24,4 @@ class IndexWebController extends Controller
             'convocatory' => $this->get('app.convocatoriesHelper')->getConvocatory($current_convocatory)
         ));
     }
-
 }

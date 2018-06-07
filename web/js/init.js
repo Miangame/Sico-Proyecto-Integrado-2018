@@ -4,7 +4,7 @@
 
 // Or with jQuery
 
-let cargarModalDelete = function () {
+const cargarModalDelete = function () {
     $('.modalDelete').on('click', function (event) {
         event.preventDefault();
 
@@ -30,4 +30,10 @@ $(document).ready(function () {
     cargarModalDelete();
 
     $('.tooltipped').tooltip();
+
+    // Checkboxs column table reparto
+
+    $('.ch_hide').on('click',function(){
+        $('.'+ $(this).data("column") ).toggleClass("hide-element")
+    })
 });
