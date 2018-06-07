@@ -18,7 +18,6 @@ class IndexWebController extends Controller
     public function indexAction(Request $request)
     {
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
-        $this->createConfigData();
         return $this->render('user/index.html.twig', array(
             'students' => $this->get('app.studentsHelper')->getStudentsDistribution($current_convocatory),
             'users' => $this->get('app.usersHelper')->getUserDistribution($current_convocatory),
@@ -26,24 +25,4 @@ class IndexWebController extends Controller
         ));
     }
 
-    private function createConfigData()
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
-        $config = $em->getRepository(Configuration::class)->findAll();
-
-        if (!$config) {
-            $newConfig = new Configuration();
-
-            $newConfig->setId(1);
-            $newConfig->setWeightFct(1);
-            $newConfig->setWeightPi(1);
-            $newConfig->setHoursFirst(false);
-            $newConfig->setHoursSecondary(false);
-
-            $em->persist($newConfig);
-            $em->flush();
-        }
-    }
 }
