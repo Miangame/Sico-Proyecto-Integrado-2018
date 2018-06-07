@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="User")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity("email")
+ * @UniqueEntity("username")
  */
 class User extends BaseUser
 {
@@ -62,7 +63,6 @@ class User extends BaseUser
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $current_convocatory;
-
 
 
     /**
@@ -265,7 +265,7 @@ class User extends BaseUser
 
     public function __toString()
     {
-        return $this->getFirstName().' '.$this->getLastName();
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 
     /**

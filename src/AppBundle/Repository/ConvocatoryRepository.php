@@ -24,7 +24,7 @@ class ConvocatoryRepository extends \Doctrine\ORM\EntityRepository
         }
 
         return $this->getEntityManager()->createQuery("
-                                      SELECT cv.id as id, CONCAT(cv.convocatory,' / ',sy.course) as convocatory
+                                      SELECT cv.id as id, CONCAT(sy.course,' ', cv.convocatory) as convocatory
                                       FROM AppBundle:Convocatory cv,
                                       AppBundle:SchoolYear sy
                                       WHERE cv.schoolYear = sy.id

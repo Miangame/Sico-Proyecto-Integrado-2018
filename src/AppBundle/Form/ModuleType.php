@@ -28,7 +28,7 @@ class ModuleType extends AbstractType
                 'choices' => $options["groups"],
                 'data' => $options["group_selected"]
             ))
-            ->add('save', SubmitType::class, array('label' => 'Enviar módulo', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
+            ->add('save', SubmitType::class, array('label' => 'Aceptar', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
     }
 
     public function configureOptions(OptionsResolver $resolver)

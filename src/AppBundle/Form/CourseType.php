@@ -17,8 +17,8 @@ class CourseType extends AbstractType
     {
 
         $builder
-            ->add('course', TextType::class, array('label' => 'Curso (*Formato: yy/yy)'))
-            ->add('save', SubmitType::class, array('label' => 'Enviar curso', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
+            ->add('course', TextType::class, array('label' => 'Curso académico (*Formato: yy/yy)'))
+            ->add('save', SubmitType::class, array('label' => 'Aceptar', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
     }
 
     public function configureOptions(OptionsResolver $resolver)

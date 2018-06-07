@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="Cycle")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CycleRepository")
  * @UniqueEntity("name")
+ * @UniqueEntity("initials")
  */
 class Cycle
 {
@@ -27,6 +28,12 @@ class Cycle
      * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(name="initials", type="string", nullable=false)
+     */
+    private $initials;
 
     /**
      * @Assert\NotBlank()
@@ -307,5 +314,29 @@ class Cycle
     public function getDesdobleHours2()
     {
         return $this->desdobleHours2;
+    }
+
+    /**
+     * Set initials
+     *
+     * @param string $initials
+     *
+     * @return Cycle
+     */
+    public function setInitials($initials)
+    {
+        $this->initials = $initials;
+
+        return $this;
+    }
+
+    /**
+     * Get initials
+     *
+     * @return string
+     */
+    public function getInitials()
+    {
+        return $this->initials;
     }
 }

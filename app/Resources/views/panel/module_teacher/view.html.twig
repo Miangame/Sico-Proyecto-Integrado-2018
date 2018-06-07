@@ -9,7 +9,7 @@
 {% endif %}
 
 {% block body %}
-    <h2>Gestión de asignaciones</h2>
+    <h2>Gestión de curso/módulo/profesor</h2>
     <a href="{{ path('new_distribution_module_teacher') }}" class="waves-effect waves-light btn">Crear asignación</a>
     <div id="containerSelectCycleStudent">
         <select name="" id="selectCourseDistribution">
@@ -28,16 +28,6 @@
     </div>
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
-        <tr class="actualHours">
-            <th>Horas actuales:</th>
-            <th></th>
-            <th></th>
-            <th class="{{ class }}">{{ actualHours }}/{{ totalHours }}</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
         <tr>
             <th>Profesor</th>
             <th>Módulo</th>

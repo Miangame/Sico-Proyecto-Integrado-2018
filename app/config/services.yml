@@ -44,3 +44,8 @@ services:
             class: AppBundle\Twig\AppExtension
             tags:
                 - { name: twig.extension }
+    app.handler.session_idle:
+            class: AppBundle\Handler\SessionIdleHandler
+            arguments: ["@session", "@security.token_storage", "@router", %session_max_idle_time%]
+            tags:
+                - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
