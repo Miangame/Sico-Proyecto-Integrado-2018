@@ -53,7 +53,7 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
             ->join('t.teacher', 'u')
             ->join('t.group', 'g')
             ->join('t.schoolYear', 'c')
-            ->join('g.cycle', 'cy')ddd
+            ->join('g.cycle', 'cy')
             ->where('c.course=:course')
             ->setParameter('course', $course);
 
