@@ -4,26 +4,27 @@
 {% else %}
     {% set img = user.img %}
 {% endif %}
-
-<nav>
-    <div class="nav-wrapper ov-hidden">
-        <a href="{{ path('index_web') }}" class="brand-logo center">
-            <img class="imgLogo" src="{{ asset('img/logo.png') }}" alt="">
-        </a>
-        <ul id="nav-mobile" class="left">
-            <li>
-                <a href="#" data-target="slide-out" class="sidenav-trigger">
-                    <i class="small material-icons">apps</i>
-                </a>
-            </li>
-        </ul>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li>
-                <a href="{{ path('user_config', {'id': user.id}) }}"><h5 class="mr-4">{{ convocatory }}</h5></a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper ov-hidden">
+            <a href="{{ path('index_web') }}" class="brand-logo center">
+                <img class="imgLogo" src="{{ asset('img/logo.png') }}" alt="">
+            </a>
+            <ul id="nav-mobile" class="left">
+                <li>
+                    <a href="#" data-target="slide-out" class="sidenav-trigger">
+                        <i class="small material-icons">apps</i>
+                    </a>
+                </li>
+            </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <a href="{{ path('user_config', {'id': user.id}) }}"><h5 class="mr-4">{{ convocatory }}</h5></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 <ul id="slide-out" class="sidenav">
     <li>
         <div class="user-view backgroundUserMenu">

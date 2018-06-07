@@ -39,8 +39,6 @@ class IndexWebController extends Controller
             $newConfig->setId(1);
             $newConfig->setWeightFct(1);
             $newConfig->setWeightPi(1);
-            $newConfig->setHoursFirst(false);
-            $newConfig->setHoursSecondary(false);
 
             $em->persist($newConfig);
             $em->flush();

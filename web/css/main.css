@@ -338,3 +338,13 @@ main {
   font-size: 1.3rem;
   font-weight: bold;
 }
+
+.hide-element {
+  opacity: 0;
+  width: 0px;
+  overflow: hidden;
+}
+
+.cl-h {
+  transition: all 0.5s;
+}
