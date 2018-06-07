@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Form\UserPerfilType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -69,9 +70,31 @@ class PerfilController extends Controller
 
         }
 
+        $form = $this->createForm(UserPerfilType::class,$user);
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $companyRequest = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($companyRequest);
+            $entityManager->flush();
+
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Usuario modificado')
+            ;
+
+            return $this->redirectToRoute('perfil', Array("id" => $currentUser->getId()));
+
+        }
+
         return $this->render('commons/perfil.html.twig', array(
             'user_perfil' => $currentUser,
-            'current_rol' => $currentRol
+            'current_rol' => $currentRol,
+            'form' => $form->createView()
         ));
     }
 }

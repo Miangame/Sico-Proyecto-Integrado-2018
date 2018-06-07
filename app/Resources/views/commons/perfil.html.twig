@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}SICO: Perfil{% endblock %}
 {% set img = '' %}
 {% if user_perfil.img == null %}
     {% set img = 'user.png' %}
@@ -46,12 +46,18 @@
             </form>
         </div>
         <div class="col m6 s12 w-100">
-            <div class="z-depth-1 p-1 mt-1">
-                <h5 class="">Cambiar contraseña</h5>
+            <div class="z-depth-1 p-2 mt-1">
+                <h5 class="m-0">Cambiar contraseña</h5>
                 <blockquote class="grey-text">
                     * Puedes cambiar la contraseña si te es necesario.
                 </blockquote>
                 <a href="{{ path('fos_user_change_password') }}" class="waves-effect waves-light btn">Cambiar mi contraseña</a>
+            </div>
+            <div class="z-depth-1 p-2 mt-1">
+                <h5 class="m-0">Cambiar tus datos</h5>
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
             </div>
         </div>
         <script>
