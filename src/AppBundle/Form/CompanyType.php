@@ -18,7 +18,7 @@ class CompanyType extends AbstractType
             ->add('cif', TextType::class, array('label' => 'CIF'))
             ->add('phone', TextType::class, array('label' => 'Teléfono'))
             ->add('email', TextType::class, array('label' => 'Email'))
-            ->add('save', SubmitType::class, array('label' => 'Enviar empresa','attr' => ['class' => 'btn waves-effect waves-light w-100']))
+            ->add('save', SubmitType::class, array('label' => 'Aceptar','attr' => ['class' => 'btn waves-effect waves-light w-100']))
         ;
     }
 

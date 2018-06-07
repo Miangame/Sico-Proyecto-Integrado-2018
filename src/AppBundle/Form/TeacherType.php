@@ -50,7 +50,7 @@ class TeacherType extends AbstractType
                     ))
                 )
             ))
-            ->add('save', SubmitType::class, array('label' => 'Enviar Profesor', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
+            ->add('save', SubmitType::class, array('label' => 'Aceptar', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -19,7 +19,7 @@ class ProjectType extends AbstractType
             ->add('name', TextType::class, array('label' => 'Nombre'))
             ->add('description', TextareaType::class, array('label' => 'Descripción','attr'=> ['class' => 'materialize-textarea']))
             ->add('required_students', IntegerType::class, array('label' => 'Alumnos requeridos','attr' => ['min' => '1', 'max' => '9']))
-            ->add('save', SubmitType::class, array('label' => 'Enviar proyecto','attr' => ['class' => 'btn waves-effect waves-light w-100']))
+            ->add('save', SubmitType::class, array('label' => 'Aceptar','attr' => ['class' => 'btn waves-effect waves-light w-100']))
         ;
     }
 

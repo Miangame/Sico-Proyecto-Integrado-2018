@@ -24,7 +24,10 @@
         <div class="alert alert-success">
             <script>
                 {% for msg in app.session.flashBag.get('success') %}
-                    M.toast({html: '<div class="msg_toast"><i class="small material-icons">done</i>{{ msg }}</div>', classes: 'rounded msg_toast_success'});
+                M.toast({
+                    html: '<div class="msg_toast"><i class="small material-icons">done</i>{{ msg }}</div>',
+                    classes: 'rounded msg_toast_success'
+                });
                 {% endfor %}
             </script>
 
@@ -34,7 +37,10 @@
         <div class="alert alert-success">
             <script>
                 {% for msg in app.session.flashBag.get('error') %}
-                    M.toast({html: '<div class="msg_toast"><i class="small material-icons">error_outline</i>{{ msg }}</div>', classes: 'rounded msg_toast_error'});
+                M.toast({
+                    html: '<div class="msg_toast"><i class="small material-icons">error_outline</i>{{ msg }}</div>',
+                    classes: 'rounded msg_toast_error'
+                });
                 {% endfor %}
             </script>
 
@@ -45,7 +51,7 @@
     {% endblock %}
 </main>
 
-{% include ':commons:footer.html.twig' %}
+{{ render(controller('AppBundle\\Controller\\CommonController::organizationNameAction')) }}
 
 </body>
 </html>

@@ -36,7 +36,7 @@ class GroupType extends AbstractType
                     'choices' => $options["cycles"]
                 )
             )
-            ->add('save', SubmitType::class, array('label' => 'Enviar grupo', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
+            ->add('save', SubmitType::class, array('label' => 'Aceptar', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -32,7 +32,7 @@ class Distribution_CompanyType extends AbstractType
                 'label' => 'Alumno',
                 'data' => $options["student_selected"]
             ))
-            ->add('save', SubmitType::class, array('label' => 'Enviar asignación','attr' => ['class' => 'btn waves-effect waves-light w-100']))
+            ->add('save', SubmitType::class, array('label' => 'Aceptar','attr' => ['class' => 'btn waves-effect waves-light w-100']))
         ;
     }
 

@@ -1,11 +1,11 @@
 {% extends 'panel/base.html.twig' %}
 {% block body %}
-    <h2>Gestión de cursos</h2>
-    <a href="{{ path('new_course') }}" class="waves-effect waves-light btn">Crear cursos</a>
+    <h2>Gestión de cursos académicos</h2>
+    <a href="{{ path('new_course') }}" class="waves-effect waves-light btn">Crear curso académico</a>
     <table class="responsive-table z-depth-1 centered mt-2">
         <thead>
         <tr>
-            <th>Cursos</th>
+            <th>Cursos académicos</th>
             <th>Modificar</th>
             <th>Borrar</th>
         </tr>
@@ -22,7 +22,8 @@
                     </a>
                 </td>
                 <td>
-                    <a data-modal="modalCourse"  href="{{ path('delete_course', {'id': course.id}) }}" class="modalDelete modal-trigger">
+                    <a data-modal="modalCourse" href="{{ path('delete_course', {'id': course.id}) }}"
+                       class="modalDelete modal-trigger">
                         <i class="small material-icons red-text">delete</i>
                     </a>
                 </td>
