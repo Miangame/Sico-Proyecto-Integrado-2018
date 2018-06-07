@@ -281,6 +281,44 @@ main {
   text-align: center;
 }
 
+.imgPerfil {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: #01161E;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  padding: 0px !important;
+}
+
+.imgPerfil:hover img {
+  opacity: 0.8;
+  background: #6f6f6f;
+}
+
+.imgPerfil:hover .icon_upload {
+  color: #FFF;
+  opacity: 1;
+}
+
+.imgPerfil img {
+  height: 100%;
+  width: auto;
+  opacity: 1;
+  transition: all 0.5s;
+}
+
+.imgPerfil .icon_upload {
+  color: #FFF;
+  position: absolute;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
 .rc_company_company .containerImg_rc_Company {
   display: flex;
   justify-content: center;

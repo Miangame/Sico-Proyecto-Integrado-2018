@@ -19,4 +19,9 @@ class ConfigGeneralHelper
         $configRepository = $this->em->getRepository("AppBundle:Configuration");
         return $configRepository->getConfig();
     }
+
+    public function getOrganizationName()
+    {
+        return $this->em->getRepository("AppBundle:Configuration")->getOrganizationName();
+    }
 }

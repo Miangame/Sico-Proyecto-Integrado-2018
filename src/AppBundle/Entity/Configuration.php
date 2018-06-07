@@ -39,15 +39,11 @@ class Configuration
      */
     private $weight_fct;
 
-    /**
-     * @ORM\Column(name="hours_first", type="boolean", nullable=false)
-     */
-    private $hours_first;
 
     /**
-     * @ORM\Column(name="hours_secondary", type="boolean", nullable=false)
+     * @ORM\Column(name="organization_name", type="string", nullable=true)
      */
-    private $hours_secondary;
+    private $organization_name;
 
     /**
      * Get id
@@ -167,5 +163,29 @@ class Configuration
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * Set organizationName
+     *
+     * @param string $organizationName
+     *
+     * @return Configuration
+     */
+    public function setOrganizationName($organizationName)
+    {
+        $this->organization_name = $organizationName;
+
+        return $this;
+    }
+
+    /**
+     * Get organizationName
+     *
+     * @return string
+     */
+    public function getOrganizationName()
+    {
+        return $this->organization_name;
     }
 }
