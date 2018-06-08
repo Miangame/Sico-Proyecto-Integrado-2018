@@ -22,22 +22,22 @@ class CycleType extends AbstractType
             ->add('initials', TextType::class, array('label' => 'Iniciales'))
             ->add('titularHours1', IntegerType::class, array(
                 'label' => '1º Horas titulares/semana',
-                'data' => 0,
+                'data' => $options['hTitular1'],
                 'attr' => ['min' => 1]
             ))
             ->add('desdobleHours1', IntegerType::class, array(
                 'label' => '1º Horas desdoble/semana',
-                'data' => 0,
+                'data' => $options['hDesdoble1'],
                 'attr' => ['min' => 1]
             ))
             ->add('titularHours2', IntegerType::class, array(
                 'label' => '2º Horas titulares/semana',
-                'data' => 0,
+                'data' => $options['hTitular2'],
                 'attr' => ['min' => 1]
             ))
             ->add('desdobleHours2', IntegerType::class, array(
                 'label' => '2º Horas desdoble/semana',
-                'data' => 0,
+                'data' => $options['hDesdoble2'],
                 'attr' => ['min' => 1]))
             ->add('save', SubmitType::class, array('label' => 'Aceptar', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
     }
@@ -45,7 +45,11 @@ class CycleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Cycle::class
+            'data_class' => Cycle::class,
+            'hTitular1' => null,
+            'hDesdoble1' => null,
+            'hTitular2' => null,
+            'hDesdoble2' => null,
         ]);
 
     }

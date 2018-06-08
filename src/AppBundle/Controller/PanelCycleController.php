@@ -49,7 +49,14 @@ class PanelCycleController extends Controller
     {
         $cycle = new Cycle();
 
-        $form = $this->createForm(CycleType::class, $cycle);
+        $options = array(
+            'hTitular1' => 0,
+            'hTitular2' => 0,
+            'hDesdoble1' => 0,
+            'hDesdoble2' => 0
+        );
+
+        $form = $this->createForm(CycleType::class, $cycle, $options);
 
         $form->handleRequest($request);
 
@@ -76,7 +83,15 @@ class PanelCycleController extends Controller
      */
     public function editCycleAction(Request $request, Cycle $cycle)
     {
-        $form = $this->createForm(CycleType::class, $cycle);
+
+        $options = array(
+            'hTitular1' => $cycle->getTitularHours1(),
+            'hTitular2' => $cycle->getTitularHours2(),
+            'hDesdoble1' => $cycle->getDesdobleHours1(),
+            'hDesdoble2' => $cycle->getDesdobleHours2()
+        );
+
+        $form = $this->createForm(CycleType::class, $cycle, $options);
 
         $form->handleRequest($request);
 
