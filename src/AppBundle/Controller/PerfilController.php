@@ -97,9 +97,8 @@ class PerfilController extends Controller
         }
 
 
-
         return $this->render('commons/perfil.html.twig', array(
-            'user_perfil' => $user,
+            'user_perfil' => $currentUser,
             'current_rol' => $currentRol,
             'form' => $form->createView()
         ));
