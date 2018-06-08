@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\UserPerfilType;
+use AppBundle\Services\UsersHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,14 +17,17 @@ class PerfilController extends Controller
      * @Route("/perfil/{id}", name="perfil")
      * @Method({"GET", "POST"})
      */
-    public function perfilUser(Request $request,User $user)
+    public function perfilUser(Request $request, User $user)
     {
         $currentUser = $this->getUser();
 
-        if($currentUser->getId() != $user->getId())
+        /** @var UsersHelper $usersHelper */
+        $usersHelper = $this->get('app.usersHelper');
+
+        if ($currentUser->getId() != $user->getId())
             return $this->redirectToRoute('dashboard');
 
-        if($currentUser->hasRole('ROLE_ADMIN'))
+        if ($currentUser->hasRole('ROLE_ADMIN'))
             $currentRol = "AppBundle:PanelDashboard:dashboard";
         else
             $currentRol = "AppBundle:UserDashboard:dashboard";
@@ -32,34 +36,34 @@ class PerfilController extends Controller
         $file = $request->files->get('file_uploaded');
         $error = "";
 
-        if(isset($file)) {// Existe el archivo enviado
+        if (isset($file)) {// Existe el archivo enviado
             $routeDirectory = '../web/img/photos';
 
-            $fileName = $currentUser->getUserName(). '.' . $file->guessExtension();
+            $fileName = $currentUser->getUserName() . '.' . $file->guessExtension();
             $path = $fileName;
             preg_match('/^.*(png|jpg|jpeg)$/i', $file->guessExtension(), $validExt, PREG_OFFSET_CAPTURE);
-            if($validExt){ // El archivo tiene la extensión correcta
+            if ($validExt) { // El archivo tiene la extensión correcta
 
-                if($file->getSize()>=2000000)// El archivo se ha pasado de 2MB
+                if ($file->getSize() >= 2000000)// El archivo se ha pasado de 2MB
                     $error = "Imagen demasiado grande (Max 2MB)";
-                else if(!$file->move($routeDirectory, $fileName))// Se ha movido correctamente
+                else if (!$file->move($routeDirectory, $fileName))// Se ha movido correctamente
                     $error = "No se ha podido guardar la imagen";
-                else{// archivo correcto
+                else {// archivo correcto
                     $user->setImg($path);
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($user);
                     $entityManager->flush();
                 }
 
-            }else{
+            } else {
                 $error = "Imagen no válida(png/jpg/jpeg)";
             }
 
 
-            if($error == "") {
+            if ($error == "") {
                 $msg = 'Imagen modificada';
                 $type = 'success';
-            }else{
+            } else {
                 $msg = $error;
                 $type = 'error';
             }
@@ -70,7 +74,7 @@ class PerfilController extends Controller
 
         }
 
-        $form = $this->createForm(UserPerfilType::class,$user);
+        $form = $this->createForm(UserPerfilType::class, $user);
 
 
         $form->handleRequest($request);
@@ -84,12 +88,15 @@ class PerfilController extends Controller
 
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Usuario modificado')
-            ;
+                ->add('success', 'Usuario modificado');
 
             return $this->redirectToRoute('perfil', Array("id" => $currentUser->getId()));
 
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $currentUser = $usersHelper->getUserById($currentUser->getId());
         }
+
+
 
         return $this->render('commons/perfil.html.twig', array(
             'user_perfil' => $user,

@@ -228,4 +228,12 @@ class UsersHelper
         }
         return $users;
     }
+
+    public function getUserById($userId)
+    {
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->em->getRepository("AppBundle:User");
+
+        return $userRepository->getUserById($userId);
+    }
 }
