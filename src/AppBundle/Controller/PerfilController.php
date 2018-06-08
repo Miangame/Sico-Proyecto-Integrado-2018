@@ -41,6 +41,7 @@ class PerfilController extends Controller
 
             $fileName = $currentUser->getUserName() . '.' . $file->guessExtension();
             $path = $fileName;
+
             preg_match('/^.*(png|jpg|jpeg)$/i', $file->guessExtension(), $validExt, PREG_OFFSET_CAPTURE);
             if ($validExt) { // El archivo tiene la extensión correcta
 
@@ -92,10 +93,9 @@ class PerfilController extends Controller
 
             return $this->redirectToRoute('perfil', Array("id" => $currentUser->getId()));
 
-        } elseif ($form->isSubmitted() && !$form->isValid()) {
+        } else if ($form->isSubmitted() && !$form->isValid()) {
             $currentUser = $usersHelper->getUserById($currentUser->getId());
         }
-
 
         return $this->render('commons/perfil.html.twig', array(
             'user_perfil' => $currentUser,
