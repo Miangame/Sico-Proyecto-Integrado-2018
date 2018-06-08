@@ -66,6 +66,15 @@ class PanelStudentController extends Controller
      */
     public function newStudentAction(Request $request)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('panel_students');
+        }
+
         $student = new Student();
         $groups = array();
         $convocatories = array();
@@ -84,7 +93,8 @@ class PanelStudentController extends Controller
 
         /** @var Convocatory $convocatory */
         foreach ($convocatoriesHelper->getAllConvocatories() as $convocatory) {
-            $convocatories[$convocatory->__toString()] = $convocatory;
+            if($current_convocatory == $convocatory->getId())
+                $convocatories[$convocatory->__toString()] = $convocatory;
         }
 
         $options = array(
@@ -120,6 +130,20 @@ class PanelStudentController extends Controller
     public function editStudentAction(Request $request, Student $student)
     {
         $redirect = 'panel_students';
+
+        if ($request->get('flag') == 'index'){
+            $redirect = 'index_web';
+        }
+
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute($redirect);
+        }
+
         $groups = array();
         $convocatories = array();
 
@@ -162,10 +186,6 @@ class PanelStudentController extends Controller
             return $this->redirectToRoute('panel_students');
         }
 
-        if ($request->get('flag') == 'index'){
-            $redirect = 'index_web';
-        }
-
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar alumno",
@@ -178,6 +198,15 @@ class PanelStudentController extends Controller
      */
     public function deleteStudentAction(Request $request, Student $student)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('panel_students');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($student);
         $em->flush();

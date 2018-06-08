@@ -17,6 +17,15 @@ class ProjectController extends Controller
      */
     public function newProjectAction(Request $request)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_pi');
+        }
+
         $project = new Project();
 
         $form = $this->createForm(ProjectType::class,$project);
@@ -54,6 +63,15 @@ class ProjectController extends Controller
      */
     public function editProjectAction(Request $request,Project $project)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_pi');
+        }
+
         $form = $this->createForm(ProjectType::class,$project);
 
 
@@ -87,6 +105,15 @@ class ProjectController extends Controller
      */
     public function deleteProjectAction(Request $request,Project $project)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_pi');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($project);
         $em->flush();

@@ -17,6 +17,15 @@ class Distribution_projectController extends Controller
      */
     public function newDistributionProjectAction(Request $request)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_pi');
+        }
+
         $redirect = 'user_pi';
         $distribution = new Distribution_project();
         $current_user = $this->getUser();
@@ -69,6 +78,21 @@ class Distribution_projectController extends Controller
     public function editProjectAction(Request $request, Distribution_project $distribution)
     {
         $redirect = 'user_pi';
+
+        if ($request->get('flag') == 'index') {
+            $redirect = 'index_web';
+        }
+
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute($redirect);
+        }
+
+
         $current_user = $this->getUser();
 
         $options = Array(
@@ -104,10 +128,6 @@ class Distribution_projectController extends Controller
 
         }
 
-        if ($request->get('flag') == 'index') {
-            $redirect = 'index_web';
-        }
-
         return $this->render('user/forms/form.html.twig', array(
             'form' => $form->createView(),
             'title' => "Modificar asignación Pi",
@@ -120,6 +140,15 @@ class Distribution_projectController extends Controller
      */
     public function deleteProjectAction(Request $request, Distribution_project $distribution_project)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_pi');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($distribution_project);
         $em->flush();

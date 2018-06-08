@@ -25,6 +25,15 @@ class Request_companyController extends Controller
      */
     public function newRequestCompanyAction(Request $request)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_fct');
+        }
+
         $btn_submit = $request->get('btn_submit');
         $file = $request->files->get('file_uploaded');
 
@@ -115,6 +124,15 @@ class Request_companyController extends Controller
      */
     public function deleteProjectAction(Request $request,Request_company $request_company)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_fct');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($request_company);
         $em->flush();
@@ -143,6 +161,15 @@ class Request_companyController extends Controller
      */
     public function newCompanyAction(Request $request, Request_company $request_company)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_fct');
+        }
+
         $newCompany = new Company();
         $newCompany->setName($request_company->getNameCompany());
         $newCompany->setCif($request_company->getCif());
