@@ -15,8 +15,13 @@ class PanelWebController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->render('panel/dashboard/view.html.twig', array(
-            'user' => $this->getUser()
+        /** @var UsersHelper $usersHelper */
+        $usersHelper = $this->get('app.usersHelper');
+
+        $teachers = $usersHelper->getAllTeachers();
+
+        return $this->render('panel/teacher/view.html.twig', array(
+            'teachers' => $teachers
         ));
     }
 }
