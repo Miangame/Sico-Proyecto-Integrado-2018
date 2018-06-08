@@ -43,8 +43,9 @@
         <div class="col s12 m8">
             <h5>Profesores</h5>
             <table class="responsive-table centered z-depth-1">
-                <thead>
+                <thead class="hide-on-med-and-down">
                     <tr>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -82,10 +83,11 @@
                 </thead>
                 <thead>
                 <tr>
+                    <th></th>
                     <th>Nombre</th>
                     <th>PI</th>
                     <th>FCT</th>
-                    <th class="cl_reduction cl-h">Reducción</th>
+                    <th class="cl_reduction cl-h">Reducción </th>
                     <th class="cl_rest_ideal cl-h">Resta ideal 2º</th>
                     <th class="cl_rest_ideal_ciclo cl-h">Resta ideal ciclo completo</th>
                     <th class="cl_rest_ideal_reduc cl-h">Resta ideal reducción</th>
@@ -93,7 +95,14 @@
                 </thead>
                 <tbody>
                 {% for user in users %}
+                    {% set img = '' %}
+                    {% if user.getTeacher().getImg() == null %}
+                        {% set img = 'user.png' %}
+                    {% else %}
+                        {% set img = user.getTeacher().getImg() %}
+                    {% endif %}
                     <tr>
+                        <td><div class="img_user_distribution"><img src="{{ asset('img/photos/' ~ img) }}" alt=""></div></td>
                         <td>{{ user.getTeacher() }}</td>
                         <td>{{ user.getPI() }}</td>
                         <td>{{ user.getFCT() }}</td>

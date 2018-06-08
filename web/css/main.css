@@ -288,7 +288,7 @@ main {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background: #01161E;
+  background: #6f6f6f;
   border-radius: 50%;
   width: 150px;
   height: 150px;
@@ -297,7 +297,6 @@ main {
 
 .imgPerfil:hover img {
   opacity: 0.8;
-  background: #6f6f6f;
 }
 
 .imgPerfil:hover .icon_upload {
@@ -347,4 +346,18 @@ main {
 
 .cl-h {
   transition: all 0.5s;
+}
+
+.img_user_distribution {
+  width: 40px;
+  height: 40px;
+  background: #6f6f6f;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0px !important;
+}
+
+.img_user_distribution img {
+  height: 100%;
+  width: auto;
 }
