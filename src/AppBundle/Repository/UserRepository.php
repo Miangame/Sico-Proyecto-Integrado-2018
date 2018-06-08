@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Model\UserData;
 use Doctrine\ORM\EntityRepository;
 use FOS\UserBundle\Model\User;
 
@@ -12,7 +13,7 @@ class UserRepository extends EntityRepository
         $users = $this->findAll();
         $user_teacher = Array();
         /** @var User $user */
-        foreach ($users as $user){
+        foreach ($users as $user) {
             if ($user->hasRole("ROLE_TEACHER"))
                 $user_teacher[] = $user;
         }
@@ -20,12 +21,13 @@ class UserRepository extends EntityRepository
         return $user_teacher;
     }
 
-    public function getUsersValid(){
-        $users = $this->findBy(Array("to_distribute"=>"1"));
+    public function getUsersValid()
+    {
+        $users = $this->findBy(Array("to_distribute" => "1"));
 
         $user_teacher = Array();
         /** @var User $user */
-        foreach ($users as $user){
+        foreach ($users as $user) {
             if ($user->hasRole("ROLE_TEACHER"))
                 $user_teacher[] = $user;
         }
@@ -33,7 +35,8 @@ class UserRepository extends EntityRepository
         return $user_teacher;
     }
 
-    public function getFCTDistribution($convocatory,$userId){
+    public function getFCTDistribution($convocatory, $userId)
+    {
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('dc.id')
             ->from('AppBundle:Distribution_company', 'dc')
@@ -41,13 +44,14 @@ class UserRepository extends EntityRepository
             ->where('dc.user = :user_id')
             ->groupBy('dc.company')
             ->andWhere('st.convocatory = :convocatory_id')
-            ->setParameter('user_id',$userId)
-            ->setParameter('convocatory_id',$convocatory);
+            ->setParameter('user_id', $userId)
+            ->setParameter('convocatory_id', $convocatory);
 
         return count($qb->getQuery()->getResult());
     }
 
-    public function getPIDistribution($convocatory,$userId){
+    public function getPIDistribution($convocatory, $userId)
+    {
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('dp.id')
             ->from('AppBundle:Distribution_project', 'dp')
@@ -55,9 +59,31 @@ class UserRepository extends EntityRepository
             ->where('dp.user = :user_id')
             ->groupBy('dp.project')
             ->andWhere('st.convocatory = :convocatory_id')
-            ->setParameter('user_id',$userId)
-            ->setParameter('convocatory_id',$convocatory);
+            ->setParameter('user_id', $userId)
+            ->setParameter('convocatory_id', $convocatory);
 
         return count($qb->getQuery()->getResult());
+    }
+
+    public function getUserById($userId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('u.username, u.first_name, u.last_name, u.email, u.img')
+            ->from('AppBundle:User', 'u')
+            ->where('u.id = :user_id')
+            ->setParameter('user_id', $userId);
+
+        $result = $qb->getQuery()->getResult()[0];
+
+        $newUser = new UserData();
+
+        $newUser->setId($userId);
+        $newUser->setUsername($result["username"]);
+        $newUser->setImg($result["img"]);
+        $newUser->setFirstName($result["first_name"]);
+        $newUser->setEmail($result["email"]);
+        $newUser->setLastName($result["last_name"]);
+
+        return $newUser;
     }
 }
