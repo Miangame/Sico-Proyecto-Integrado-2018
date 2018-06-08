@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class Distribution_projectController extends Controller
 {
     /**
-     * @Route("/user/pi/distribution_project/new", name="user_pi_new_distribution_project")
+     * @Route("/user/pi/distribution_project/new/{project}", name="user_pi_new_distribution_project")
      */
     public function newDistributionProjectAction(Request $request)
     {
@@ -26,6 +26,12 @@ class Distribution_projectController extends Controller
             return $this->redirectToRoute('user_pi');
         }
 
+        $project = "";
+        $projectRequest = $request->get('project');
+        if($projectRequest != '~'){
+            $project = $this->get('app.projectsHelper')->getProject($projectRequest);
+        }
+
         $redirect = 'user_pi';
         $distribution = new Distribution_project();
         $current_user = $this->getUser();
@@ -33,6 +39,7 @@ class Distribution_projectController extends Controller
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "project" => $this->get('app.projectsHelper')->prepareOptions(),
+            "project_selected" => $project,
             "student" => $this->get('app.studentsHelper')
                 ->prepareOptions($current_user->getCurrentConvocatory(), 'new', 'project')
         );

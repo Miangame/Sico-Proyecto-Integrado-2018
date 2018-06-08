@@ -29,4 +29,11 @@ class CompaniesHelper
         }
         return $companies;
     }
+
+    public function getCompany($id)
+    {
+        /** @var CompanyRepository $companyRepository*/
+        $companyRepository = $this->em->getRepository("AppBundle:Company");
+        return $companyRepository->find($id);
+    }
 }
