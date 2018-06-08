@@ -21,6 +21,15 @@ class CompanyController extends Controller
      */
     public function newCompanyAction(Request $request)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_fct');
+        }
+
         $company = new Company();
 
         $form = $this->createForm(CompanyType::class,$company);
@@ -58,6 +67,15 @@ class CompanyController extends Controller
      */
     public function editCopanyAction(Request $request,Company $company)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_fct');
+        }
+
         $form = $this->createForm(CompanyType::class,$company);
 
 
@@ -91,6 +109,15 @@ class CompanyController extends Controller
      */
     public function deleteCompanyAction(Request $request,Company $company)
     {
+        $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', 'Convocatoria antigua (Solo lectura)')
+            ;
+            return $this->redirectToRoute('user_fct');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($company);
         $em->flush();
