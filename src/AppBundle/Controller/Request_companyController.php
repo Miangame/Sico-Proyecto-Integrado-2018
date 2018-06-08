@@ -175,6 +175,6 @@ class Request_companyController extends Controller
         ;
     }
 
-        return $this->redirectToRoute('user_fct', ['_fragment' => 'emp']);
+        return $this->redirectToRoute('user_fct', ['_fragment' => 'solemp']);
     }
 }

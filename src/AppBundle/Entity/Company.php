@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Company
  * @UniqueEntity("cif")
+ * @UniqueEntity("name")
  * @ORM\Table(name="Company")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CompanyRepository")
  */
@@ -23,7 +24,7 @@ class Company
     /**
      * @Assert\NotBlank()
      *
-     * @ORM\Column(name="name", type="string", nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=false, unique=true)
      */
     private $name;
 
@@ -36,6 +37,7 @@ class Company
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Regex("/^[0-9]{9}$/")
      * @ORM\Column(name="phone", type="string")
      */
     private $phone;
