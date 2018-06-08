@@ -4,10 +4,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Project
- *
+ * @UniqueEntity("name")
  * @ORM\Table(name="Project")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
  */
@@ -22,7 +23,7 @@ class Project
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(name="name", type="string", nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=false, unique=true)
      */
     private $name;
 

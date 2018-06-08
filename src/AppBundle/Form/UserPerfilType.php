@@ -29,7 +29,11 @@ class UserPerfilType extends AbstractType
             ->add('email', EmailType::class, array(
                 'label' => 'Email',
                 'constraints' => array(
-                    new NotBlank()
+                    new NotBlank(),
+                    new Regex(array(
+                        'pattern' => '/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/',
+                        'message' => 'El correo debe disponer de un formato correcto.',
+                    ))
                 )))
             ->add('save', SubmitType::class, array('label' => 'Guardar', 'attr' => ['class' => 'w-100 waves-effect waves-light btn']));
     }

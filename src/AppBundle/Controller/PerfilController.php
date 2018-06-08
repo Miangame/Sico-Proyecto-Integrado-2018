@@ -76,10 +76,10 @@ class PerfilController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $companyRequest = $form->getData();
+            $userRequest = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($companyRequest);
+            $entityManager->persist($userRequest);
             $entityManager->flush();
 
             $request->getSession()
@@ -92,7 +92,7 @@ class PerfilController extends Controller
         }
 
         return $this->render('commons/perfil.html.twig', array(
-            'user_perfil' => $currentUser,
+            'user_perfil' => $user,
             'current_rol' => $currentRol,
             'form' => $form->createView()
         ));
