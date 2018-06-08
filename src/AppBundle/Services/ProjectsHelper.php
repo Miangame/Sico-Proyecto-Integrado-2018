@@ -19,6 +19,10 @@ class ProjectsHelper
         return $this->em->getRepository("AppBundle:Project")->getProjects();
     }
 
+    public function getProject($id){
+        return $this->em->getRepository("AppBundle:Project")->find($id);
+    }
+
     public function prepareOptions()
     {
         /** @var ProjectRepository $projectRepository*/

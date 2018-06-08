@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Company;
 use AppBundle\Entity\Distribution_company;
 use AppBundle\Entity\User;
 use AppBundle\Form\CompanyType;
@@ -18,7 +19,7 @@ use AppBundle\Services\CompaniesHelper;
 class Distribution_companyController extends Controller
 {
     /**
-     * @Route("/user/fct/distribution_company/new", name="user_fct_new_distribution_company")
+     * @Route("/user/fct/distribution_company/new/{company}", name="user_fct_new_distribution_company")
      */
     public function newDistributionCompanyAction(Request $request)
     {
@@ -31,6 +32,12 @@ class Distribution_companyController extends Controller
             return $this->redirectToRoute('user_fct');
         }
 
+        $company = "";
+        $companyRequest = $request->get('company');
+        if($companyRequest != '~'){
+            $company = $this->get('app.companiesHelper')->getCompany($companyRequest);
+        }
+
         $redirect = 'user_fct';
 
         $distribution = new Distribution_company();
@@ -39,6 +46,7 @@ class Distribution_companyController extends Controller
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "company" => $this->get('app.companiesHelper')->prepareOptions(),
+            "company_selected" => $company,
             "student" => $this->get('app.studentsHelper')
                 ->prepareOptions($current_user->getCurrentConvocatory(), 'new', 'company')
         );
@@ -49,10 +57,10 @@ class Distribution_companyController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $companyRequest = $form->getData();
+            $distributionRequest = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($companyRequest);
+            $entityManager->persist($distributionRequest);
             $entityManager->flush();
 
             $request->getSession()
