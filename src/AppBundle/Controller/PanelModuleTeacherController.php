@@ -16,6 +16,7 @@ use AppBundle\Services\ModulesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
 use AppBundle\Services\UsersHelper;
 //use http\Env\Response;
+use Doctrine\DBAL\DBALException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -123,12 +124,27 @@ class PanelModuleTeacherController extends Controller
 
             $distModTeacher->setGroup($distModTeacher->getModule()->getGroup());
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($distModTeacher);
-            $entityManager->flush();
+            $type = 'success';
+            $msg = 'Asignación creada';
+            try{
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($distModTeacher);
+                $entityManager->flush();
+            }catch (DBALException $e){//Error al asignar
+                $type = 'error';
+                switch ($e->getPrevious()->getCode()){
+                    case 23000:
+                        $msg = 'Asignación ya existente';
+                        break;
+                    default:
+                        $msg = 'Error inesperado en la asignación';
+                        break;
+                }
+            }
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Asignación creada');
+                ->add($type, $msg);
+
             return $this->redirectToRoute('panel_modules_teachers');
         }
 
