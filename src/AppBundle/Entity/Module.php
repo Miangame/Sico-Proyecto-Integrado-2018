@@ -33,12 +33,6 @@ class Module
     private $initials;
 
     /**
-     * @ORM\ManyToOne(targetEntity="School_group", inversedBy="modules")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $group;
-
-    /**
      * @Assert\NotBlank()
      * @Assert\Range(
      *      min = 1,
@@ -62,6 +56,12 @@ class Module
      * @ORM\OneToMany(targetEntity="Distribution_module_teacher", mappedBy="module")
      */
     private $distributions_module_teacher;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Course_cycle", inversedBy="modules")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $course_cycle;
 
     /**
      * Get id
@@ -227,27 +227,28 @@ class Module
         return $this->hoursDesdoble;
     }
 
+
     /**
-     * Set group
+     * Set courseCycle
      *
-     * @param \AppBundle\Entity\School_group $group
+     * @param \AppBundle\Entity\Course_cycle $courseCycle
      *
      * @return Module
      */
-    public function setGroup(\AppBundle\Entity\School_group $group)
+    public function setCourseCycle(\AppBundle\Entity\Course_cycle $courseCycle)
     {
-        $this->group = $group;
+        $this->course_cycle = $courseCycle;
 
         return $this;
     }
 
     /**
-     * Get group
+     * Get courseCycle
      *
-     * @return \AppBundle\Entity\School_group
+     * @return \AppBundle\Entity\Course_cycle
      */
-    public function getGroup()
+    public function getCourseCycle()
     {
-        return $this->group;
+        return $this->course_cycle;
     }
 }

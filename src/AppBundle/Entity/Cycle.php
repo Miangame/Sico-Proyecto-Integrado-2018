@@ -76,9 +76,9 @@ class Cycle
     private $desdobleHours2;
 
     /**
-     * @ORM\OneToMany(targetEntity="School_group", mappedBy="cycle")
+     * @ORM\OneToMany(targetEntity="Course_cycle", mappedBy="cycle")
      */
-    private $school_groups;
+    private $courses_cycles;
 
     /**
      * Get id
@@ -122,19 +122,6 @@ class Cycle
         return $this->hours;
     }
 
-    /**
-     * Add schoolGroup
-     *
-     * @param \AppBundle\Entity\School_group $schoolGroup
-     *
-     * @return Cycle
-     */
-    public function addSchoolGroup(\AppBundle\Entity\School_group $schoolGroup)
-    {
-        $this->school_groups[] = $schoolGroup;
-
-        return $this;
-    }
 
     /**
      * Remove schoolGroup
@@ -146,15 +133,6 @@ class Cycle
         $this->school_groups->removeElement($schoolGroup);
     }
 
-    /**
-     * Get schoolGroups
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSchoolGroups()
-    {
-        return $this->school_groups;
-    }
 
 
     /**
@@ -338,5 +316,39 @@ class Cycle
     public function getInitials()
     {
         return $this->initials;
+    }
+
+    /**
+     * Add coursesCycle
+     *
+     * @param \AppBundle\Entity\Course_cycle $coursesCycle
+     *
+     * @return Cycle
+     */
+    public function addCoursesCycle(\AppBundle\Entity\Course_cycle $coursesCycle)
+    {
+        $this->courses_cycles[] = $coursesCycle;
+
+        return $this;
+    }
+
+    /**
+     * Remove coursesCycle
+     *
+     * @param \AppBundle\Entity\Course_cycle $coursesCycle
+     */
+    public function removeCoursesCycle(\AppBundle\Entity\Course_cycle $coursesCycle)
+    {
+        $this->courses_cycles->removeElement($coursesCycle);
+    }
+
+    /**
+     * Get coursesCycles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCoursesCycles()
+    {
+        return $this->courses_cycles;
     }
 }
