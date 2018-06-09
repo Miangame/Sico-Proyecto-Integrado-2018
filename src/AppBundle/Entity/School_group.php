@@ -22,11 +22,6 @@ class School_group
      */
     private $id;
 
-    /**
-     * @Assert\NotBlank()
-     * @ORM\Column(name="course", type="integer", nullable=false)
-     */
-    private $course;
 
     /**
      * @Assert\NotBlank()
@@ -34,12 +29,6 @@ class School_group
      */
     private $gr;
 
-    /**
-     * @Assert\NotBlank()
-     * @ORM\ManyToOne(targetEntity="Cycle", inversedBy="school_groups")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $cycle;
 
     /**
      * @ORM\OneToMany(targetEntity="Student", mappedBy="group")
@@ -52,9 +41,10 @@ class School_group
     private $distributions_module_teacher;
 
     /**
-     * @ORM\OneToMany(targetEntity="Module", mappedBy="group")
+     * @ORM\ManyToOne(targetEntity="Course_cycle", inversedBy="school_groups")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $modules;
+    private $course_cycle;
 
     /**
      * Get id
@@ -66,29 +56,6 @@ class School_group
         return $this->id;
     }
 
-    /**
-     * Set cycle
-     *
-     * @param \AppBundle\Entity\Cycle $cycle
-     *
-     * @return School_group
-     */
-    public function setCycle(\AppBundle\Entity\Cycle $cycle)
-    {
-        $this->cycle = $cycle;
-
-        return $this;
-    }
-
-    /**
-     * Get cycle
-     *
-     * @return \AppBundle\Entity\Cycle
-     */
-    public function getCycle()
-    {
-        return $this->cycle;
-    }
 
     /**
      * Constructor
@@ -168,7 +135,7 @@ class School_group
 
     public function __toString()
     {
-        return (string)$this->getCourse() . $this->getCycle() . "-" . $this->getGr();
+        return (string)$this->getCourseCycle() . "-" . $this->getGr();
     }
 
     /**
@@ -205,63 +172,6 @@ class School_group
         return $this->students_groups;
     }
 
-    /**
-     * Add module
-     *
-     * @param \AppBundle\Entity\Module $module
-     *
-     * @return School_group
-     */
-    public function addModule(\AppBundle\Entity\Module $module)
-    {
-        $this->modules[] = $module;
-
-        return $this;
-    }
-
-    /**
-     * Remove module
-     *
-     * @param \AppBundle\Entity\Module $module
-     */
-    public function removeModule(\AppBundle\Entity\Module $module)
-    {
-        $this->modules->removeElement($module);
-    }
-
-    /**
-     * Get modules
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getModules()
-    {
-        return $this->modules;
-    }
-
-    /**
-     * Set course
-     *
-     * @param integer $course
-     *
-     * @return School_group
-     */
-    public function setCourse($course)
-    {
-        $this->course = $course;
-
-        return $this;
-    }
-
-    /**
-     * Get course
-     *
-     * @return integer
-     */
-    public function getCourse()
-    {
-        return $this->course;
-    }
 
     /**
      * Set gr
@@ -285,5 +195,29 @@ class School_group
     public function getGr()
     {
         return $this->gr;
+    }
+
+    /**
+     * Set courseCycle
+     *
+     * @param \AppBundle\Entity\Course_cycle $courseCycle
+     *
+     * @return School_group
+     */
+    public function setCourseCycle(\AppBundle\Entity\Course_cycle $courseCycle)
+    {
+        $this->course_cycle = $courseCycle;
+
+        return $this;
+    }
+
+    /**
+     * Get courseCycle
+     *
+     * @return \AppBundle\Entity\Course_cycle
+     */
+    public function getCourseCycle()
+    {
+        return $this->course_cycle;
     }
 }
