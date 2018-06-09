@@ -22,17 +22,10 @@ class CompanyController extends Controller
     public function newCompanyAction(Request $request)
     {
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
-        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
-            $request->getSession()
-                ->getFlashBag()
-                ->add('error', 'Convocatoria antigua (Solo lectura)')
-            ;
-            return $this->redirectToRoute('user_fct');
-        }
 
         $company = new Company();
 
-        $form = $this->createForm(CompanyType::class,$company);
+        $form = $this->createForm(CompanyType::class, $company);
 
 
         $form->handleRequest($request);
@@ -46,13 +39,11 @@ class CompanyController extends Controller
 
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Empresa creada')
-            ;
+                ->add('success', 'Empresa creada');
 
             return $this->redirectToRoute('user_fct', ['_fragment' => 'emp']);
 
         }
-
 
 
         return $this->render('user/forms/form.html.twig', array(
@@ -65,18 +56,11 @@ class CompanyController extends Controller
     /**
      * @Route("/user/fct/company/{id}/edit", name="user_fct_edit_company")
      */
-    public function editCopanyAction(Request $request,Company $company)
+    public function editCopanyAction(Request $request, Company $company)
     {
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
-        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
-            $request->getSession()
-                ->getFlashBag()
-                ->add('error', 'Convocatoria antigua (Solo lectura)')
-            ;
-            return $this->redirectToRoute('user_fct');
-        }
 
-        $form = $this->createForm(CompanyType::class,$company);
+        $form = $this->createForm(CompanyType::class, $company);
 
 
         $form->handleRequest($request);
@@ -90,8 +74,7 @@ class CompanyController extends Controller
 
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Empresa modificada')
-            ;
+                ->add('success', 'Empresa modificada');
 
             return $this->redirectToRoute('user_fct', ['_fragment' => 'emp']);
 
@@ -107,16 +90,9 @@ class CompanyController extends Controller
     /**
      * @Route("/user/fct/company/{id}/delete", name="user_fct_delete_company")
      */
-    public function deleteCompanyAction(Request $request,Company $company)
+    public function deleteCompanyAction(Request $request, Company $company)
     {
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
-        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
-            $request->getSession()
-                ->getFlashBag()
-                ->add('error', 'Convocatoria antigua (Solo lectura)')
-            ;
-            return $this->redirectToRoute('user_fct');
-        }
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($company);
@@ -124,8 +100,7 @@ class CompanyController extends Controller
 
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Empresa borrada')
-        ;
+            ->add('success', 'Empresa borrada');
         return $this->redirectToRoute('user_fct', ['_fragment' => 'emp']);
     }
 

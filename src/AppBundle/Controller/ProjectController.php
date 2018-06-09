@@ -18,17 +18,10 @@ class ProjectController extends Controller
     public function newProjectAction(Request $request)
     {
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
-        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
-            $request->getSession()
-                ->getFlashBag()
-                ->add('error', 'Convocatoria antigua (Solo lectura)')
-            ;
-            return $this->redirectToRoute('user_pi');
-        }
 
         $project = new Project();
 
-        $form = $this->createForm(ProjectType::class,$project);
+        $form = $this->createForm(ProjectType::class, $project);
 
 
         $form->handleRequest($request);
@@ -42,13 +35,11 @@ class ProjectController extends Controller
 
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Proyecto creado')
-            ;
+                ->add('success', 'Proyecto creado');
 
             return $this->redirectToRoute('user_pi', ['_fragment' => 'proj']);
 
         }
-
 
 
         return $this->render('user/forms/form.html.twig', array(
@@ -61,18 +52,11 @@ class ProjectController extends Controller
     /**
      * @Route("/user/pi/project/{id}/edit", name="user_pi_edit_project")
      */
-    public function editProjectAction(Request $request,Project $project)
+    public function editProjectAction(Request $request, Project $project)
     {
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
-        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
-            $request->getSession()
-                ->getFlashBag()
-                ->add('error', 'Convocatoria antigua (Solo lectura)')
-            ;
-            return $this->redirectToRoute('user_pi');
-        }
 
-        $form = $this->createForm(ProjectType::class,$project);
+        $form = $this->createForm(ProjectType::class, $project);
 
 
         $form->handleRequest($request);
@@ -86,8 +70,7 @@ class ProjectController extends Controller
 
             $request->getSession()
                 ->getFlashBag()
-                ->add('success', 'Proyecto modificado')
-            ;
+                ->add('success', 'Proyecto modificado');
 
             return $this->redirectToRoute('user_pi', ['_fragment' => 'proj']);
 
@@ -103,16 +86,9 @@ class ProjectController extends Controller
     /**
      * @Route("/user/pi/project/{id}/delete", name="user_pi_delete_project")
      */
-    public function deleteProjectAction(Request $request,Project $project)
+    public function deleteProjectAction(Request $request, Project $project)
     {
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
-        if(!$this->get('app.functionsHelper')->isConvocatoryValid($current_convocatory)) {
-            $request->getSession()
-                ->getFlashBag()
-                ->add('error', 'Convocatoria antigua (Solo lectura)')
-            ;
-            return $this->redirectToRoute('user_pi');
-        }
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($project);
@@ -120,8 +96,7 @@ class ProjectController extends Controller
 
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Proyecto borrado')
-        ;
+            ->add('success', 'Proyecto borrado');
         return $this->redirectToRoute('user_pi', ['_fragment' => 'proj']);
     }
 
