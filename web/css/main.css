@@ -361,3 +361,10 @@ main {
   height: 100%;
   width: auto;
 }
+
+.table-sticky tr th {
+  background: #ffffff;
+  position: sticky;
+  top: 64px;
+  z-index: 10;
+}
