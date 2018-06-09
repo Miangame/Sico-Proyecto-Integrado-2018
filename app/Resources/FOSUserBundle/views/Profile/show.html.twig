@@ -1,0 +1,20 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="row allHeight centerVertical">
+        <div class="col m8 offset-m2 l4 offset-l4 z-depth-4 p-1">
+            <div class="col s12">
+                <div class="row centerTotal">
+                    <img id="logo-login" src="{{ asset('img/logo-color.png') }}">
+                </div>
+            </div>
+            <p class="center">
+                Tu contraseña se ha cambiado correctamente.
+            </p>
+            <p class="center">Pulse en el siguiente botón para volver al inicio.</p>
+            <div class="input-field col s12 center-align">
+                <a href="{{ path('dashboard') }}">Volver</a>
+            </div>
+        </div>
+    </div>
+{% endblock fos_user_content %}
