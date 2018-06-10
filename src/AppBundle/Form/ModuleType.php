@@ -21,8 +21,14 @@ class ModuleType extends AbstractType
         $builder
             ->add('name', TextType::class, array('label' => 'Nombre'))
             ->add('initials', TextType::class, array('label' => 'Iniciales'))
-            ->add('hours', IntegerType::class, array('label' => 'Horas'))
-            ->add('hoursDesdoble', IntegerType::class, array('label' => 'Horas desdoble'))
+            ->add('hours', IntegerType::class, array(
+                'label' => 'Horas',
+                'data' => $options['hours']
+            ))
+            ->add('hoursDesdoble', IntegerType::class, array(
+                'label' => 'Horas desdoble',
+                'data' => $options['hoursDesdoble']
+            ))
             ->add('course_cycle', ChoiceType::class, array(
                 'label' => "Curso",
                 'choices' => $options["course_cycle"],
@@ -36,7 +42,9 @@ class ModuleType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Module::class,
             'course_cycle' => null,
-            'course_cycle_selected' => null
+            'course_cycle_selected' => null,
+            'hours' => null,
+            'hoursDesdoble' => null,
         ]);
 
     }
