@@ -9,6 +9,7 @@ use AppBundle\Form\CompanyType;
 use AppBundle\Repository\CompanyRepository;
 use AppBundle\Repository\Distribution_companyRepository;
 use AppBundle\Repository\Request_companyRepository;
+use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -21,8 +22,6 @@ class CompanyController extends Controller
      */
     public function newCompanyAction(Request $request)
     {
-        $current_convocatory = $this->getUser()->getCurrentConvocatory();
-
         $company = new Company();
 
         $form = $this->createForm(CompanyType::class, $company);
@@ -58,8 +57,6 @@ class CompanyController extends Controller
      */
     public function editCopanyAction(Request $request, Company $company)
     {
-        $current_convocatory = $this->getUser()->getCurrentConvocatory();
-
         $form = $this->createForm(CompanyType::class, $company);
 
 
@@ -92,16 +89,28 @@ class CompanyController extends Controller
      */
     public function deleteCompanyAction(Request $request, Company $company)
     {
-        $current_convocatory = $this->getUser()->getCurrentConvocatory();
-
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($company);
-        $em->flush();
+        $type = "success";
+        $msg = "Empresa borrada";
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($company);
+            $em->flush();
+        }catch (DBALException $e){
+            $type = "error";
+            switch ($e->getPrevious()->errorInfo[1]){
+                case 1451:
+                    $msg = "No se puede borrar si está asignada.";
+                    break;
+                default:
+                    $msg = "No se ha podido borrar.";
+                    break;
+            }
+        }
 
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Empresa borrada');
-        return $this->redirectToRoute('user_fct', ['_fragment' => 'emp']);
+            ->add($type, $msg);
+        return $this->redirectToRoute('user_fct');
     }
 
     /**

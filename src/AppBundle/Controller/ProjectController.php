@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Project;
 use AppBundle\Entity\User;
 use AppBundle\Form\ProjectType;
+use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,8 +18,6 @@ class ProjectController extends Controller
      */
     public function newProjectAction(Request $request)
     {
-        $current_convocatory = $this->getUser()->getCurrentConvocatory();
-
         $project = new Project();
 
         $form = $this->createForm(ProjectType::class, $project);
@@ -54,7 +53,6 @@ class ProjectController extends Controller
      */
     public function editProjectAction(Request $request, Project $project)
     {
-        $current_convocatory = $this->getUser()->getCurrentConvocatory();
 
         $form = $this->createForm(ProjectType::class, $project);
 
@@ -88,16 +86,27 @@ class ProjectController extends Controller
      */
     public function deleteProjectAction(Request $request, Project $project)
     {
-        $current_convocatory = $this->getUser()->getCurrentConvocatory();
-
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($project);
-        $em->flush();
-
+        $type = "success";
+        $msg = "Proyecto borrado";
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($project);
+            $em->flush();
+        }catch (DBALException $e){
+            $type = "error";
+            switch ($e->getPrevious()->errorInfo[1]){
+                case 1451:
+                    $msg = "No se puede borrar si está asignado.";
+                    break;
+                default:
+                    $msg = "No se ha podido borrar.";
+                    break;
+            }
+        }
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Proyecto borrado');
-        return $this->redirectToRoute('user_pi', ['_fragment' => 'proj']);
+            ->add($type, $msg);
+        return $this->redirectToRoute('user_pi');
     }
 
     /**

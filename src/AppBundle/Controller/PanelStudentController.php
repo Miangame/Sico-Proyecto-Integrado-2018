@@ -12,6 +12,7 @@ use AppBundle\Services\CoursesHelper;
 use AppBundle\Services\CyclesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
 use AppBundle\Services\StudentsHelper;
+use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -207,12 +208,27 @@ class PanelStudentController extends Controller
             return $this->redirectToRoute('panel_students');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($student);
-        $em->flush();
+        $type = "success";
+        $msg = "Alumno borrado";
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($student);
+            $em->flush();
+        }catch (DBALException $e){
+            $type = "error";
+            switch ($e->getPrevious()->errorInfo[1]){
+                case 1451:
+                    $msg = "No se puede borrar si se está usando.";
+                    break;
+                default:
+                    $msg = "No se ha podido borrar.";
+                    break;
+            }
+        }
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Alumno borrado');
+            ->add($type, $msg);
+
         return $this->redirectToRoute('panel_students');
     }
 }

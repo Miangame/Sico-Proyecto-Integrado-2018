@@ -7,6 +7,7 @@ use AppBundle\Entity\Cycle;
 use AppBundle\Form\CycleType;
 use AppBundle\Services\CyclesHelper;
 use AppBundle\Services\ModulesHelper;
+use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -118,12 +119,26 @@ class PanelCycleController extends Controller
      */
     public function deleteCycleAction(Request $request, Cycle $cycle)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($cycle);
-        $em->flush();
+        $type = "success";
+        $msg = "Ciclo borrado";
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($cycle);
+            $em->flush();
+        }catch (DBALException $e){
+            $type = "error";
+            switch ($e->getPrevious()->errorInfo[1]){
+                case 1451:
+                    $msg = "No se puede borrar si está asignado.";
+                    break;
+                default:
+                    $msg = "No se ha podido borrar.";
+                    break;
+            }
+        }
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Ciclo borrado');
+            ->add($type, $msg);
         return $this->redirectToRoute('panel_cycles');
     }
 }

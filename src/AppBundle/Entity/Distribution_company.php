@@ -32,14 +32,14 @@ class Distribution_company
     /**
      * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Student", inversedBy="distribution_company")
-     * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false)
      */
     private $student;
 
     /**
      * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="distribution_company")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false)
      */
     private $company;
 
