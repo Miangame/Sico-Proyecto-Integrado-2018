@@ -59,7 +59,9 @@ class PanelModuleController extends Controller
         }
 
         $options = array(
-            "course_cycle" => $coursesCycles
+            "course_cycle" => $coursesCycles,
+            "hours" => 0,
+            "hoursDesdoble" => 0,
         );
 
         $form = $this->createForm(ModuleType::class, $module, $options);
@@ -101,7 +103,9 @@ class PanelModuleController extends Controller
 
         $options = array(
             "course_cycle" => $coursesCycles,
-            "course_cycle_selected" => $module->getCourseCycle()
+            "course_cycle_selected" => $module->getCourseCycle(),
+            "hours" => $module->getHours(),
+            "hoursDesdoble" => $module->getHoursDesdoble(),
         );
 
         $form = $this->createForm(ModuleType::class, $module, $options);
