@@ -4,15 +4,16 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Distribution_module_teacher
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Distribution_module_teacherRepository")
  * @ORM\Table(name="Distribution_module_teacher", uniqueConstraints={
- *      @ORM\UniqueConstraint(name="unicos", columns={"module_id", "user_id", "group_id", "schoolYear_id"})
+ *      @ORM\UniqueConstraint(name="unicos", columns={"module_id", "user_id", "schoolYear_id", "desdoble"})
  *     })
+ * @UniqueEntity(fields={"module", "teacher", "schoolYear", "desdoble"})
  */
 class Distribution_module_teacher
 {
@@ -38,12 +39,6 @@ class Distribution_module_teacher
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $teacher;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="School_group", inversedBy="distributions_module_teacher")
-     * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false)
-     */
-    protected $group;
 
     /**
      * @Assert\NotBlank()
@@ -121,30 +116,6 @@ class Distribution_module_teacher
     }
 
     /**
-     * Set group
-     *
-     * @param \AppBundle\Entity\School_group $group
-     *
-     * @return Distribution_module_teacher
-     */
-    public function setGroup(\AppBundle\Entity\School_group $group = null)
-    {
-        $this->group = $group;
-
-        return $this;
-    }
-
-    /**
-     * Get group
-     *
-     * @return \AppBundle\Entity\School_group
-     */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    /**
      * Set schoolYear
      *
      * @param \AppBundle\Entity\SchoolYear $schoolYear
@@ -170,7 +141,7 @@ class Distribution_module_teacher
 
     public function __toString()
     {
-        return $this->getModule() . '/' . $this->getSchoolYear() . '/' . $this->getGroup() . '/' . $this->getTeacher();
+        return $this->getModule() . '/' . $this->getSchoolYear() . '/' . $this->getTeacher();
     }
 
     /**

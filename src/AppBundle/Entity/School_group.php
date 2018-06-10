@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="School_group")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\School_groupRepository")
- * @UniqueEntity(fields={"course", "gr", "cycle"})
+ * @UniqueEntity(fields={"gr", "course_cycle"})
  */
 class School_group
 {
@@ -36,11 +36,6 @@ class School_group
     private $students_groups;
 
     /**
-     * @ORM\OneToMany(targetEntity="Distribution_module_teacher", mappedBy="group")
-     */
-    private $distributions_module_teacher;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Course_cycle", inversedBy="school_groups")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -54,49 +49,6 @@ class School_group
     public function getId()
     {
         return $this->id;
-    }
-
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->distributions_module_teacher = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add distributionsModuleTeacher
-     *
-     * @param \AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher
-     *
-     * @return School_group
-     */
-    public function addDistributionsModuleTeacher(\AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher)
-    {
-        $this->distributions_module_teacher[] = $distributionsModuleTeacher;
-
-        return $this;
-    }
-
-    /**
-     * Remove distributionsModuleTeacher
-     *
-     * @param \AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher
-     */
-    public function removeDistributionsModuleTeacher(\AppBundle\Entity\Distribution_module_teacher $distributionsModuleTeacher)
-    {
-        $this->distributions_module_teacher->removeElement($distributionsModuleTeacher);
-    }
-
-    /**
-     * Get distributionsModuleTeacher
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDistributionsModuleTeacher()
-    {
-        return $this->distributions_module_teacher;
     }
 
     /**
@@ -220,4 +172,12 @@ class School_group
     {
         return $this->course_cycle;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->students_groups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

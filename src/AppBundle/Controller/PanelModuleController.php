@@ -3,9 +3,12 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Course_cycle;
 use AppBundle\Entity\Cycle;
 use AppBundle\Entity\Module;
 use AppBundle\Form\ModuleType;
+use AppBundle\Repository\Course_cycleRepository;
+use AppBundle\Services\CourseCycleHelper;
 use AppBundle\Services\CyclesHelper;
 use AppBundle\Services\ModulesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
@@ -26,15 +29,15 @@ class PanelModuleController extends Controller
         /** @var ModulesHelper $modulesHelper */
         $modulesHelper = $this->get('app.modulesHelper');
 
-        /** @var CyclesHelper $cyclesHelper */
-        $cyclesHelper = $this->get('app.cyclesHelper');
+        /** @var CourseCycleHelper $coursesHelper */
+        $coursesHelper = $this->get('app.courseCycleHelper');
 
-        $cycles = $cyclesHelper->getCycles();
+        $courses = $coursesHelper->getCoursesCycles();
         $modules = $modulesHelper->getModules();
 
         return $this->render('panel/module/view.html.twig', array(
             'modules' => $modules,
-            'cycles' => $cycles,
+            'courses' => $courses,
         ));
     }
 
@@ -45,18 +48,18 @@ class PanelModuleController extends Controller
     {
         $module = new Module();
 
-        $groups = array();
+        $coursesCycles = array();
 
-        /** @var SchoolGroupsHelper $groupsHelper */
-        $groupsHelper = $this->get('app.schoolGroupsHelper');
+        /** @var CourseCycleHelper $courseCycleHelper */
+        $courseCycleHelper = $this->get('app.courseCycleHelper');
 
-        /** @var Cycle $group */
-        foreach ($groupsHelper->getGroups() as $group) {
-            $groups[$group->__toString()] = $group;
+        /** @var Course_cycle $courseCycle */
+        foreach ($courseCycleHelper->getCoursesCycles() as $courseCycle) {
+            $coursesCycles[$courseCycle->__toString()] = $courseCycle;
         }
 
         $options = array(
-            "groups" => $groups
+            "course_cycle" => $coursesCycles
         );
 
         $form = $this->createForm(ModuleType::class, $module, $options);
@@ -86,19 +89,19 @@ class PanelModuleController extends Controller
      */
     public function editModuleAction(Request $request, Module $module)
     {
-        $groups = array();
+        $coursesCycles = array();
 
-        /** @var SchoolGroupsHelper $groupsHelper */
-        $groupsHelper = $this->get('app.schoolGroupsHelper');
+        /** @var CourseCycleHelper $courseCycleHelper */
+        $courseCycleHelper = $this->get('app.courseCycleHelper');
 
-        /** @var Cycle $group */
-        foreach ($groupsHelper->getGroups() as $group) {
-            $groups[$group->__toString()] = $group;
+        /** @var Course_cycle $courseCycle */
+        foreach ($courseCycleHelper->getCoursesCycles() as $courseCycle) {
+            $coursesCycles[$courseCycle->__toString()] = $courseCycle;
         }
 
         $options = array(
-            "groups" => $groups,
-            "group_selected" => $module->getGroup(),
+            "course_cycle" => $coursesCycles,
+            "course_cycle_selected" => $module->getCourseCycle()
         );
 
         $form = $this->createForm(ModuleType::class, $module, $options);

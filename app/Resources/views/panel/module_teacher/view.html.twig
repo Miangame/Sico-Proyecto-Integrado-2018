@@ -21,9 +21,9 @@
     </div>
     <div id="containerSelectConvocatoryStudent">
         <select name="" id="selectGroupDistribution">
-            <option value="todos">- Elija grupo -</option>
-            {% for group in groups %}
-                <option value="{{ group.__toString() }}">{{ group.__toString() }}</option>
+            <option value="todos">- Elija curso -</option>
+            {% for course_cycle in courses_cycles %}
+                <option value="{{ course_cycle.__toString() }}">{{ course_cycle.__toString() }}</option>
             {% endfor %}
         </select>
     </div>
@@ -32,7 +32,7 @@
         <tr>
             <th>Profesor</th>
             <th>Módulo</th>
-            <th>Grupo</th>
+            <th>Curso</th>
             <th>Horas</th>
             <th>Curso</th>
             <th>Desdoble</th>
@@ -86,53 +86,53 @@
     <script>
         {
             let changeData = function () {
-                    let distributions = "";
+                let distributions = "";
 
-                    $("tbody").html("");
-                    $.ajax({
-                            type: "GET",
-                            url: "{{ path('get_distribution_data') }}",
-                            data: {'course': $(this).val()},
-                            success: function (response) {
-                                let html = "";
-                                let icon = "";
-                                distributions = JSON.parse(response.distributions);
-                                distributions.forEach(function (distribution) {
-                                    let id = distribution.id;
+                $("tbody").html("");
+                $.ajax({
+                        type: "GET",
+                        url: "{{ path('get_distribution_data') }}",
+                        data: {'course': $(this).val()},
+                        success: function (response) {
+                            let html = "";
+                            let icon = "";
+                            distributions = JSON.parse(response.distributions);
+                            distributions.forEach(function (distribution) {
+                                let id = distribution.id;
 
-                                    let url = "{{ path('edit_distribution_module_teacher', {'id': 'idDist'}) }}";
-                                    let url2 = "{{ path('delete_distribution_module_teacher', {'id': 'idDist'}) }}";
+                                let url = "{{ path('edit_distribution_module_teacher', {'id': 'idDist'}) }}";
+                                let url2 = "{{ path('delete_distribution_module_teacher', {'id': 'idDist'}) }}";
 
-                                    url = url.replace("idDist", id);
-                                    url2 = url2.replace("idDist", id);
+                                url = url.replace("idDist", id);
+                                url2 = url2.replace("idDist", id);
 
-                                    if (distribution.desdoble) {
-                                        icon = "<i class=\"small material-icons green-text\">check</i>";
-                                    } else {
-                                        icon = "<i class=\"small material-icons red-text\">close</i>";
-                                    }
+                                if (distribution.desdoble) {
+                                    icon = "<i class=\"small material-icons green-text\">check</i>";
+                                } else {
+                                    icon = "<i class=\"small material-icons red-text\">close</i>";
+                                }
 
-                                    html += "" +
-                                        "<tr>" +
-                                        "<td>" + distribution.teacher + "</td>" +
-                                        "<td>" + distribution.module + "</td>" +
-                                        "<td>" + distribution.gr + "</td>" +
-                                        "<td>" + distribution.hours + "</td>" +
-                                        "<td>" + distribution.course + "</td>" +
-                                        "<td>" + icon + "</td>" +
-                                        "<td><a href=\"" + url + "\"><i class=\"small material-icons\">edit</i></a></td>" +
-                                        "<td><a data-modal=\"modalModuleTeacher\" href=\"" + url2 + "\" class=\"modalDelete modal-trigger\"><i class=\"small material-icons red-text\">delete</i></a></td>" +
-                                        "</tr>";
-                                });
+                                html += "" +
+                                    "<tr>" +
+                                    "<td>" + distribution.teacher + "</td>" +
+                                    "<td>" + distribution.module + "</td>" +
+                                    "<td>" + distribution.gr + "</td>" +
+                                    "<td>" + distribution.hours + "</td>" +
+                                    "<td>" + distribution.course + "</td>" +
+                                    "<td>" + icon + "</td>" +
+                                    "<td><a href=\"" + url + "\"><i class=\"small material-icons\">edit</i></a></td>" +
+                                    "<td><a data-modal=\"modalModuleTeacher\" href=\"" + url2 + "\" class=\"modalDelete modal-trigger\"><i class=\"small material-icons red-text\">delete</i></a></td>" +
+                                    "</tr>";
+                            });
 
-                                $("tbody").html(html);
-                                cargarModalDelete()
-                            }
+                            $("tbody").html(html);
+                            cargarModalDelete()
                         }
-                    );
-                };
+                    }
+                );
+            };
 
-            let changeGroup = function () {
+            let changeCourse = function () {
                 let tr, td, i;
                 let group = $(this).val();
 
@@ -157,7 +157,7 @@
 
             $(function () {
                 $("#selectCourseDistribution").on("change", changeData);
-                $("#selectGroupDistribution").on("change", changeGroup);
+                $("#selectGroupDistribution").on("change", changeCourse);
             });
         }
     </script>

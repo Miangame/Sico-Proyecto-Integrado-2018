@@ -3,9 +3,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Course_cycle;
 use AppBundle\Entity\Cycle;
 use AppBundle\Entity\School_group;
 use AppBundle\Form\GroupType;
+use AppBundle\Services\CourseCycleHelper;
 use AppBundle\Services\CyclesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -34,18 +36,18 @@ class PanelGroupController extends Controller
     public function newGroupAction(Request $request)
     {
         $group = new School_group();
-        $cycles = array();
+        $coursesCycles = array();
 
-        /** @var CyclesHelper $cyclesHelper */
-        $cyclesHelper = $this->get('app.cyclesHelper');
+        /** @var CourseCycleHelper $coursesCyclesHelper */
+        $coursesCyclesHelper = $this->get('app.courseCycleHelper');
 
-        /** @var Cycle $cycle */
-        foreach ($cyclesHelper->getCycles() as $cycle) {
-            $cycles[$cycle->__toString()] = $cycle;
+        /** @var Course_cycle $courseCycle */
+        foreach ($coursesCyclesHelper->getCoursesCycles() as $courseCycle) {
+            $coursesCycles[$courseCycle->__toString()] = $courseCycle;
         }
 
         $options = array(
-            "cycles" => $cycles
+            "courses_cycles" => $coursesCycles
         );
 
         $form = $this->createForm(GroupType::class, $group, $options);
@@ -75,19 +77,20 @@ class PanelGroupController extends Controller
      */
     public function editGroupAction(Request $request, School_group $group)
     {
-        $cycles = array();
+        $coursesCycles = array();
 
-        /** @var CyclesHelper $cyclesHelper */
-        $cyclesHelper = $this->get('app.cyclesHelper');
+        /** @var CourseCycleHelper $coursesCyclesHelper */
+        $coursesCyclesHelper = $this->get('app.courseCycleHelper');
 
-        /** @var Cycle $cycle */
-        foreach ($cyclesHelper->getCycles() as $cycle) {
-            $cycles[$cycle->__toString()] = $cycle;
+        /** @var Course_cycle $courseCycle */
+        foreach ($coursesCyclesHelper->getCoursesCycles() as $courseCycle) {
+            $coursesCycles[$courseCycle->__toString()] = $courseCycle;
         }
 
         $options = array(
-            "cycles" => $cycles,
-            "cycle_selected" => $group->getCycle()
+            "courses_cycles" => $coursesCycles,
+            "courses_cycles_selected" => $group->getCourseCycle(),
+            "group_selected" => $group->getGr()
         );
 
         $form = $this->createForm(GroupType::class, $group, $options);
