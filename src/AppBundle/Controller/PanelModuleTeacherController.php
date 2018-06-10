@@ -257,4 +257,29 @@ class PanelModuleTeacherController extends Controller
         ));
         return $response;
     }
+
+    /**
+     * @Route("/getHoursData", name="get_hours_data")
+     * @Method({"GET"})
+     */
+    public function getHoursData(Request $request)
+    {
+        $encoders = array(new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+
+        $serializer = new Serializer($normalizers, $encoders);
+
+        /** @var ModulesHelper $modulesHelper */
+        $modulesHelper = $this->get('app.modulesHelper');
+        $sumHours = $modulesHelper->getHoursByCourseCycle($_GET["course"]);
+
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+
+        $response->setData(array(
+            'response' => 'success',
+            'hours' => $serializer->serialize($sumHours, 'json')
+        ));
+        return $response;
+    }
 }

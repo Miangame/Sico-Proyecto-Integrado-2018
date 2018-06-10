@@ -23,11 +23,23 @@
         <select name="" id="selectGroupDistribution">
             <option value="todos">- Elija curso -</option>
             {% for course_cycle in courses_cycles %}
-                <option value="{{ course_cycle.__toString() }}">{{ course_cycle.__toString() }}</option>
+                <option value="{{ course_cycle.id }}">{{ course_cycle.__toString() }}</option>
             {% endfor %}
         </select>
     </div>
     <table class=" responsive-table z-depth-1 centered mt-2">
+        <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th id="resumenHoras"></th>
+            <th></th>
+            <th id="resumenHorasDesdoble"></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
         <thead class="table-sticky">
         <tr>
             <th>Profesor</th>
@@ -40,7 +52,6 @@
             <th>Borrar</th>
         </tr>
         </thead>
-
         <tbody id="distributionTable">
         {% for moduleTeacher in modulesTeachers %}
             <tr>
@@ -85,6 +96,9 @@
 
     <script>
         {
+            let resumenHoras;
+            let resumenHorasDesdoble;
+
             let changeData = function () {
                 let distributions = "";
 
@@ -133,14 +147,21 @@
             };
 
             let changeCourse = function () {
-                let tr, td, i;
-                let group = $(this).val();
+                let tr, td, i, tdDesdoble;
+                let hours = "";
+                let group = $('#selectGroupDistribution option:selected').text();
+                let contadorHorasActuales = 0;
+                let contadorHorasDesdobleActuales = 0;
+                let textResumenHoras = "";
+                let textResumenHorasDesdoble = "";
+                let horasTotales = 0;
+                let horasTotalesDesdoble = 0;
 
                 tr = $("#distributionTable tr");
 
                 for (i = 0; i < tr.length; i++) {
 
-                    if (group === "todos") {
+                    if (group === "- Elija curso -") {
                         tr[i].style.display = "";
                     } else {
                         td = tr[i].getElementsByTagName("td")[2];
@@ -153,11 +174,107 @@
                         }
                     }
                 }
+
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[3];
+                    tdDesdoble = tr[i].getElementsByTagName("td")[5];
+
+                    if (tr[i].style.display === "") {
+                        if (tdDesdoble.getElementsByTagName("i")[0].innerHTML === "close") {
+                            contadorHorasActuales += parseInt(td.innerHTML);
+                        } else if (tdDesdoble.getElementsByTagName("i")[0].innerHTML === "check") {
+                            contadorHorasDesdobleActuales += parseInt(td.innerHTML);
+                        }
+
+                    }
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ path('get_hours_data') }}",
+                    data: {'course': $(this).val()},
+                    success: function (response) {
+                        hours = JSON.parse(response.hours);
+                        if (group === "- Elija curso -") {
+                            horasTotales = {{ totalHours[0].totalHours }};
+                            horasTotalesDesdoble = {{ totalHours[0].totalHoursDesdoble }};
+                        } else {
+                            horasTotales = hours[0].hours;
+                            horasTotalesDesdoble = hours[0].hoursDesdoble;
+                        }
+
+                        textResumenHoras = contadorHorasActuales + "/" + horasTotales;
+                        textResumenHorasDesdoble = contadorHorasDesdobleActuales + "/" + horasTotalesDesdoble;
+
+                        if (contadorHorasActuales > horasTotales) {
+                            resumenHoras.addClass("warning_up_state");
+                        } else if (contadorHorasActuales > horasTotales) {
+                            resumenHoras.addClass("warning_state");
+                        } else {
+                            resumenHoras.addClass("ok_state");
+                        }
+
+                        if (contadorHorasDesdobleActuales > horasTotalesDesdoble) {
+                            resumenHorasDesdoble.addClass("warning_up_state");
+                        } else if (contadorHorasDesdobleActuales > horasTotalesDesdoble) {
+                            resumenHorasDesdoble.addClass("warning_state");
+                        } else {
+                            resumenHorasDesdoble.addClass("ok_state");
+                        }
+
+                        resumenHoras.html(textResumenHoras);
+                        resumenHorasDesdoble.html(textResumenHorasDesdoble);
+
+                    }
+                });
+
+
             };
 
             $(function () {
+                resumenHoras = $("#resumenHoras");
+                resumenHorasDesdoble = $("#resumenHorasDesdoble");
+
+                let td, tdDesdoble;
+                let tr = $("#distributionTable tr");
+                let contadorHorasActuales = 0;
+                let contadorHorasDesdobleActuales = 0;
+                let horasTotales = {{ totalHours[0].totalHours }};
+                let horasTotalesDesdoble = {{ totalHours[0].totalHoursDesdoble }};
+
                 $("#selectCourseDistribution").on("change", changeData);
                 $("#selectGroupDistribution").on("change", changeCourse);
+
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[3];
+                    tdDesdoble = tr[i].getElementsByTagName("td")[5];
+                    if (tr[i].style.display === "") {
+                        if (tdDesdoble.getElementsByTagName("i")[0].innerHTML === "close") {
+                            contadorHorasActuales += parseInt(td.innerHTML);
+                        } else if (tdDesdoble.getElementsByTagName("i")[0].innerHTML === "check") {
+                            contadorHorasDesdobleActuales += parseInt(td.innerHTML);
+                        }
+                    }
+                }
+
+                if (contadorHorasActuales > horasTotales) {
+                    resumenHoras.addClass("warning_up_state");
+                } else if (contadorHorasActuales > horasTotales) {
+                    resumenHoras.addClass("warning_state");
+                } else {
+                    resumenHoras.addClass("ok_state");
+                }
+
+                if (contadorHorasDesdobleActuales > horasTotalesDesdoble) {
+                    resumenHorasDesdoble.addClass("warning_up_state");
+                } else if (contadorHorasDesdobleActuales > horasTotalesDesdoble) {
+                    resumenHorasDesdoble.addClass("warning_state");
+                } else {
+                    resumenHorasDesdoble.addClass("ok_state");
+                }
+
+                resumenHoras.html(contadorHorasActuales + "/" + horasTotales);
+                resumenHorasDesdoble.html(contadorHorasDesdobleActuales + "/" + horasTotalesDesdoble);
             });
         }
     </script>

@@ -27,15 +27,14 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
         return $this->findAll();
     }
 
-    public function getActualHoursByGroup($group)
+    public function getHoursByCourseCycle($courseCycle)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('SUM(t.hours) titularHours, SUM(t.hoursDesdoble) desdobleHours')
-            ->from('AppBundle:Module', 't')
-            ->join('t.course_cycle', 'cc')
-            ->join('cc.school_groups', 'g')
-            ->where('g.gr = :group')
-            ->setParameter('group', $group);
+            ->select('SUM(m.hours) hours, SUM(m.hoursDesdoble) hoursDesdoble')
+            ->from('AppBundle:Module', 'm')
+            ->where("m.course_cycle=:courseCycle")
+            ->setParameter('courseCycle', $courseCycle);
+
 
         return $qb->getQuery()->getArrayResult();
     }
