@@ -23,7 +23,7 @@ class FunctionsHelper
 
         /** @var ConvocatoryRepository $convocatoryRepository */
         $convocatoryRepository = $this->em->getRepository("AppBundle:Convocatory");
-        $current_convocatory = $convocatoryRepository->find($convocatory);
+        $current_convocatory = $convocatory ? $convocatoryRepository->find($convocatory): false;
 
         if($current_convocatory){
             return $current_convocatory->getSchoolYear()->getCourse() == $schoolYearRepository->getLastCourse()->getCourse();
