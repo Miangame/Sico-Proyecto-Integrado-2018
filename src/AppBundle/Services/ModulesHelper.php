@@ -31,11 +31,12 @@ class ModulesHelper
         return $moduleRepository->getAllModules();
     }
 
-    public function getActualHoursByGroup($group)
+    public function getHoursByCourseCycle($courseCycle)
     {
         /** @var ModuleRepository $moduleRepository */
         $moduleRepository = $this->em->getRepository('AppBundle:Module');
 
-        return $moduleRepository->getActualHoursByGroup($group);
+        return $moduleRepository->getHoursByCourseCycle($courseCycle);
     }
+
 }
