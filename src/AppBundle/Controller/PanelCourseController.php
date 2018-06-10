@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\SchoolYear;
 use AppBundle\Form\CourseType;
 use AppBundle\Services\CoursesHelper;
+use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -90,12 +91,27 @@ class PanelCourseController extends Controller
      */
     public function deleteCourseAction(Request $request, SchoolYear $course)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($course);
-        $em->flush();
+        $type = "success";
+        $msg = "Curso borrado";
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($course);
+            $em->flush();
+        }catch (DBALException $e){
+            $type = "error";
+            switch ($e->getPrevious()->errorInfo[1]){
+                case 1451:
+                    $msg = "No se puede borrar si se está usando.";
+                    break;
+                default:
+                    $msg = "No se ha podido borrar.";
+                    break;
+            }
+        }
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Curso borrado');
+            ->add($type, $msg);
+
         return $this->redirectToRoute('panel_courses');
     }
 }

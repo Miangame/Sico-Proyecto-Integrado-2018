@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Form\TeacherType;
 use AppBundle\Services\UsersHelper;
+use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
@@ -126,12 +127,26 @@ class PanelTeacherController extends Controller
      */
     public function deleteTeacherAction(Request $request, User $teacher)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($teacher);
-        $em->flush();
+        $type = "success";
+        $msg = "Profesor borrado";
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($teacher);
+            $em->flush();
+        }catch (DBALException $e){
+            $type = "error";
+            switch ($e->getPrevious()->errorInfo[1]){
+                case 1451:
+                    $msg = "No se puede borrar si se está usando.";
+                    break;
+                default:
+                    $msg = "No se ha podido borrar.";
+                    break;
+            }
+        }
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Profesor borrado');
+            ->add($type, $msg);
         return $this->redirectToRoute('panel_teachers');
     }
 

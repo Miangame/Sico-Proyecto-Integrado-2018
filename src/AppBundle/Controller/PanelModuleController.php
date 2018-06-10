@@ -12,6 +12,7 @@ use AppBundle\Services\CourseCycleHelper;
 use AppBundle\Services\CyclesHelper;
 use AppBundle\Services\ModulesHelper;
 use AppBundle\Services\SchoolGroupsHelper;
+use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -135,12 +136,26 @@ class PanelModuleController extends Controller
      */
     public function deleteModuleAction(Request $request, Module $module)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($module);
-        $em->flush();
+        $type = "success";
+        $msg = "Módulo borrado";
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($module);
+            $em->flush();
+        }catch (DBALException $e){
+            $type = "error";
+            switch ($e->getPrevious()->errorInfo[1]){
+                case 1451:
+                    $msg = "No se puede borrar si se está usando.";
+                    break;
+                default:
+                    $msg = "No se ha podido borrar.";
+                    break;
+            }
+        }
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Módulo borrado');
+            ->add($type, $msg);
         return $this->redirectToRoute('panel_modules');
     }
 }
