@@ -6,9 +6,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Distribution_module_teacher;
 use AppBundle\Entity\Module;
 use AppBundle\Entity\School_group;
+use AppBundle\Entity\SchoolYear;
 use AppBundle\Entity\User;
 use AppBundle\Form\DistributionModuleTeacherType;
 use AppBundle\Services\ConvocatoriesHelper;
+use AppBundle\Services\CourseCycleHelper;
 use AppBundle\Services\CoursesHelper;
 use AppBundle\Services\CyclesHelper;
 use AppBundle\Services\DistributionModuleTeacherHelper;
@@ -46,8 +48,8 @@ class PanelModuleTeacherController extends Controller
         /** @var CoursesHelper $coursesHelper */
         $coursesHelper = $this->get('app.coursesHelper');
 
-        /** @var SchoolGroupsHelper $groupsHelper */
-        $groupsHelper = $this->get('app.schoolGroupsHelper');
+        /** @var CourseCycleHelper $coursesCyclesHelper */
+        $coursesCyclesHelper = $this->get('app.courseCycleHelper');
 
         $modulesTeachers = $distributionModuleTeacherHelper->getDistributionsLastYear();
 
@@ -57,12 +59,12 @@ class PanelModuleTeacherController extends Controller
 
         $actualHours = $distributionModuleTeacherHelper->getHours();
 
-        $groups = $groupsHelper->getGroups();
+        $coursesCycles = $coursesCyclesHelper->getCoursesCycles();
 
         return $this->render('panel/module_teacher/view.html.twig', array(
             'modulesTeachers' => $modulesTeachers,
             'courses' => $courses,
-            'groups' => $groups,
+            'courses_cycles' => $coursesCycles,
             'totalHours' => $totalHours,
             'actualHours' => $actualHours,
         ));
@@ -98,7 +100,7 @@ class PanelModuleTeacherController extends Controller
             $teachers[$teacher->__toString()] = $teacher;
         }
 
-        /** @var School_group $course */
+        /** @var SchoolYear $course */
         foreach ($coursesHelper->getCourses() as $course) {
             $courses[$course->__toString()] = $course;
         }
@@ -122,24 +124,17 @@ class PanelModuleTeacherController extends Controller
                 $distModTeacher->setHours($distModTeacher->getModule()->getHours());
             }
 
-            $distModTeacher->setGroup($distModTeacher->getModule()->getGroup());
-
             $type = 'success';
             $msg = 'Asignación creada';
-            try{
+            try {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($distModTeacher);
                 $entityManager->flush();
-            }catch (DBALException $e){//Error al asignar
+            } catch (DBALException $e) {//Error al asignar
                 $type = 'error';
-                switch ($e->getPrevious()->getCode()){
-                    case 23000:
-                        $msg = 'Asignación ya existente';
-                        break;
-                    default:
-                        $msg = 'Error inesperado en la asignación';
-                        break;
-                }
+
+                $msg = 'Error inesperado en la asignación';
+
             }
             $request->getSession()
                 ->getFlashBag()
@@ -208,8 +203,6 @@ class PanelModuleTeacherController extends Controller
             } else {
                 $distModTeacherRequest->setHours($distModTeacherRequest->getModule()->getHours());
             }
-
-            $distModTeacherRequest->setGroup($distModTeacherRequest->getModule()->getGroup());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($distModTeacherRequest);

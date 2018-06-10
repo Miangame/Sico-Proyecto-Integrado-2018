@@ -8,10 +8,10 @@
         </div>
         <div class="col s12 m3 ">
             <select name="" id="selectCycleModule">
-                <option value="todos">- Elija ciclo -</option>
+                <option value="todos">- Elija curso -</option>
 
-                {% for cycle in cycles %}
-                    <option value="{{ cycle.name }}">{{ cycle.name }}</option>
+                {% for course in courses %}
+                    <option value="{{ course.__toString() }}">{{ course.__toString() }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -20,8 +20,7 @@
         <thead class="table-sticky">
         <tr>
             <th>Módulo</th>
-            <th>Grupo</th>
-            <th>Ciclo</th>
+            <th>Curso</th>
             <th>Horas</th>
             <th>Horas desdoble</th>
             <th>Modificar</th>
@@ -33,8 +32,7 @@
         {% for module in modules %}
             <tr>
                 <td>{{ module[0].initials }}</td>
-                <td>{{ module[0].group.course }}º{{ module.name }}-{{ module[0].group.gr }}</td>
-                <td>{{ module.name }}</td>
+                <td>{{ module.course }}</td>
                 <td>{{ module[0].hours }}</td>
                 <td>{{ module[0].hoursDesdoble }}</td>
                 <td>
@@ -67,7 +65,7 @@
 
     <script>
         {
-            let selectCycleModule = function () {
+            let selectCourseModule = function () {
                 let tr, td, i;
                 let convocatoria = $(this).val();
 
@@ -78,7 +76,7 @@
                     if (convocatoria === "todos") {
                         tr[i].style.display = "";
                     } else {
-                        td = tr[i].getElementsByTagName("td")[2];
+                        td = tr[i].getElementsByTagName("td")[1];
 
                         if (td) {
                             if (td.innerHTML.toUpperCase() === convocatoria.toUpperCase()) {
@@ -92,7 +90,7 @@
             };
 
             $(function () {
-                $("#selectCycleModule").on("change", selectCycleModule);
+                $("#selectCycleModule").on("change", selectCourseModule);
             });
         }
     </script>

@@ -78,6 +78,7 @@ class Course_cycle
     {
         return $this->cycle;
     }
+
     /**
      * Constructor
      */
@@ -176,5 +177,10 @@ class Course_cycle
     public function getCourse()
     {
         return $this->course;
+    }
+
+    public function __toString()
+    {
+        return $this->getCourse() . $this->getCycle();
     }
 }

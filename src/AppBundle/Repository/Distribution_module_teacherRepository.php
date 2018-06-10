@@ -13,13 +13,13 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
     public function getDistributions()
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(g.course, cy.name, \'-\'g.gr) gr, c.course course, t.hours hours, t.desdoble desdoble')
+            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(cc.course, cy.name) gr, c.course course, t.hours hours, t.desdoble desdoble')
             ->from('AppBundle:Distribution_module_teacher', 't')
             ->join('t.module', 'm')
             ->join('t.teacher', 'u')
-            ->join('t.group', 'g')
             ->join('t.schoolYear', 'c')
-            ->join('g.cycle', 'cy');
+            ->join('m.course_cycle', 'cc')
+            ->join('cc.cycle', 'cy');
 
         return $qb->getQuery()->getArrayResult();
     }
@@ -31,13 +31,13 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
         $lastSchoolYear = $syRepo->getLastCourse();
 
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(g.course, cy.name,\'-\', g.gr) gr, c.course course, t.hours hours, t.desdoble desdoble')
+            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(cc.course, cy.name) gr, c.course course, t.hours hours, t.desdoble desdoble')
             ->from('AppBundle:Distribution_module_teacher', 't')
             ->join('t.module', 'm')
             ->join('t.teacher', 'u')
-            ->join('t.group', 'g')
+            ->join('m.course_cycle', 'cc')
             ->join('t.schoolYear', 'c')
-            ->join('g.cycle', 'cy')
+            ->join('cc.cycle', 'cy')
             ->where('t.schoolYear = :schoolYear_id')
             ->setParameter('schoolYear_id', $lastSchoolYear);
 
@@ -47,13 +47,13 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
     public function getDistribution($course)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(g.course, cy.name, \'-\',g.gr) gr, c.course course, t.hours hours, t.desdoble desdoble')
+            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(cc.course, cy.name) gr, c.course course, t.hours hours, t.desdoble desdoble')
             ->from('AppBundle:Distribution_module_teacher', 't')
             ->join('t.module', 'm')
             ->join('t.teacher', 'u')
-            ->join('t.group', 'g')
+            ->join('m.course_cycle', 'cc')
             ->join('t.schoolYear', 'c')
-            ->join('g.cycle', 'cy')
+            ->join('cc.cycle', 'cy')
             ->where('c.course=:course')
             ->setParameter('course', $course);
 
@@ -77,9 +77,10 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('SUM(dmt.hours)')
             ->from('AppBundle:Distribution_module_teacher', 'dmt')
-            ->join('dmt.group','sg')
+            ->join('dmt.module', 'm')
+            ->join('m.course_cycle', 'cc')
             ->where('dmt.teacher = :id_user')
-            ->andWhere('sg.course = 2')
+            ->andWhere('cc.course = 2')
             ->setParameter('id_user', $userId);
 
         $result = $qb->getQuery()->getArrayResult()[0][1];
@@ -91,8 +92,9 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('SUM(dmt.hours)')
             ->from('AppBundle:Distribution_module_teacher', 'dmt')
-            ->join('dmt.group','sg')
-            ->where('sg.course = 2');
+            ->join('dmt.module', 'm')
+            ->join('m.course_cycle', 'cc')
+            ->andWhere('cc.course = 2');
 
         $result = $qb->getQuery()->getArrayResult()[0][1];
         return ($result ? $result : 0);
