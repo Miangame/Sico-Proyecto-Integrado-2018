@@ -37,6 +37,6 @@ class CyclesHelper
         /** @var CycleRepository $cycleRepository */
         $cycleRepository = $this->em->getRepository('AppBundle:Cycle');
 
-        return $cycleRepository->getHours();
+        return $cycleRepository->getSumHours();
     }
 }
