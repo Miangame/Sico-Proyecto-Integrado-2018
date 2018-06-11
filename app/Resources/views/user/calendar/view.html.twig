@@ -2,18 +2,25 @@
 
 {% block body %}
     <div class="row">
-        <h1 align="center"><b>Horario</b></h1><br/>
-        <a href="{{ path('table_calendar_events') }}" class="waves-effect waves-light btn">Crear/modificar
-            calendario</a>
-        <div id="containerSelectCycleStudent">
-            <select name="" id="selectGroupCalendar">
-                <option value="todos">- Elija grupo -</option>
-                {% for group in groups %}
-                    <option value="{{ group.__toString() }}">{{ group.__toString() }}</option>
-                {% endfor %}
-            </select>
+        <h2 align="center"><b>Calendario</b><b id="grupoCalendar"></b></h2><br/>
+        <div class="row centerVertical mb-1">
+            <div class="col m6 s12">
+                <a href="{{ path('table_calendar_events') }}" class="waves-effect waves-light btn">Crear/modificar
+                    calendario</a>
+            </div>
+            <div class="col m6 s12">
+                <div>
+                    <select name="" id="selectGroupCalendar">
+                        <option value="todos">- Elija grupo -</option>
+                        {% for group in groups %}
+                            <option value="{{ group.__toString() }}">{{ group.__toString() }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
         </div>
-        <div id='calendar'></div>
+        <div id='calendar' class="z-depth-1 p-2"></div>
     </div>
 
     <script type="text/javascript">
@@ -43,10 +50,12 @@
         let selectGroupCalendar = function () {
             let events = "";
             let arrayEvents = [];
+            let group = $(this).val();
+            $('#grupoCalendar').text(' / '+ group);
             $.ajax({
                 type: "GET",
                 url: "{{ path('get_events_data') }}",
-                data: {'group': $(this).val()},
+                data: {'group': group},
                 success: function (response) {
                     events = JSON.parse(response.events);
 
