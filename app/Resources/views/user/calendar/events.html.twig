@@ -1,0 +1,56 @@
+{% extends 'user/base.html.twig' %}
+{% block title %}SICO: Eventos calendario{% endblock %}
+{% block body %}
+    <h2>Gestión de eventos</h2>
+    <a href="{{ path('new_event') }}" class="waves-effect waves-light btn">Crear evento</a>
+    <table class="responsive-table z-depth-1 centered mt-2">
+        <thead class="table-sticky">
+        <tr>
+            <th>Módulo</th>
+            <th>Día</th>
+            <th>Grupo</th>
+            <th>Hora de inicio</th>
+            <th>Hora de fin</th>
+            <th>Color</th>
+            <th>Modificar</th>
+            <th>eliminar</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.module }}</td>
+                <td>{{ event.weekDay }}</td>
+                <td>{{ event.gr }}</td>
+                <td>{{ event.initHour|date("G:i") }}</td>
+                <td>{{ event.finalHour|date("G:i") }}</td>
+                <td style="background-color: {{ event.color }}"></td>
+                <td>
+                    <a href="{{ path('edit_event', {'id': event.id}) }}">
+                        <i class="small material-icons">edit</i>
+                    </a>
+                </td>
+                <td>
+                    <a data-modal="modalCycle" href="{{ path('delete_event', {'id': event.id}) }}"
+                       class="modalDelete modal-trigger">
+                        <i class="small material-icons red-text">delete</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal Structure -->
+    <div id="modalCycle" class="modal">
+        <div class="modal-content">
+            <p>¿Está seguro de borrar el ciclo?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#"
+               class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+    </div>
+{% endblock %}

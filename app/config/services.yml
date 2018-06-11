@@ -46,6 +46,9 @@ services:
     app.courseCycleHelper:
         class: AppBundle\Services\CourseCycleHelper
         arguments: ["@doctrine.orm.entity_manager"]
+    app.eventsHelper:
+            class: AppBundle\Services\EventsHelper
+            arguments: ["@doctrine.orm.entity_manager"]
     app.twig.app_extension:
             class: AppBundle\Twig\AppExtension
             tags:

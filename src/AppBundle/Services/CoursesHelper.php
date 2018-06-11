@@ -17,9 +17,17 @@ class CoursesHelper
 
     public function getCourses()
     {
-        /** @var SchoolYearRepository $cycleRepository */
+        /** @var SchoolYearRepository $coursesRepository */
         $coursesRepository = $this->em->getRepository('AppBundle:SchoolYear');
 
         return $coursesRepository->getCourses();
+    }
+
+    public function getCourseByConvocatory($currentConvocatory)
+    {
+        /** @var SchoolYearRepository $coursesRepository */
+        $coursesRepository = $this->em->getRepository('AppBundle:SchoolYear');
+
+        return $coursesRepository->getCourseByConvocatory($currentConvocatory);
     }
 }

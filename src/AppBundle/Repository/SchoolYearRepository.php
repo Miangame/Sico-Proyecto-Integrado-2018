@@ -19,4 +19,16 @@ class SchoolYearRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->findOneBy(array(), array('course' => 'DESC'));
     }
+
+    public function getCourseByConvocatory($currentConvocatory)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('sy.id')
+            ->from('AppBundle:Convocatory', 'co')
+            ->join('co.schoolYear', 'sy')
+            ->where("co.id=:currentConvocatory")
+            ->setParameter('currentConvocatory', $currentConvocatory);
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

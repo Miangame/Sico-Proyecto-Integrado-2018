@@ -38,4 +38,17 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
+
+    public function getModulesBySchoolYear($currentSchoolYear)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('m')
+            ->from('AppBundle:Module', 'm')
+            ->join('m.distributions_module_teacher', 'dmt')
+            ->where("dmt.schoolYear=:current_schoolYear")
+            ->setParameter('current_schoolYear', $currentSchoolYear);
+
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
