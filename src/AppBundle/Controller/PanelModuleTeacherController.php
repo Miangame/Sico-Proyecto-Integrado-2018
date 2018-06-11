@@ -271,7 +271,32 @@ class PanelModuleTeacherController extends Controller
 
         /** @var ModulesHelper $modulesHelper */
         $modulesHelper = $this->get('app.modulesHelper');
-        $sumHours = $modulesHelper->getHoursByCourseCycle($_GET["course"]);
+        $sumHours = $modulesHelper->getHoursByCourseCycle($_GET["course"], $_GET["schoolYear"]);
+
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+
+        $response->setData(array(
+            'response' => 'success',
+            'hours' => $serializer->serialize($sumHours, 'json')
+        ));
+        return $response;
+    }
+
+    /**
+     * @Route("/getTotalHoursData", name="get_totalHours_data")
+     * @Method({"GET"})
+     */
+    public function getTotalHoursData(Request $request)
+    {
+        $encoders = array(new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+
+        $serializer = new Serializer($normalizers, $encoders);
+
+        /** @var ModulesHelper $modulesHelper */
+        $modulesHelper = $this->get('app.modulesHelper');
+        $sumHours = $modulesHelper->getTotalHoursSchoolYear($_GET["schoolYear"]);
 
         $response = new JsonResponse();
         $response->setStatusCode(200);
