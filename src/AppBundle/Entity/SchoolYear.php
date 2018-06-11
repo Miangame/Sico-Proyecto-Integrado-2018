@@ -45,6 +45,11 @@ class SchoolYear
     private $convocatories;
 
     /**
+     * @ORM\OneToMany(targetEntity="EventCalendar", mappedBy="schoolYear")
+     */
+    private $events;
+
+    /**
      * Get id
      *
      * @return int
@@ -191,5 +196,39 @@ class SchoolYear
     public function getConvocatories()
     {
         return $this->convocatories;
+    }
+
+    /**
+     * Add event
+     *
+     * @param \AppBundle\Entity\EventCalendar $event
+     *
+     * @return SchoolYear
+     */
+    public function addEvent(\AppBundle\Entity\EventCalendar $event)
+    {
+        $this->events[] = $event;
+
+        return $this;
+    }
+
+    /**
+     * Remove event
+     *
+     * @param \AppBundle\Entity\EventCalendar $event
+     */
+    public function removeEvent(\AppBundle\Entity\EventCalendar $event)
+    {
+        $this->events->removeElement($event);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEvents()
+    {
+        return $this->events;
     }
 }

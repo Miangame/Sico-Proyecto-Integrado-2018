@@ -39,4 +39,12 @@ class ModulesHelper
         return $moduleRepository->getHoursByCourseCycle($courseCycle);
     }
 
+    public function getModulesBySchoolYear($currentSchoolYear)
+    {
+        /** @var ModuleRepository $moduleRepository */
+        $moduleRepository = $this->em->getRepository('AppBundle:Module');
+
+        return $moduleRepository->getModulesBySchoolYear($currentSchoolYear);
+    }
+
 }
