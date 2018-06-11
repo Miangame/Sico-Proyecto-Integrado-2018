@@ -14,6 +14,7 @@
     <a href="{{ path('new_distribution_module_teacher') }}" class="waves-effect waves-light btn">Crear asignación</a>
     <div id="containerSelectCycleStudent">
         <select name="" id="selectCourseDistribution">
+            <option value="todos">- Elija año -</option>
             {% for course in courses %}
                 <option value="{{ course.course }}">{{ course.course }}</option>
             {% endfor %}
@@ -53,32 +54,32 @@
         </tr>
         </thead>
         <tbody id="distributionTable">
-        {% for moduleTeacher in modulesTeachers %}
-            <tr>
-                <td>{{ moduleTeacher.teacher }}</td>
-                <td>{{ moduleTeacher.module }}</td>
-                <td>{{ moduleTeacher.gr }}</td>
-                <td>{{ moduleTeacher.hours }}</td>
-                <td>{{ moduleTeacher.course }}</td>
-                {% if moduleTeacher.desdoble %}
-                    <td><i class="small material-icons green-text">check</i></td>
-                {% else %}
-                    <td><i class="small material-icons red-text">close</i></td>
-                {% endif %}
-                <td>
-                    <a href="{{ path('edit_distribution_module_teacher', {'id': moduleTeacher.id}) }}">
-                        <i class="small material-icons">edit</i>
-                    </a>
-                </td>
-                <td>
-                    <a data-modal="modalModuleTeacher"
-                       href="{{ path('delete_distribution_module_teacher', {'id': moduleTeacher.id}) }}"
-                       class="modalDelete modal-trigger">
-                        <i class="small material-icons red-text">delete</i>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
+        {#{% for moduleTeacher in modulesTeachers %}#}
+        {#<tr>#}
+        {#<td>{{ moduleTeacher.teacher }}</td>#}
+        {#<td>{{ moduleTeacher.module }}</td>#}
+        {#<td>{{ moduleTeacher.gr }}</td>#}
+        {#<td>{{ moduleTeacher.hours }}</td>#}
+        {#<td>{{ moduleTeacher.course }}</td>#}
+        {#{% if moduleTeacher.desdoble %}#}
+        {#<td><i class="small material-icons green-text">check</i></td>#}
+        {#{% else %}#}
+        {#<td><i class="small material-icons red-text">close</i></td>#}
+        {#{% endif %}#}
+        {#<td>#}
+        {#<a href="{{ path('edit_distribution_module_teacher', {'id': moduleTeacher.id}) }}">#}
+        {#<i class="small material-icons">edit</i>#}
+        {#</a>#}
+        {#</td>#}
+        {#<td>#}
+        {#<a data-modal="modalModuleTeacher"#}
+        {#href="{{ path('delete_distribution_module_teacher', {'id': moduleTeacher.id}) }}"#}
+        {#class="modalDelete modal-trigger">#}
+        {#<i class="small material-icons red-text">delete</i>#}
+        {#</a>#}
+        {#</td>#}
+        {#</tr>#}
+        {#{% endfor %}#}
         </tbody>
     </table>
 
@@ -102,6 +103,16 @@
             let changeData = function () {
                 let distributions = "";
 
+                let tr, td, i, tdDesdoble;
+                let hours = "";
+                let group = $('#selectGroupDistribution option:selected').text();
+                let contadorHorasActuales = 0;
+                let contadorHorasDesdobleActuales = 0;
+                let textResumenHoras = "";
+                let textResumenHorasDesdoble = "";
+                let horasTotales = 0;
+                let horasTotalesDesdoble = 0;
+
                 $("tbody").html("");
                 $.ajax({
                         type: "GET",
@@ -112,6 +123,12 @@
                             let icon = "";
                             distributions = JSON.parse(response.distributions);
                             distributions.forEach(function (distribution) {
+                                if (distribution.desdoble) {
+                                    contadorHorasDesdobleActuales += distribution.hours
+                                } else {
+                                    contadorHorasActuales += distribution.hours
+                                }
+
                                 let id = distribution.id;
 
                                 let url = "{{ path('edit_distribution_module_teacher', {'id': 'idDist'}) }}";
@@ -144,6 +161,43 @@
                         }
                     }
                 );
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ path('get_totalHours_data') }}",
+                    data: {'schoolYear': $("#selectCourseDistribution").val()},
+                    success: function (response) {
+                        hours = JSON.parse(response.hours);
+
+
+                        horasTotales = hours[0].hours;
+                        horasTotalesDesdoble = hours[0].hoursDesdoble;
+
+
+                        textResumenHoras = contadorHorasActuales + "/" + horasTotales;
+                        textResumenHorasDesdoble = contadorHorasDesdobleActuales + "/" + horasTotalesDesdoble;
+
+                        if (contadorHorasActuales > horasTotales) {
+                            resumenHoras.addClass("warning_up_state");
+                        } else if (contadorHorasActuales > horasTotales) {
+                            resumenHoras.addClass("warning_state");
+                        } else {
+                            resumenHoras.addClass("ok_state");
+                        }
+
+                        if (contadorHorasDesdobleActuales > horasTotalesDesdoble) {
+                            resumenHorasDesdoble.addClass("warning_up_state");
+                        } else if (contadorHorasDesdobleActuales > horasTotalesDesdoble) {
+                            resumenHorasDesdoble.addClass("warning_state");
+                        } else {
+                            resumenHorasDesdoble.addClass("ok_state");
+                        }
+
+                        resumenHoras.html(textResumenHoras);
+                        resumenHorasDesdoble.html(textResumenHorasDesdoble);
+
+                    }
+                });
             };
 
             let changeCourse = function () {
@@ -192,7 +246,7 @@
                 $.ajax({
                     type: "GET",
                     url: "{{ path('get_hours_data') }}",
-                    data: {'course': $(this).val()},
+                    data: {'course': $(this).val(), 'schoolYear': $("#selectCourseDistribution").val()},
                     success: function (response) {
                         hours = JSON.parse(response.hours);
                         if (group === "- Elija curso -") {
@@ -232,49 +286,12 @@
             };
 
             $(function () {
-                resumenHoras = $("#resumenHoras");
-                resumenHorasDesdoble = $("#resumenHorasDesdoble");
-
-                let td, tdDesdoble;
-                let tr = $("#distributionTable tr");
-                let contadorHorasActuales = 0;
-                let contadorHorasDesdobleActuales = 0;
-                let horasTotales = {{ totalHours[0].totalHours }};
-                let horasTotalesDesdoble = {{ totalHours[0].totalHoursDesdoble }};
-
                 $("#selectCourseDistribution").on("change", changeData);
                 $("#selectGroupDistribution").on("change", changeCourse);
 
-                for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[3];
-                    tdDesdoble = tr[i].getElementsByTagName("td")[5];
-                    if (tr[i].style.display === "") {
-                        if (tdDesdoble.getElementsByTagName("i")[0].innerHTML === "close") {
-                            contadorHorasActuales += parseInt(td.innerHTML);
-                        } else if (tdDesdoble.getElementsByTagName("i")[0].innerHTML === "check") {
-                            contadorHorasDesdobleActuales += parseInt(td.innerHTML);
-                        }
-                    }
-                }
+                resumenHoras = $("#resumenHoras");
+                resumenHorasDesdoble = $("#resumenHorasDesdoble");
 
-                if (contadorHorasActuales > horasTotales) {
-                    resumenHoras.addClass("warning_up_state");
-                } else if (contadorHorasActuales > horasTotales) {
-                    resumenHoras.addClass("warning_state");
-                } else {
-                    resumenHoras.addClass("ok_state");
-                }
-
-                if (contadorHorasDesdobleActuales > horasTotalesDesdoble) {
-                    resumenHorasDesdoble.addClass("warning_up_state");
-                } else if (contadorHorasDesdobleActuales > horasTotalesDesdoble) {
-                    resumenHorasDesdoble.addClass("warning_state");
-                } else {
-                    resumenHorasDesdoble.addClass("ok_state");
-                }
-
-                resumenHoras.html(contadorHorasActuales + "/" + horasTotales);
-                resumenHorasDesdoble.html(contadorHorasDesdobleActuales + "/" + horasTotalesDesdoble);
             });
         }
     </script>

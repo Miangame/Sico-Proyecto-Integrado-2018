@@ -31,12 +31,12 @@ class ModulesHelper
         return $moduleRepository->getAllModules();
     }
 
-    public function getHoursByCourseCycle($courseCycle)
+    public function getHoursByCourseCycle($courseCycle, $schoolYear)
     {
         /** @var ModuleRepository $moduleRepository */
         $moduleRepository = $this->em->getRepository('AppBundle:Module');
 
-        return $moduleRepository->getHoursByCourseCycle($courseCycle);
+        return $moduleRepository->getHoursByCourseCycle($courseCycle,$schoolYear);
     }
 
     public function getModulesBySchoolYear($currentSchoolYear)
@@ -45,6 +45,14 @@ class ModulesHelper
         $moduleRepository = $this->em->getRepository('AppBundle:Module');
 
         return $moduleRepository->getModulesBySchoolYear($currentSchoolYear);
+    }
+
+    public function getTotalHoursSchoolYear($schoolYear)
+    {
+        /** @var ModuleRepository $moduleRepository */
+        $moduleRepository = $this->em->getRepository('AppBundle:Module');
+
+        return $moduleRepository->getTotalHoursSchoolYear($schoolYear);
     }
 
 }

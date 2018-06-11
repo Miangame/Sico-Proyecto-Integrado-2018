@@ -27,16 +27,33 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
         return $this->findAll();
     }
 
-    public function getHoursByCourseCycle($courseCycle)
+    public function getHoursByCourseCycle($courseCycle, $schoolYear)
     {
+        $sumHours = 0;
+        $sumHoursDesdoble = 0;
+        $arrayResult = array();
+
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('SUM(m.hours) hours, SUM(m.hoursDesdoble) hoursDesdoble')
+            ->select('DISTINCT m')
             ->from('AppBundle:Module', 'm')
+            ->join('m.distributions_module_teacher', 'dmt')
+            ->join('dmt.schoolYear', 'sy')
             ->where("m.course_cycle=:courseCycle")
-            ->setParameter('courseCycle', $courseCycle);
+            ->andWhere('sy.course=:schoolYear')
+            ->setParameter('courseCycle', $courseCycle)
+            ->setParameter('schoolYear', $schoolYear);
 
+        $result = $qb->getQuery()->getArrayResult();
 
-        return $qb->getQuery()->getArrayResult();
+        foreach ($result as $item) {
+            $sumHours += $item["hours"];
+            $sumHoursDesdoble += $item["hoursDesdoble"];
+        }
+
+        $arrayResult[0]["hours"] = $sumHours;
+        $arrayResult[0]["hoursDesdoble"] = $sumHoursDesdoble;
+
+        return $arrayResult;
     }
 
     public function getModulesBySchoolYear($currentSchoolYear)
@@ -50,5 +67,32 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
 
 
         return $qb->getQuery()->getArrayResult();
+    }
+
+    public function getTotalHoursSchoolYear($schoolYear)
+    {
+        $sumHours = 0;
+        $sumHoursDesdoble = 0;
+        $arrayResult = array();
+
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('DISTINCT m')
+            ->from('AppBundle:Module', 'm')
+            ->join('m.distributions_module_teacher', 'dmt')
+            ->join('dmt.schoolYear', 'sy')
+            ->andWhere('sy.course=:schoolYear')
+            ->setParameter('schoolYear', $schoolYear);
+
+        $result = $qb->getQuery()->getArrayResult();
+
+        foreach ($result as $item) {
+            $sumHours += $item["hours"];
+            $sumHoursDesdoble += $item["hoursDesdoble"];
+        }
+
+        $arrayResult[0]["hours"] = $sumHours;
+        $arrayResult[0]["hoursDesdoble"] = $sumHoursDesdoble;
+
+        return $arrayResult;
     }
 }
