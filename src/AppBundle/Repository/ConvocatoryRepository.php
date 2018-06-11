@@ -28,7 +28,7 @@ class ConvocatoryRepository extends \Doctrine\ORM\EntityRepository
                                       FROM AppBundle:Convocatory cv,
                                       AppBundle:SchoolYear sy
                                       WHERE cv.schoolYear = sy.id
-                                      ORDER BY cv.id DESC
+                                      ORDER BY sy.course DESC
                                       " . $query . " ")->getArrayResult();
     }
 
