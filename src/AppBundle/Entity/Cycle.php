@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -13,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CycleRepository")
  * @UniqueEntity("name")
  * @UniqueEntity("initials")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Cycle
 {
@@ -350,5 +352,24 @@ class Cycle
     public function getCoursesCycles()
     {
         return $this->courses_cycles;
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function postPersistSCycle(LifecycleEventArgs $args)
+    {
+        $em = $args->getEntityManager();
+        $courseCyclePrimary = new Course_cycle();
+        $courseCyclePrimary->setCycle($this);
+        $courseCyclePrimary->setCourse(1);
+        $em->persist($courseCyclePrimary);
+        $em->flush();
+
+        $courseCycleSecundary = new Course_cycle();
+        $courseCycleSecundary->setCycle($this);
+        $courseCycleSecundary->setCourse(2);
+        $em->persist($courseCycleSecundary);
+        $em->flush();
     }
 }
