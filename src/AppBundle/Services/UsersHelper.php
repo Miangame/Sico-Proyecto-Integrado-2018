@@ -48,7 +48,7 @@ class UsersHelper
      * @param $convocatory
      * @return array
      */
-    public function getUserDistribution($convocatory)
+    public function getUserDistribution($convocatory, $currentYear)
     {
 
         /** @var UserRepository $teacherRepository */
@@ -75,21 +75,22 @@ class UsersHelper
                 $numPI = $teacherRepository->getPIDistribution($convocatory, $teacher->getId());
                 $sumTeacher = $numFCT + $numPI;
                 $reduct = $this->calcReduction(
-                    $distributionRepository->getHoursByUserId(
-                        $teacher->getId()
+                    $distributionRepository->getHours2ByUserId(
+                        $teacher->getId(),
+                        $currentYear
                     )
                 );
                 $porc2 = $this->calcPorc2(
-                    $distributionRepository->getHours2ByUserId($teacher->getId()),
+                    $distributionRepository->getHours2ByUserId($teacher->getId(), $currentYear),
                     $distributionRepository->getHours2()
                 );
                 $porcCycle = $this->calcPorcCycle(
-                    $distributionRepository->getHoursByUserId($teacher->getId()),
+                    $distributionRepository->getHoursByUserId($teacher->getId(), $currentYear),
                     $cycleRepository->getHours()
                 );
                 $porcReduct = $this->calcPorcReduct(
                     $reduct,
-                    $this->sumTotalReduct($teacherResult, $distributionRepository)
+                    $this->sumTotalReduct($teacherResult, $distributionRepository, $currentYear)
                 );
                 $ideal2 = ($sumTotalPond * $porc2) / 100;
                 $idealCycle = ($sumTotalPond * $porcCycle) / 100;
@@ -132,12 +133,13 @@ class UsersHelper
      * @param $distributionRepository
      * @return float|int
      */
-    private function sumTotalReduct($teachers, $distributionRepository)
+    private function sumTotalReduct($teachers, $distributionRepository, $schoolYear)
     {
         $sum = 0;
         foreach ($teachers as $teacher) {
             $sum += $this->calcReduction($distributionRepository->getHoursByUserId(
-                $teacher->getId()
+                $teacher->getId(),
+                $schoolYear
             ));
         }
 

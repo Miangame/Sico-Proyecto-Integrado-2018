@@ -17,10 +17,15 @@ class IndexWebController extends Controller
      */
     public function indexAction(Request $request)
     {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $emCov = $entityManager->getRepository('AppBundle:Convocatory');
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
+        $currentYear = $emCov->find($current_convocatory)->getSchoolYear();
+
         return $this->render('user/index.html.twig', array(
             'students' => $this->get('app.studentsHelper')->getStudentsDistribution($current_convocatory),
-            'users' => $this->get('app.usersHelper')->getUserDistribution($current_convocatory),
+            'users' => $this->get('app.usersHelper')->getUserDistribution($current_convocatory, $currentYear),
             'convocatory' => $this->get('app.convocatoriesHelper')->getConvocatory($current_convocatory)
         ));
     }
