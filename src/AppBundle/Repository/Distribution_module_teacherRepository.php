@@ -60,19 +60,21 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
         return $qb->getQuery()->getArrayResult();
     }
 
-    public function getHoursByUserId($userId)
+    public function getHoursByUserId($userId, $schoolYear)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('SUM(dmt.hours)')
             ->from('AppBundle:Distribution_module_teacher', 'dmt')
             ->where('dmt.teacher=:id_user')
+            ->andWhere('dmt.schoolYear=:schoolYear')
+            ->setParameter('schoolYear', $schoolYear)
             ->setParameter('id_user', $userId);
 
         $result = $qb->getQuery()->getArrayResult()[0][1];
         return ($result ? $result : 0);
     }
 
-    public function getHours2ByUserId($userId)
+    public function getHours2ByUserId($userId, $schoolYear)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('SUM(dmt.hours)')
@@ -80,7 +82,9 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
             ->join('dmt.module', 'm')
             ->join('m.course_cycle', 'cc')
             ->where('dmt.teacher = :id_user')
+            ->andWhere('dmt.schoolYear=:schoolYear')
             ->andWhere('cc.course = 2')
+            ->setParameter('schoolYear', $schoolYear)
             ->setParameter('id_user', $userId);
 
         $result = $qb->getQuery()->getArrayResult()[0][1];
