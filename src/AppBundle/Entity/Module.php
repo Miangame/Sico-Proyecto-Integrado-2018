@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Module
  *
  * @ORM\Table(name="Module")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ModuleRepository")
+ * @UniqueEntity(fields={"name", "initials", "course_cycle"})
  */
 class Module
 {
@@ -28,7 +30,7 @@ class Module
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(name="initials", type="string", unique=true, nullable=false)
+     * @ORM\Column(name="initials", type="string", nullable=false)
      */
     private $initials;
 
@@ -200,7 +202,7 @@ class Module
 
     public function __toString()
     {
-        return $this->getInitials();
+        return $this->getInitials().'-'.$this->getCourseCycle();
     }
 
     /**

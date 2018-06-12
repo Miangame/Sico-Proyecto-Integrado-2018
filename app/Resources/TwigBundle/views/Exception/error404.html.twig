@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="containerErrorServer">
+        <img src="{{ asset('img/Error404SICO.svg') }}" alt="">
+        <a href="{{ path('dashboard') }}" class="waves-effect waves-light btn btn_back_error">Volver</a>
+    </div>
+{% endblock %}

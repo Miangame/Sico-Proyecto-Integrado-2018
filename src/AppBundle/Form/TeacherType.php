@@ -36,11 +36,13 @@ class TeacherType extends AbstractType
                 'constraints' => array(
                     new NotBlank()
                 )))
+            /*
             ->add('img', FileType::class, array(
                 'data_class' => null,
                 'label' => 'Foto',
                 'attr' => ['class' => 'file-field input-field', 'accept' => 'image/*']
             ))
+            */
             ->add('plainPassword', PasswordType::class, array(
                 'label' => 'Contraseña',
                 'constraints' => array(

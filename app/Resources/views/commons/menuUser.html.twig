@@ -18,8 +18,13 @@
                 </li>
             </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li>
-                    <a href="{{ path('user_config', {'id': user.id}) }}"><h5 class="mr-4">{{ convocatory }}</h5></a>
+                <li class="mr-4 mt-1">
+                    <a href="{{ path('user_config', {'id': user.id}) }}"><h6>{{ convocatory }}</h6></a>
+                </li>
+                <li class="ml-1">
+                    <a href="{{ path('perfil',{'id':user.getId()}) }}" class="brand-logo img_user_distribution mt-1 right">
+                        <img src="{{ asset('img/photos/' ~ img) }}" alt="">
+                    </a>
                 </li>
             </ul>
         </div>
