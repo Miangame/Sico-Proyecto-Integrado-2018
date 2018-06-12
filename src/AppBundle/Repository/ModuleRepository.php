@@ -13,7 +13,7 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
     public function getModules()
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('m, CONCAT(cc.course, cy.name) course')
+            ->select('m, CONCAT(cc.course, cy.initials) course')
             ->from('AppBundle:Module', 'm')
             ->join('m.course_cycle', 'cc')
             ->join('cc.cycle', 'cy');

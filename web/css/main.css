@@ -254,10 +254,6 @@ form > div > div > ul > li {
   color: #ed1515;
 }
 
-.containerPrincipal {
-  min-height: 90vh;
-}
-
 .img-perfil-company {
   height: 100px;
 }
@@ -354,6 +350,7 @@ main {
   background: #6f6f6f;
   border-radius: 50%;
   overflow: hidden;
+  font-size: 0px !important;
   padding: 0px !important;
 }
 
@@ -371,4 +368,39 @@ main {
 
 .fc-day-grid, .fc-divider, .fc-toolbar {
   display: none !important;
+}
+
+.containerErrorServer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  height: 100vh;
+}
+
+.containerErrorServer img {
+  width: 50vw;
+}
+
+@keyframes hover_btn_error {
+  0% {
+    min-width: 10%;
+  }
+  50% {
+    min-width: 30%;
+  }
+  100% {
+    min-width: 20%;
+  }
+}
+
+.btn_back_error {
+  border-radius: 100px;
+  animation: hover_btn_error 0.5s;
+  background: #BF4089;
+  min-width: 20%;
+}
+
+.btn_back_error:hover {
+  min-width: 20%;
 }
