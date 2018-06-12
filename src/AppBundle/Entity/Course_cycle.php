@@ -181,6 +181,6 @@ class Course_cycle
 
     public function __toString()
     {
-        return $this->getCourse() . $this->getCycle();
+        return $this->getCourse() . $this->getCycle()->getInitials();
     }
 }

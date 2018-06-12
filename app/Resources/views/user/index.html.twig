@@ -102,8 +102,9 @@
                         {% set img = user.getTeacher().getImg() %}
                     {% endif %}
                     <tr>
+
                         <td><div class="img_user_distribution"><img src="{{ asset('img/photos/' ~ img) }}" alt=""></div></td>
-                        <td>{{ user.getTeacher() }}</td>
+                        <td>{{ user.getTeacher().getUsername() }}</td>
                         <td>{{ user.getPI() }}</td>
                         <td>{{ user.getFCT() }}</td>
                         <td class="cl_reduction cl-h">{{ user.getReduction() }}</td>
