@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -12,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="School_year")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SchoolYearRepository")
  * @UniqueEntity("course")
+ * @ORM\HasLifecycleCallbacks()
  */
 class SchoolYear
 {
@@ -230,5 +232,25 @@ class SchoolYear
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function postPersistSSchoolYear(LifecycleEventArgs $args)
+    {
+        $em = $args->getEntityManager();
+        $convocatoryPrimary = new Convocatory();
+        $convocatoryPrimary->setSchoolYear($this);
+        $convocatoryPrimary->setConvocatory('MARZO');
+        $em->persist($convocatoryPrimary);
+        $em->flush();
+
+        $convocatoryPrimary = new Convocatory();
+        $convocatoryPrimary->setSchoolYear($this);
+        $convocatoryPrimary->setConvocatory('SEPTIEMBRE');
+        $em->persist($convocatoryPrimary);
+        $em->flush();
+
     }
 }

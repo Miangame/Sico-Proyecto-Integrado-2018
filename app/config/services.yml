@@ -4,6 +4,12 @@ parameters:
     #parameter_name: value
 
 services:
+    AppBundle\Entity\SchoolYear:
+        tags:
+          - { name: doctrine.orm.entity_manager, event: postPersistSSchoolYear }
+    AppBundle\Entity\Cycle:
+        tags:
+          - { name: doctrine.orm.entity_manager, event: postPersistSCycle }
     app.studentsHelper:
         class: AppBundle\Services\StudentsHelper
         arguments: ["@doctrine.orm.entity_manager"]
