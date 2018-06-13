@@ -4,23 +4,97 @@ Desarrollado por `Javier Ponferrada López y Miguel Ángel Gavilán Merino`
 
 Para mas info: [aquí](https://github.com/Miangame/Sico-Proyecto-Integrado-2018/wiki)
 
-# Instalación
-Éstos son los pasos a seguir para poner la web en producción:
-1. Tener instalado todos los requerimientos descritos en la sección ([REQUISITOS](https://github.com/Miangame/Sico-Proyecto-Integrado-2018/wiki/Requisitos))
+A continuación se detallarán los pasos a seguir para configurar el servidor y poner la web en producción:
 
-2. SICO dispone de un gestor de dependencias llamado "Composer", por lo que primero tendremos que hacer será instalar composer de forma global en nuestro sistema:
-    - Instalar paquetes necesarios `$ sudo apt-get install curl php-cli php-mbstring git unzip`
-    - Aseguramos que estamos en nuestro directorio personal `$ cd ~`
-    - Descargar instalador de composer `$ curl -sS https://getcomposer.org/installer -o composer-setup.php`
-    - Comprobar que es la última versión de composer `$ php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7506b8cb2d1c292f042046c5a994c43155c0be6190fa0355160742ab2e1c88d40d5be660b410') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"`
-    - Instalar composer `$ sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer`
+# Configuración del servidor
+1. Update y upgrade del servidor: 
+    - `apt-get update`
+    - `apt-get upgrade`
 
-3. Instalamos todas las dependencias necesarias mediante éste comando:
-    - `$ composer install`
+2. Instalar Apache2: 
+    - `apt-get install apache2`
 
-4. Symfony requiere que borremos caché y demos permisos por lo que tendremos que ejecutar el siguiente script:
-    - `$ sh scripts/deploy.sh`
+3. Instalar MySql:
+    - `apt-get install mysql-server`
+    - `mysql_secure_installation`
+        - Delete anonymous users -> 'Yes'
+        - Disallow root login remotely -> 'No'
+        - Remove test database -> 'Yes'
+        - Reload privileges -> 'Yes'
 
-5. SICO dispone de un ORM llamado "Doctrine" y el cual nos va a generar transformar todas las entidades(objetos) a tablas en la BBDD. Esto es posible mediante los siguientes comandos:
-    - Aseguramos que las entidades están completas `$ php bin/console doctrine:g:entities AppBundle`
-    - Generamos las tablas en la BBDD `$ php bin/console doctrine:schema:update --force`
+4. Instalar phpmyadmin:
+    - `apt-get install phpmyadmin`
+        - Seleccionar apache2
+        - ¿Desea configurar la base de datos para phpmyadmin con «dbconfig-common»? -> 'Yes'
+        - Entrar en phpmyadmin y crear base de datos llamada "SICO"
+
+5. Instalar PHP7.2:
+    - `wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg`
+    - `echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list`
+    - `apt-get update`
+    - `apt-get install php7.2`
+    - `apt-get install php7.2-cli php7.2-common php7.2-curl php7.2-gd php7.2-json php7.2-mbstring php7.2-mysql php7.2-opcache php7.2-readline php7.2-xml`
+
+6. Instalar composer de manera global:
+    - `curl -sS https://getcomposer.org/installer | php`
+    - `mv composer.phar /usr/local/bin/composer`
+    
+7. Configurar apache:
+    - `nano /etc/apache2/sites-available/000-default.conf` (<span style="color:red">Comentar TODO lo que hay y crear nuevo virtual host</span>)
+    ```
+    <VirtualHost *:80>
+            ServerName domain.tld
+            ServerAlias www.domain.tld
+    
+            DocumentRoot /var/www/html/web
+            <Directory /var/www/html/web>
+                # enable the .htaccess rewrites
+                AllowOverride All
+                Order allow,deny
+                Allow from All
+            </Directory>
+    
+            ErrorLog /var/log/apache2/sico_error.log
+            CustomLog /var/log/apache2/sico_access.log combined
+        </VirtualHost>
+    ```
+    - `service apache2 restart`
+
+# Poner la web en producción
+
+1. Ir a la carpeta /var/www/html/. Si es la primera instalación, borrar todo el contenido de dicha carpeta.
+
+2. Inicializar git:
+    - `git init`
+
+3. Añadir la url del repositorio remoto:
+    - `git remote add origin https://github.com/Miangame/Sico-Proyecto-Integrado-2018.git`
+
+4. Descargarse el proyecto:
+    - `git pull origin master`
+
+5. Instalar las dependencias con composer
+    - `composer install` (pulsar INTRO cuando llegue a los parametros) (<span style="color:red">Saltará un error</span>)
+
+6. Configurar el archivo parameters.yml
+    - `nano app/config/parameters.yml` (Configurar las siguientes líneas)
+    ```yaml
+     database_name: SICO
+     database_user: #{usuario bbdd}
+     database_password: #{password bbdd}
+     mailer_transport: gmail #{cambiar en caso de ser otro}
+     mailer_host: smtp.gmail.com #{cambiar en caso de ser otro}
+     mailer_user: #{correo que se vaya a usar}
+     mailer_password: #{contraseña del correo}
+     session_max_idle_time: 1800
+
+7. Ejecutar lo siguiente para borrar la caché almacenada, dar permisos y actualizar la base de datos
+    - `php bin/console d:g:entities AppBundle`
+    - `sh scripts/deploy.sh`
+
+# Actualizar cambios
+
+1. Descargar ultimos cambios del repositorio
+    - `git pull origin master`
+    - `php bin/console d:g:entities AppBundle`
+    - `sh scripts/deploy.sh`
