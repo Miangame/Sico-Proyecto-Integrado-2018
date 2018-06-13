@@ -51,27 +51,27 @@ class PanelTeacherController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var File $file */
-            $file = $form['img']->getData();
-            if ($file != null) {
-                $mimeType = $file->getMimeType();
-                switch ($mimeType) {
-                    case 'image/gif':
-                        $ext = ".gif";
-                        break;
-                    case 'image/jpeg':
-                        $ext = ".jpeg";
-                        break;
-                    case 'image/png':
-                        $ext = ".png";
-                        break;
-                }
-                $filename = $form['username']->getData() . $ext;
-                $file->move(
-                    $this->getParameter('photos_directory'),
-                    $filename
-                );
-            }
+//            /** @var File $file */
+//            $file = $form['img']->getData();
+//            if ($file != null) {
+//                $mimeType = $file->getMimeType();
+//                switch ($mimeType) {
+//                    case 'image/gif':
+//                        $ext = ".gif";
+//                        break;
+//                    case 'image/jpeg':
+//                        $ext = ".jpeg";
+//                        break;
+//                    case 'image/png':
+//                        $ext = ".png";
+//                        break;
+//                }
+//                $filename = $form['username']->getData() . $ext;
+//                $file->move(
+//                    $this->getParameter('photos_directory'),
+//                    $filename
+//                );
+//            }
             /** @var User $teachertRequest */
             $teachertRequest = $form->getData();
 
