@@ -269,9 +269,9 @@ class PanelModuleTeacherController extends Controller
 
         $serializer = new Serializer($normalizers, $encoders);
 
-        /** @var ModulesHelper $modulesHelper */
-        $modulesHelper = $this->get('app.modulesHelper');
-        $sumHours = $modulesHelper->getHoursByCourseCycle($_GET["course"], $_GET["schoolYear"]);
+        /** @var CourseCycleHelper $coursesCyclesHelper */
+        $coursesCyclesHelper = $this->get('app.courseCycleHelper');
+        $sumHours = $coursesCyclesHelper->getSumHours($_GET["course"]);
 
         $response = new JsonResponse();
         $response->setStatusCode(200);
@@ -294,9 +294,9 @@ class PanelModuleTeacherController extends Controller
 
         $serializer = new Serializer($normalizers, $encoders);
 
-        /** @var ModulesHelper $modulesHelper */
-        $modulesHelper = $this->get('app.modulesHelper');
-        $sumHours = $modulesHelper->getTotalHoursSchoolYear($_GET["schoolYear"]);
+        /** @var CyclesHelper $cyclesHelper */
+        $cyclesHelper = $this->get('app.cyclesHelper');
+        $sumHours = $cyclesHelper->getSumTotalHours();
 
         $response = new JsonResponse();
         $response->setStatusCode(200);
