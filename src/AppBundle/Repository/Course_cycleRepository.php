@@ -10,4 +10,27 @@ namespace AppBundle\Repository;
  */
 class Course_cycleRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getSumHoursByCourseCycle($courseCycle)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('cy.titularHours1 hours, cy.')
+            ->from('AppBundle:Course_cycle', 'cc')
+            ->join('cc.Cycle', 'cy')
+            ->where('cc.id=:courseCycle')
+            ->setParameter('courseCycle', $courseCycle);
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function getCourseCycleById($course)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('cc, cy.name cycle')
+            ->from('AppBundle:Course_cycle', 'cc')
+            ->join('cc.cycle', 'cy')
+            ->where('cc.id=:courseCycle')
+            ->setParameter('courseCycle', $course);
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

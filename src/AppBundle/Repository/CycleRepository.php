@@ -43,4 +43,28 @@ class CycleRepository extends \Doctrine\ORM\EntityRepository
         $result = $qb->getQuery()->getArrayResult();
         return $result;
     }
+
+    public function getHours1ByCourseName($courseName)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('c.titularHours1 totalHours, c.desdobleHours1 totalHoursDesdoble')
+            ->from('AppBundle:Cycle', 'c')
+            ->where('c.initials=:courseName')
+            ->setParameter('courseName', $courseName);
+
+        $result = $qb->getQuery()->getArrayResult();
+        return $result;
+    }
+
+    public function getHours2ByCourseName($courseName)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('c.titularHours2 totalHours, c.desdobleHours2 totalHoursDesdoble')
+            ->from('AppBundle:Cycle', 'c')
+            ->where('c.initials=:courseName')
+            ->setParameter('courseName', $courseName);
+
+        $result = $qb->getQuery()->getArrayResult();
+        return $result;
+    }
 }
