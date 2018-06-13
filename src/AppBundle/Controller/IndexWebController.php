@@ -21,7 +21,10 @@ class IndexWebController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $emCov = $entityManager->getRepository('AppBundle:Convocatory');
         $current_convocatory = $this->getUser()->getCurrentConvocatory();
-        $currentYear = $emCov->find($current_convocatory)->getSchoolYear();
+
+        $currentYear = null;
+        if($current_convocatory)
+            $currentYear = $emCov->find($current_convocatory)->getSchoolYear();
 
         return $this->render('user/index.html.twig', array(
             'students' => $this->get('app.studentsHelper')->getStudentsDistribution($current_convocatory),
