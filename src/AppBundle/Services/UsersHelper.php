@@ -124,7 +124,11 @@ class UsersHelper
      */
     private function calcPorcReduct($reduct, $totalReduct)
     {
-        return (($reduct * 100) / $totalReduct);
+        if ($totalReduct == 0) {
+            return 0;
+        } else {
+            return (($reduct * 100) / $totalReduct);
+        }
     }
 
     /**
