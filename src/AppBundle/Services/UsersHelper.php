@@ -126,9 +126,9 @@ class UsersHelper
     {
         if ($totalReduct == 0) {
             return 0;
-        } else {
-            return (($reduct * 100) / $totalReduct);
         }
+
+        return (($reduct * 100) / $totalReduct);
     }
 
     /**
@@ -160,6 +160,10 @@ class UsersHelper
      */
     private function calcPorcCycle($totalHoursTeacher, $totalHours)
     {
+        if ($totalHours == 0) {
+            return 0;
+        }
+
         return (($totalHoursTeacher * 100) / $totalHours);
     }
 
@@ -189,6 +193,9 @@ class UsersHelper
      */
     private function calcPorc2($total2HoursUser, $total2Hours)
     {
+        if ($total2Hours == 0) {
+            return 0;
+        }
         return (($total2HoursUser * 100) / $total2Hours);
     }
 
