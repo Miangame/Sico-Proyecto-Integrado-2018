@@ -10,7 +10,7 @@
             <select name="" id="selectCycleStudent">
                 <option value="todos">- Elija ciclo -</option>
                 {% for cycle in cycles %}
-                    <option value="{{ cycle.name }}">{{ cycle.name }}</option>
+                    <option value="{{ cycle.initials }}">{{ cycle.initials }}</option>
                 {% endfor %}
             </select>
         </div>
