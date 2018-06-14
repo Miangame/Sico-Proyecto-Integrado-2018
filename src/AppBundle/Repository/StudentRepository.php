@@ -80,7 +80,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
     public function getStudentsBySchoolYearConvocatory($schoolYear, $convocatory)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t, CONCAT(cc.course, cy.name, \'-\', u.gr) name, cy.name cycle, w.convocatory, x.course')
+            ->select('t, CONCAT(cc.course, cy.initials, \'-\', u.gr) name, cy.initials cycle, w.convocatory, x.course')
             ->from('AppBundle:Student', 't')
             ->join('t.group', 'u')
             ->join('u.course_cycle', 'cc')
