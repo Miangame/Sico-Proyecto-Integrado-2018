@@ -25,7 +25,7 @@ class Course_cycleRepository extends \Doctrine\ORM\EntityRepository
     public function getCourseCycleById($course)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('cc, cy.name cycle')
+            ->select('cc, cy.initials cycle')
             ->from('AppBundle:Course_cycle', 'cc')
             ->join('cc.cycle', 'cy')
             ->where('cc.id=:courseCycle')
