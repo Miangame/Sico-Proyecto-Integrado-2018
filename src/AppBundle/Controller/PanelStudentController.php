@@ -162,7 +162,8 @@ class PanelStudentController extends Controller
 
         /** @var Convocatory $convocatory */
         foreach ($convocatoriesHelper->getAllConvocatories() as $convocatory) {
-            $convocatories[$convocatory->__toString()] = $convocatory;
+            if($current_convocatory == $convocatory->getId())
+                $convocatories[$convocatory->__toString()] = $convocatory;
         }
 
         $options = array(
