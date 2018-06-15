@@ -47,7 +47,7 @@ class Distribution_module_teacherRepository extends \Doctrine\ORM\EntityReposito
     public function getDistribution($course)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(cc.course, cy.name) gr, c.course course, t.hours hours, t.desdoble desdoble')
+            ->select('t.id, m.initials module, CONCAT(u.first_name, \' \', u.last_name) teacher, CONCAT(cc.course, cy.initials) gr, c.course course, t.hours hours, t.desdoble desdoble')
             ->from('AppBundle:Distribution_module_teacher', 't')
             ->join('t.module', 'm')
             ->join('t.teacher', 'u')

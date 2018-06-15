@@ -12,19 +12,19 @@
 {% block body %}
     <h2>Gestión de curso/módulo/profesor</h2>
     <a href="{{ path('new_distribution_module_teacher') }}" class="waves-effect waves-light btn">Crear asignación</a>
-    <div id="containerSelectCycleStudent">
-        <select name="" id="selectCourseDistribution">
-            <option value="todos">- Elija año -</option>
-            {% for course in courses %}
-                <option value="{{ course.course }}">{{ course.course }}</option>
-            {% endfor %}
-        </select>
-    </div>
     <div id="containerSelectConvocatoryStudent">
         <select name="" id="selectGroupDistribution">
             <option value="todos">- Elija curso -</option>
             {% for course_cycle in courses_cycles %}
                 <option value="{{ course_cycle.id }}">{{ course_cycle.__toString() }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div id="containerSelectCycleStudent">
+        <select name="" id="selectCourseDistribution">
+            <option value="todos">- Elija curso académico -</option>
+            {% for course in courses %}
+                <option value="{{ course.course }}">{{ course.course }}</option>
             {% endfor %}
         </select>
     </div>
@@ -168,7 +168,6 @@
                     data: {'schoolYear': $("#selectCourseDistribution").val()},
                     success: function (response) {
                         hours = JSON.parse(response.hours);
-
 
                         horasTotales = hours[0].totalHours;
                         horasTotalesDesdoble = hours[0].totalHoursDesdoble;
