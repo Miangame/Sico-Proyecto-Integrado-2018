@@ -55,6 +55,9 @@ services:
     app.eventsHelper:
             class: AppBundle\Services\EventsHelper
             arguments: ["@doctrine.orm.entity_manager"]
+    app.requestCompany:
+            class: AppBundle\Services\RequestCompanyHelper
+            arguments: ["@doctrine.orm.entity_manager"]
     app.twig.app_extension:
             class: AppBundle\Twig\AppExtension
             tags:

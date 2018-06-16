@@ -382,6 +382,16 @@ main {
   width: 50vw;
 }
 
+.centerCheckboxTH {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centerCheckboxTH label {
+  margin-left: 10px;
+}
+
 @keyframes hover_btn_error {
   0% {
     min-width: 10%;

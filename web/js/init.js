@@ -36,4 +36,12 @@ $(document).ready(function () {
     $('.ch_hide').on('click',function(){
         $('.'+ $(this).data("column") ).toggleClass("hide-element")
     })
+
+    // Marcar todos los checkbox de solicitudes
+    $('#boxSolcAll').on('click',function(){
+        if($(this).prop('checked'))
+            $('.boxesSolc').prop('checked','checked');
+        else
+            $('.boxesSolc').prop('checked','');
+    });
 });

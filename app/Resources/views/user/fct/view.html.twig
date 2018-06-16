@@ -75,63 +75,73 @@
             </div>
         </div>
         <div id="solemp" class="col p-1 s12 ">
-            <h5>Solicitudes empresas</h5>
-            <div class="row">
-                <div class="col s12 right-align">
-                    <a href="{{ path('user_fct_reqcom') }}" class="waves-effect waves-light btn-small">
-                        <i class="material-icons left">cloud_upload</i>Importar
-                    </a>
+            <form action="{{ path('user_fct_massive_request_company')}}" method="post">
+                <h5>Solicitudes empresas</h5>
+                <div class="row">
+                    <div class="col s12 right-align">
+                        <button class="waves-effect waves-light btn-small green" type="submit" name="savemassive">
+                            <i class="material-icons left">save</i>Guardar como empresa
+                        </button>
+                        <button class="waves-effect waves-light btn-small red" type="submit" name="deletemassive">
+                            <i class="material-icons left">delete</i>Eliminar
+                        </button>
+                        <a href="{{ path('user_fct_reqcom') }}" class="waves-effect waves-light btn-small">
+                            <i class="material-icons left">cloud_upload</i>Importar
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <table class="responsive-table centered z-depth-1">
-                <thead class="table-sticky">
-                <tr>
-                    <th>Empresa</th>
-                    <th>CIF</th>
-                    <th>Alumnos solicitados</th>
-                    <th>Guardar empresa</th>
-                    <th>Mas info</th>
-                    <th>Eliminar</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for request in request_companies %}
+                <table class="responsive-table centered z-depth-1">
+                    <thead class="table-sticky">
                     <tr>
-                        <td>{{ request.getNameCompany() }}</td>
-                        <td>{{ request.getCif() }}</td>
-                        <td>{{ request.getNumberOfDaw() + request.getNumberOfAsir() }}</td>
-                        <td>
-                            <a href="{{ path('user_fct_new_com_req',{'id': request.getId()}) }}">
-                                <i class="small material-icons">save</i>
-                            </a>
-                        </td><td>
-                            <a href="{{ path('user_fct_show_request_company',{'id': request.getId()}) }}">
-                                <i class="small material-icons">info</i>
-                            </a>
-                        </td>
-                        <td>
-                            <a data-modal="modalReq" class="modalDelete" href="{{ path('user_fct_delete_request_company',{'id': request.getId()}) }}">
-                                <i class="small material-icons red-text">delete</i>
-                            </a>
-                        </td>
+                        <th>Empresa</th>
+                        <th>CIF</th>
+                        <th>Alumnos solicitados</th>
+                        <th class="centerCheckboxTH">Seleccionadas
+                            <label>
+                                <input type="checkbox" id="boxSolcAll"/>
+                                <span></span>
+                            </label>
+                        </th>
+                        <th>Mas info</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
 
-            <!-- Modal Structure -->
-            <div id="modalReq" class="modal">
-                <div class="modal-content">
-                    <p>¿Está seguro de borrar la solicitud?</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#"
-                       class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
-                    <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-                </div>
-            </div>
+                    {% for request in request_companies %}
+                        <tr>
+                            <td>{{ request.getNameCompany() }}</td>
+                            <td>{{ request.getCif() }}</td>
+                            <td>{{ request.getNumberOfDaw() + request.getNumberOfAsir() }}</td>
+                            <td>
+                                <label>
+                                    <input type="checkbox" class="boxesSolc" name="solc[{{ request.getId() }}]" />
+                                    <span></span>
+                                </label>
+                            </td>
+                            <td>
+                                <a href="{{ path('user_fct_show_request_company',{'id': request.getId()}) }}">
+                                    <i class="small material-icons">info</i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
 
+                    </tbody>
+                </table>
+
+                <!-- Modal Structure -->
+                <div id="modalReq" class="modal">
+                    <div class="modal-content">
+                        <p>¿Está seguro de borrar las solicitudes?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#"
+                           class="actionDelete modal-close waves-effect waves-green btn-flat">Si</a>
+                        <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                    </div>
+                </div>
+            </form>
         </div>
         <div id="asign" class="col p-1 s12">
             <h5>Asignaciones</h5>
@@ -176,7 +186,7 @@
             <!-- Modal Structure -->
             <div id="modalAsign" class="modal">
                 <div class="modal-content">
-                    <p>¿Está seguro de borrar la asignación?</p>
+                    <p>¿Está seguro de borrar la asignaciónasignación?</p>
                 </div>
                 <div class="modal-footer">
                     <a href="#"
