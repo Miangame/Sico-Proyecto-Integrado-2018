@@ -1,0 +1,1 @@
+En éste directorio se almacenarán los documentos excel de las solicitudes temporalmente.
