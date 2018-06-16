@@ -19,7 +19,7 @@ use AppBundle\Services\CompaniesHelper;
 class Distribution_companyController extends Controller
 {
     /**
-     * @Route("/user/fct/distribution_company/new/{company}", name="user_fct_new_distribution_company")
+     * @Route("/user/fct/distribution_company/new/{company}/{flag}", name="user_fct_new_distribution_company")
      */
     public function newDistributionCompanyAction(Request $request)
     {
