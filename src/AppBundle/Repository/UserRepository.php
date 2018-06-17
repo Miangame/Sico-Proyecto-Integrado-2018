@@ -32,6 +32,17 @@ class UserRepository extends EntityRepository
                 $user_teacher[] = $user;
         }
 
+        usort($user_teacher, function ($a, $b) {
+            $aUsername = $a->getFirstName();
+            $bUsername = $b->getFirstName();
+
+            if (($aUsername == $bUsername)) {
+                return 0;
+            }
+
+            return ($aUsername < $bUsername) ? -1 : 1;
+
+        });
         return $user_teacher;
     }
 
