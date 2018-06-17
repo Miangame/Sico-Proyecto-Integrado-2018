@@ -18,6 +18,6 @@ class CompanyRepository extends EntityRepository
      */
     public function getCompanies()
     {
-        return $this->findAll();
+        return $this->findBy(array(), array('id' => 'DESC'));
     }
 }
