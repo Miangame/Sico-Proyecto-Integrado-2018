@@ -14,6 +14,9 @@
                 <li class="tab col s3">
                     <a href="#asign">Asignaciones</a>
                 </li>
+                <li class="tab col s3">
+                    <a href="#tutor">Tutor/a</a>
+                </li>
             </ul>
         </div>
         <div id="emp" class="col s12 p-1">
@@ -194,6 +197,29 @@
                     <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
                 </div>
             </div>
+        </div>
+        <div id="tutor" class="col p-1 s12">
+            <h5>Tutor/a de PI</h5>
+            <table class="responsive-table centered z-depth-1">
+                <thead class="table-sticky">
+                <tr>
+                    <th>Proyecto</th>
+                    <th>Más info</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for company in companiesTutor %}
+                    <tr>
+                        <td>{{ company.getName() }}</td>
+                        <td>
+                            <a href="{{ path('user_fct_show_company', {'id': company.getId()}) }}">
+                                <i class="small material-icons">info</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 

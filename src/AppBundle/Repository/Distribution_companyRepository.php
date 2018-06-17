@@ -52,6 +52,21 @@ class Distribution_companyRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function getCompaniesTutor($tutor,$convocatory)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('cp')
+            ->from('AppBundle:Company', 'cp')
+            ->join('cp.distribution_company', 'dc')
+            ->join('dc.student', 'st')
+            ->where('dc.user = :tutor')
+            ->andWhere('st.convocatory = :convocatory_id')
+            ->setParameter('convocatory_id', $convocatory)
+            ->setParameter('tutor', $tutor);
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function getAllForStudent($idStudent)
     {
         return $this->findBy(['student'=>$idStudent]);

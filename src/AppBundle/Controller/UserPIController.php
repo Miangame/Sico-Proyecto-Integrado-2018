@@ -21,6 +21,8 @@ class UserPIController extends Controller
 
         return $this->render('user/pi/view.html.twig', array(
             'projects' => $this->get('app.projectsHelper')->getAllProject(),
+            'projectsTutor' => $this->get('app.distributionprojectHelper')->
+            getProjectsTutor($current_user, $current_user->getCurrentConvocatory()),
             'distributions' => $this->get('app.distributionprojectHelper')->
             getDistributionConvocatory($current_user->getCurrentConvocatory())
         ));
