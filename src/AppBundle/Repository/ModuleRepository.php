@@ -24,7 +24,7 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
 
     public function getAllModules()
     {
-        return $this->findAll();
+        return $this->findBy(array(), array('initials' => 'ASC'));
     }
 
     public function getHoursByCourseCycle($courseCycle, $schoolYear)
