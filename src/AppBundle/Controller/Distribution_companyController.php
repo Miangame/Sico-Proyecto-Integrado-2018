@@ -19,7 +19,7 @@ use AppBundle\Services\CompaniesHelper;
 class Distribution_companyController extends Controller
 {
     /**
-     * @Route("/user/fct/distribution_company/new/{company}/{flag}", name="user_fct_new_distribution_company")
+     * @Route("/user/fct/distribution_company/new/{company}/{flag}/{student}", name="user_fct_new_distribution_company")
      */
     public function newDistributionCompanyAction(Request $request)
     {
@@ -42,13 +42,15 @@ class Distribution_companyController extends Controller
 
         $distribution = new Distribution_company();
         $current_user = $this->getUser();
+        $student = $this->get('app.studentsHelper')->getStudent($request->get('student'));
 
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "company" => $this->get('app.companiesHelper')->prepareOptions(),
             "company_selected" => $company,
             "student" => $this->get('app.studentsHelper')
-                ->prepareOptions($current_user->getCurrentConvocatory(), 'new', 'company')
+                ->prepareOptions($current_user->getCurrentConvocatory(), 'new', 'company'),
+            "student_selected" => $student,
         );
 
         $form = $this->createForm(Distribution_CompanyType::class, $distribution, $options);
