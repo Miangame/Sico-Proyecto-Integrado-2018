@@ -88,7 +88,7 @@ class PanelStudentController extends Controller
 
 
         /** @var School_group $group */
-        foreach ($schoolGroupsHelper->getGroups() as $group) {
+        foreach ($schoolGroupsHelper->getGroupsCourse(2) as $group) {
             $groups[$group->__toString()] = $group;
         }
 
@@ -109,13 +109,20 @@ class PanelStudentController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $studentRequest = $form->getData();
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($studentRequest);
-            $entityManager->flush();
-            $request->getSession()
-                ->getFlashBag()
-                ->add('success', 'Alumno creado');
-            return $this->redirectToRoute('panel_students');
+            if(!$schoolGroupsHelper->isGroupSecond($studentRequest->getGroup())) {
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('error', 'El alumno debe ser de 2º')
+                ;
+            }else {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($studentRequest);
+                $entityManager->flush();
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Alumno creado');
+                return $this->redirectToRoute('panel_students');
+            }
         }
 
         return $this->render('user/forms/form.html.twig', array(
@@ -156,7 +163,7 @@ class PanelStudentController extends Controller
 
 
         /** @var School_group $group */
-        foreach ($schoolGroupsHelper->getGroups() as $group) {
+        foreach ($schoolGroupsHelper->getGroupsCourse(2) as $group) {
             $groups[$group->__toString()] = $group;
         }
 
@@ -178,14 +185,24 @@ class PanelStudentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $studentRequest = $form->getData();
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($studentRequest);
-            $entityManager->flush();
-            $request->getSession()
-                ->getFlashBag()
-                ->add('success', 'Alumno modificado');
-            return $this->redirectToRoute('panel_students');
+
+            if(!$schoolGroupsHelper->isGroupSecond($studentRequest->getGroup())) {
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('error', 'El alumno debe ser de 2º')
+                ;
+            }else{
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($studentRequest);
+                $entityManager->flush();
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Alumno modificado');
+                return $this->redirectToRoute('panel_students');
+            }
+
         }
 
         return $this->render('user/forms/form.html.twig', array(

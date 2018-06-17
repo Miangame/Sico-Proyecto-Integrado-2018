@@ -14,4 +14,17 @@ class School_groupRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->findAll();
     }
+
+    public function getGroupsCourse($course)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('sg')
+            ->from('AppBundle:School_group', 'sg')
+            ->join('sg.course_cycle', 'cc')
+            ->where('cc.course = :course')
+            ->setParameter('course', $course);
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

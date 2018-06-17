@@ -22,4 +22,17 @@ class SchoolGroupsHelper
 
         return $schoolGroupRepository->getGroups();
     }
+
+    public function getGroupsCourse($course)
+    {
+        /** @var School_groupRepository $schoolGroupRepository */
+        $schoolGroupRepository = $this->em->getRepository("AppBundle:School_group");
+
+        return $schoolGroupRepository->getGroupsCourse($course);
+    }
+
+    public function isGroupSecond($group)
+    {
+        return $group->getCourseCycle()->getCourse() == 2;
+    }
 }
