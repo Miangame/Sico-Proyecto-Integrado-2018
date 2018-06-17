@@ -44,6 +44,22 @@ class Distribution_projectRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function getProjectsTutor($tutor,$convocatory)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('pj')
+            ->from('AppBundle:Project', 'pj')
+            ->join('pj.distribution_project', 'dp')
+            ->join('dp.student', 'st')
+            ->where('dp.user = :tutor')
+            ->andWhere('st.convocatory = :convocatory_id')
+            ->setParameter('convocatory_id', $convocatory)
+            ->setParameter('tutor', $tutor);
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function getAllForStudent($idStudent)
     {
         return $this->findBy(['student'=>$idStudent]);

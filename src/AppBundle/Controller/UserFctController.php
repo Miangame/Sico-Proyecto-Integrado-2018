@@ -32,7 +32,10 @@ class UserFctController extends Controller
             'request_companies' => $em->getRepository(Request_company::class)->getRequestCompanies($current_user->getCurrentConvocatory()),
             'distribution_companies' => $em->getRepository(
                 Distribution_company::class)
-                ->getDistributionsCompaniesConvocatory($current_user->getCurrentConvocatory())
+                ->getDistributionsCompaniesConvocatory($current_user->getCurrentConvocatory()),
+            'companiesTutor' => $em->getRepository(
+                Distribution_company::class)
+                ->getCompaniesTutor($current_user, $current_user->getCurrentConvocatory()),
         ));
     }
 }
