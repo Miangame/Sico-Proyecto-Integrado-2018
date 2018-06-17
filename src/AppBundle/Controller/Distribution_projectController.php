@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class Distribution_projectController extends Controller
 {
     /**
-     * @Route("/user/pi/distribution_project/new/{project}/{flag}", name="user_pi_new_distribution_project")
+     * @Route("/user/pi/distribution_project/new/{project}/{flag}/{student}", name="user_pi_new_distribution_project")
      */
     public function newDistributionProjectAction(Request $request)
     {
@@ -35,13 +35,15 @@ class Distribution_projectController extends Controller
         $redirect = 'user_pi';
         $distribution = new Distribution_project();
         $current_user = $this->getUser();
+        $student = $this->get('app.studentsHelper')->getStudent($request->get('student'));
 
         $options = Array(
             "user" => $this->get('app.usersHelper')->prepareOptions(),
             "project" => $this->get('app.projectsHelper')->prepareOptions(),
             "project_selected" => $project,
             "student" => $this->get('app.studentsHelper')
-                ->prepareOptions($current_user->getCurrentConvocatory(), 'new', 'project')
+                ->prepareOptions($current_user->getCurrentConvocatory(), 'new', 'project'),
+            "student_selected" => $student,
         );
 
         $form = $this->createForm(Distribution_ProjectType::class, $distribution, $options);

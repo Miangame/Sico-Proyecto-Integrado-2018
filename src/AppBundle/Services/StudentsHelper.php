@@ -17,6 +17,12 @@ class StudentsHelper
         $this->em = $em;
     }
 
+    public function getStudent($id){
+        /** @var StudentRepository $studentsRepository */
+        $studentsRepository = $this->em->getRepository("AppBundle:Student");
+        return $studentsRepository->find($id);
+    }
+
     public function getAllStudents()
     {
         /** @var StudentRepository $studentsRepository */
