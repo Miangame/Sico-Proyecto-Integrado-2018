@@ -16,6 +16,6 @@ class ProjectRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getProjects()
     {
-        return $this->findAll();
+        return $this->findBy(array(), array('id' => 'DESC'));
     }
 }
