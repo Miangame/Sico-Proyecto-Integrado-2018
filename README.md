@@ -1,11 +1,3 @@
-Bienvenido a SICO
-========================
-Desarrollado por `Javier Ponferrada López y Miguel Ángel Gavilán Merino`
-
-Para mas info: [aquí](https://github.com/Miangame/Sico-Proyecto-Integrado-2018/wiki)
-
-A continuación se detallarán los pasos a seguir para configurar el servidor y poner la web en producción:
-
 # Configuración del servidor
 1. Update y upgrade del servidor: 
     - `apt-get update`
@@ -92,6 +84,7 @@ A continuación se detallarán los pasos a seguir para configurar el servidor y 
 7. Ejecutar lo siguiente para borrar la caché almacenada, dar permisos y actualizar la base de datos
     - `php bin/console d:g:entities AppBundle`
     - `sh scripts/deploy.sh`
+    - `php bin/console doctrine:fixtures:load`
     - `chmod 777 -R var/logs` 
     - `chmod 777 -R var/sessions`
 
