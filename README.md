@@ -58,6 +58,7 @@ A continuación se detallarán los pasos a seguir para configurar el servidor y 
             CustomLog /var/log/apache2/sico_access.log combined
         </VirtualHost>
     ```
+    - `a2enmod rewrite`
     - `service apache2 restart`
 
 # Poner la web en producción
@@ -68,7 +69,7 @@ A continuación se detallarán los pasos a seguir para configurar el servidor y 
     - `git init`
 
 3. Añadir la url del repositorio remoto:
-    - `git remote add origin https://github.com/Miangame/Sico-Proyecto-Integrado-2018.git`
+    - `git remote add origin https://github.com/iesgrancapitan-proyectos/201718daw-junio-reparto-sico-reparto-sico.git`
 
 4. Descargarse el proyecto:
     - `git pull origin master`
@@ -91,6 +92,8 @@ A continuación se detallarán los pasos a seguir para configurar el servidor y 
 7. Ejecutar lo siguiente para borrar la caché almacenada, dar permisos y actualizar la base de datos
     - `php bin/console d:g:entities AppBundle`
     - `sh scripts/deploy.sh`
+    - `chmod 777 -R var/logs` 
+    - `chmod 777 -R var/sessions`
 
 # Actualizar cambios
 
