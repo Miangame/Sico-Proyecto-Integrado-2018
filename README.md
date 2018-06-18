@@ -87,7 +87,9 @@
     - `php bin/console doctrine:fixtures:load`
     - `chmod 777 -R var/logs` 
     - `chmod 777 -R var/sessions`
-
+8. Primer logueo
+    - Credenciales (Usuario: admin, Contraseña: admin)
+    - Como es la primera vez que se loguea el administrador, es aconsejable cambiar la contraseña en el perfil de usuario
 # Actualizar cambios
 
 1. Descargar ultimos cambios del repositorio
