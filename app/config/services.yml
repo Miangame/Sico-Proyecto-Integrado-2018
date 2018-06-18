@@ -10,6 +10,9 @@ services:
     AppBundle\Entity\Cycle:
         tags:
           - { name: doctrine.orm.entity_manager, event: postPersistSCycle }
+    AppBundle\Entity\User:
+        tags:
+          - { name: doctrine.orm.entity_manager, event: prePersistUser }
     app.studentsHelper:
         class: AppBundle\Services\StudentsHelper
         arguments: ["@doctrine.orm.entity_manager"]

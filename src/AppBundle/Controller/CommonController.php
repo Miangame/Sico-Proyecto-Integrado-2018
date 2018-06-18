@@ -22,6 +22,12 @@ class CommonController extends Controller
     {
         /** @var User $user */
         $user = $this->getUser();
+        if($user->getFirstLogin() == true) {
+            $user->setFirstLogin(false);
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirect($this->generateUrl('fos_user_change_password'));
+        }
 
         if ($user->hasRole("ROLE_ADMIN")) {
             return $this->redirect($this->generateUrl('panel_dashboard'));

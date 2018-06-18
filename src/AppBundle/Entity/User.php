@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -12,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity("email")
  * @UniqueEntity("username")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
@@ -64,6 +66,10 @@ class User extends BaseUser
      */
     protected $current_convocatory;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $first_login;
 
     /**
      * Add distributionProject
@@ -290,5 +296,37 @@ class User extends BaseUser
     public function getCurrentConvocatory()
     {
         return $this->current_convocatory;
+    }
+
+    /**
+     * Set firstLogin
+     *
+     * @param boolean $firstLogin
+     *
+     * @return User
+     */
+    public function setFirstLogin($firstLogin)
+    {
+        $this->first_login = $firstLogin;
+
+        return $this;
+    }
+
+    /**
+     * Get firstLogin
+     *
+     * @return boolean
+     */
+    public function getFirstLogin()
+    {
+        return $this->first_login;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersistUser(LifecycleEventArgs $args)
+    {
+        $this->setFirstLogin(1);
     }
 }
