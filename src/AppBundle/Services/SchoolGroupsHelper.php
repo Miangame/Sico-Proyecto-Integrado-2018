@@ -20,7 +20,21 @@ class SchoolGroupsHelper
         /** @var School_groupRepository $schoolGroupRepository */
         $schoolGroupRepository = $this->em->getRepository("AppBundle:School_group");
 
-        return $schoolGroupRepository->getGroups();
+        $groups = $schoolGroupRepository->getGroups();
+        usort($groups, function ($a, $b) {
+
+            $aUsername = $a->__toString();
+            $bUsername = $b->__toString();
+
+            if (($aUsername == $bUsername)) {
+                return 0;
+            }
+
+            return ($aUsername < $bUsername) ? -1 : 1;
+
+        });
+
+        return $groups;
     }
 
     public function getGroupsCourse($course)

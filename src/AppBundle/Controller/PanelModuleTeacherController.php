@@ -51,6 +51,9 @@ class PanelModuleTeacherController extends Controller
         /** @var CourseCycleHelper $coursesCyclesHelper */
         $coursesCyclesHelper = $this->get('app.courseCycleHelper');
 
+        /** @var SchoolGroupsHelper $groupHelper */
+        $groupHelper = $this->get('app.schoolGroupsHelper');
+
         $modulesTeachers = $distributionModuleTeacherHelper->getDistributionsLastYear();
 
         $courses = $coursesHelper->getCourses();
@@ -67,6 +70,7 @@ class PanelModuleTeacherController extends Controller
             'courses_cycles' => $coursesCycles,
             'totalHours' => $totalHours,
             'actualHours' => $actualHours,
+            'groups' => $groupHelper->getGroups()
         ));
     }
 
@@ -80,6 +84,7 @@ class PanelModuleTeacherController extends Controller
         $modules = array();
         $teachers = array();
         $courses = array();
+        $groups = array();
 
         /** @var ModulesHelper $modulesHelper */
         $modulesHelper = $this->get('app.modulesHelper');
@@ -89,6 +94,9 @@ class PanelModuleTeacherController extends Controller
 
         /** @var CoursesHelper $coursesHelper */
         $coursesHelper = $this->get('app.coursesHelper');
+
+        /** @var SchoolGroupsHelper $groupsHelper */
+        $groupsHelper = $this->get('app.schoolGroupsHelper');
 
         /** @var Module $module */
         foreach ($modulesHelper->getAllModules() as $module) {
@@ -105,10 +113,16 @@ class PanelModuleTeacherController extends Controller
             $courses[$course->__toString()] = $course;
         }
 
+        /** @var SchoolYear $group */
+        foreach ($groupsHelper->getGroups() as $group) {
+            $groups[$group->__toString()] = $group;
+        }
+
         $options = array(
             "modules" => $modules,
             "teachers" => $teachers,
-            "courses" => $courses
+            "courses" => $courses,
+            "groups" => $groups,
         );
 
         $form = $this->createForm(DistributionModuleTeacherType::class, $distribution, $options);
@@ -158,6 +172,7 @@ class PanelModuleTeacherController extends Controller
         $modules = array();
         $teachers = array();
         $courses = array();
+        $groups = array();
 
         /** @var ModulesHelper $modulesHelper */
         $modulesHelper = $this->get('app.modulesHelper');
@@ -167,6 +182,9 @@ class PanelModuleTeacherController extends Controller
 
         /** @var CoursesHelper $coursesHelper */
         $coursesHelper = $this->get('app.coursesHelper');
+
+        /** @var SchoolGroupsHelper $groupsHelper */
+        $groupsHelper = $this->get('app.schoolGroupsHelper');
 
         /** @var Module $module */
         foreach ($modulesHelper->getAllModules() as $module) {
@@ -183,13 +201,20 @@ class PanelModuleTeacherController extends Controller
             $courses[$course->__toString()] = $course;
         }
 
+        /** @var SchoolYear $group */
+        foreach ($groupsHelper->getGroups() as $group) {
+            $groups[$group->__toString()] = $group;
+        }
+
         $options = array(
             "modules" => $modules,
             "module_selected" => $distribution->getModule(),
             "teachers" => $teachers,
             "teacher_selected" => $distribution->getTeacher(),
             "courses" => $courses,
-            "course_selected" => $distribution->getSchoolYear()
+            "course_selected" => $distribution->getSchoolYear(),
+            "groups" => $groups,
+            "group_selected" => $distribution->getGr()
         );
 
         $form = $this->createForm(DistributionModuleTeacherType::class, $distribution, $options);
@@ -271,7 +296,18 @@ class PanelModuleTeacherController extends Controller
 
         /** @var CourseCycleHelper $coursesCyclesHelper */
         $coursesCyclesHelper = $this->get('app.courseCycleHelper');
-        $sumHours = $coursesCyclesHelper->getSumHours($_GET["course"]);
+
+        /** @var CyclesHelper $cyclesHelper */
+        $cyclesHelper = $this->get('app.cyclesHelper');
+
+        if ($_GET["idGroup"] == "todos") {
+            $sumHours = $cyclesHelper->getSumTotalHours();
+        } else {
+            $courseCycle = $coursesCyclesHelper->getIdByGroup($_GET["idGroup"])[0]["id"];
+
+            $sumHours = $coursesCyclesHelper->getSumHours($courseCycle);
+        }
+
 
         $response = new JsonResponse();
         $response->setStatusCode(200);

@@ -11,9 +11,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Distribution_module_teacherRepository")
  * @ORM\Table(name="Distribution_module_teacher", uniqueConstraints={
- *      @ORM\UniqueConstraint(name="unicos", columns={"module_id", "user_id", "schoolYear_id", "desdoble"})
+ *      @ORM\UniqueConstraint(name="unicos", columns={"module_id", "user_id", "schoolYear_id", "desdoble", "gr"})
  *     })
- * @UniqueEntity(fields={"module", "teacher", "schoolYear", "desdoble"})
+ * @UniqueEntity(fields={"module", "teacher", "schoolYear", "desdoble", "gr"})
  */
 class Distribution_module_teacher
 {
@@ -56,6 +56,11 @@ class Distribution_module_teacher
      * @ORM\Column(name="desdoble", type="boolean", nullable=false)
      */
     protected $desdoble;
+
+    /**
+     * @ORM\Column(name="gr", type="string", nullable=false)
+     */
+    protected $gr;
 
     /**
      * Get id
@@ -190,5 +195,29 @@ class Distribution_module_teacher
     public function getDesdoble()
     {
         return $this->desdoble;
+    }
+
+    /**
+     * Set gr
+     *
+     * @param string $gr
+     *
+     * @return Distribution_module_teacher
+     */
+    public function setGr($gr)
+    {
+        $this->gr = $gr;
+
+        return $this;
+    }
+
+    /**
+     * Get gr
+     *
+     * @return string
+     */
+    public function getGr()
+    {
+        return $this->gr;
     }
 }

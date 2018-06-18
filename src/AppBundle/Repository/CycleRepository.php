@@ -44,6 +44,21 @@ class CycleRepository extends \Doctrine\ORM\EntityRepository
         return $result;
     }
 
+    public function getSumHoursByCycle($sg_id)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('c.titularHours1, c.titularHours2, c.desdobleHours1, c.desdobleHours2')
+            ->from('AppBundle:Cycle', 'c')
+            ->join('c.courses_cycles', 'cc')
+            ->join('cc.school_groups', 'sg')
+            ->where('sg.id=:sg_id')
+            ->setParameter('sg_id', $sg_id);
+
+        $result = $qb->getQuery()->getArrayResult();
+
+        return $result;
+    }
+
     public function getHours1ByCourseName($courseName)
     {
         $qb = $this->getEntityManager()->createQueryBuilder()

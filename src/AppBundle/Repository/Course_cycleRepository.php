@@ -33,4 +33,16 @@ class Course_cycleRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
+
+    public function getIdByGroup($idGroup)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('cc.id')
+            ->from('AppBundle:Course_cycle', 'cc')
+            ->join('cc.school_groups', 'sg')
+            ->where('sg.id=:idGroup')
+            ->setParameter('idGroup', $idGroup);
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
