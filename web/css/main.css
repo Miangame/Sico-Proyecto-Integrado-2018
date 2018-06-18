@@ -200,6 +200,9 @@
 
 .attributeUser p {
   margin-left: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .align-horizontal-center {
