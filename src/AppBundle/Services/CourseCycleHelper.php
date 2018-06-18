@@ -48,4 +48,12 @@ class CourseCycleHelper
 
         return $result;
     }
+
+    public function getIdByGroup($idGroup)
+    {
+        /** @var Course_cycleRepository $courseCycleRepository */
+        $courseCycleRepository = $this->em->getRepository('AppBundle:Course_cycle');
+
+        return $courseCycleRepository->getIdByGroup($idGroup);
+    }
 }

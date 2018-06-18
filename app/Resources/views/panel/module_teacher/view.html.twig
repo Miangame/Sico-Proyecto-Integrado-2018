@@ -14,15 +14,14 @@
     <a href="{{ path('new_distribution_module_teacher') }}" class="waves-effect waves-light btn">Crear asignación</a>
     <div id="containerSelectConvocatoryStudent">
         <select name="" id="selectGroupDistribution">
-            <option value="todos">- Elija curso -</option>
-            {% for course_cycle in courses_cycles %}
-                <option value="{{ course_cycle.id }}">{{ course_cycle.__toString() }}</option>
+            <option value="todos">- Elija grupo -</option>
+            {% for group in groups %}
+                <option value="{{ group.id }}">{{ group.__toString() }}</option>
             {% endfor %}
         </select>
     </div>
     <div id="containerSelectCycleStudent">
         <select name="" id="selectCourseDistribution">
-            <option value="todos">- Elija curso académico -</option>
             {% for course in courses %}
                 <option value="{{ course.course }}">{{ course.course }}</option>
             {% endfor %}
@@ -45,7 +44,7 @@
         <tr>
             <th>Profesor</th>
             <th>Módulo</th>
-            <th>Curso</th>
+            <th>Grupo</th>
             <th>Horas</th>
             <th>Curso</th>
             <th>Desdoble</th>
@@ -54,32 +53,32 @@
         </tr>
         </thead>
         <tbody id="distributionTable">
-        {#{% for moduleTeacher in modulesTeachers %}#}
-        {#<tr>#}
-        {#<td>{{ moduleTeacher.teacher }}</td>#}
-        {#<td>{{ moduleTeacher.module }}</td>#}
-        {#<td>{{ moduleTeacher.gr }}</td>#}
-        {#<td>{{ moduleTeacher.hours }}</td>#}
-        {#<td>{{ moduleTeacher.course }}</td>#}
-        {#{% if moduleTeacher.desdoble %}#}
-        {#<td><i class="small material-icons green-text">check</i></td>#}
-        {#{% else %}#}
-        {#<td><i class="small material-icons red-text">close</i></td>#}
-        {#{% endif %}#}
-        {#<td>#}
-        {#<a href="{{ path('edit_distribution_module_teacher', {'id': moduleTeacher.id}) }}">#}
-        {#<i class="small material-icons">edit</i>#}
-        {#</a>#}
-        {#</td>#}
-        {#<td>#}
-        {#<a data-modal="modalModuleTeacher"#}
-        {#href="{{ path('delete_distribution_module_teacher', {'id': moduleTeacher.id}) }}"#}
-        {#class="modalDelete modal-trigger">#}
-        {#<i class="small material-icons red-text">delete</i>#}
-        {#</a>#}
-        {#</td>#}
-        {#</tr>#}
-        {#{% endfor %}#}
+        {% for moduleTeacher in modulesTeachers %}
+            <tr>
+                <td>{{ moduleTeacher.teacher }}</td>
+                <td>{{ moduleTeacher.module }}</td>
+                <td>{{ moduleTeacher.gr }}</td>
+                <td>{{ moduleTeacher.hours }}</td>
+                <td>{{ moduleTeacher.course }}</td>
+                {% if moduleTeacher.desdoble %}
+                    <td><i class="small material-icons green-text">check</i></td>
+                {% else %}
+                    <td><i class="small material-icons red-text">close</i></td>
+                {% endif %}
+                <td>
+                    <a href="{{ path('edit_distribution_module_teacher', {'id': moduleTeacher.id}) }}">
+                        <i class="small material-icons">edit</i>
+                    </a>
+                </td>
+                <td>
+                    <a data-modal="modalModuleTeacher"
+                       href="{{ path('delete_distribution_module_teacher', {'id': moduleTeacher.id}) }}"
+                       class="modalDelete modal-trigger">
+                        <i class="small material-icons red-text">delete</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 
@@ -214,7 +213,7 @@
 
                 for (i = 0; i < tr.length; i++) {
 
-                    if (group === "- Elija curso -") {
+                    if (group === "- Elija grupo -") {
                         tr[i].style.display = "";
                     } else {
                         td = tr[i].getElementsByTagName("td")[2];
@@ -245,7 +244,7 @@
                 $.ajax({
                     type: "GET",
                     url: "{{ path('get_hours_data') }}",
-                    data: {'course': $(this).val(), 'schoolYear': $("#selectCourseDistribution").val()},
+                    data: {'idGroup': $(this).val(), 'schoolYear': $("#selectCourseDistribution").val()},
                     success: function (response) {
                         hours = JSON.parse(response.hours);
                         if (group === "- Elija curso -") {

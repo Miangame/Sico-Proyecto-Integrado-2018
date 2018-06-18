@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DistributionModuleTeacherType extends AbstractType
@@ -29,6 +31,11 @@ class DistributionModuleTeacherType extends AbstractType
                 'choices' => $options["teachers"],
                 'label' => 'Profesor',
                 'data' => $options["teacher_selected"]
+            ))
+            ->add('gr', ChoiceType::class, array(
+                'choices' => $options["groups"],
+                'label' => 'Grupo',
+                'data' => $options["group_selected"]
             ))
             ->add('desdoble', CheckboxType::class, array(
                 'label' => false
