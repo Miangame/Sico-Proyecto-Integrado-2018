@@ -94,5 +94,10 @@
 
 1. Descargar ultimos cambios del repositorio
     - `git pull origin master`
+    - `composer install`
+    - Añadimos de nuevo en el archivo `parameters.yml`, la siguiente línea:
+    ```yaml
+     session_max_idle_time: 1800
+    ```
     - `php bin/console d:g:entities AppBundle`
     - `sh scripts/deploy.sh`
